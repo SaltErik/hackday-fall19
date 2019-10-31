@@ -16,8 +16,8 @@ class Android {
 
   async ls() {
     try {
-      const { [promise.stdout]: result } = await execFile(`ls`);
-      return result;
+      const { stdout } = await execFile(`ls`);
+      return stdout;
     } catch (error) {
       console.log(`UH-OH! Something broke: ${error}`);
     }
@@ -27,9 +27,11 @@ class Android {
     const args = [`-d`, `${duration}`];
     if (!!force) args.push(`-f`);
     try {
-      return void await execFile(`termux-vibrate`, args);
+      await execFile(`termux-vibrate`, args);
+      return true;
     } catch (error) {
       console.log(`UH-OH! Something broke: ${error}`);
+      return false;
     }
   }
 
