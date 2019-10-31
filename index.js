@@ -38,11 +38,11 @@ const demoCameraInfo = async () => {
   console.log('Done!');
 };
 
-const demoSetUpStorage = async () => {
-  console.log('Calling android.setUpStorage()...');
-  console.log(await android.setUpStorage());
-  console.log('Done!');
-};
+// const demoSetUpStorage = async () => {
+//   console.log('Calling android.setUpStorage()...');
+//   console.log(await android.setUpStorage());
+//   console.log('Done!');
+// };
 
 const demoCameraPhoto = async () => {
   console.log('Calling android.cameraPhoto(`myman`)...');
@@ -80,7 +80,7 @@ async function run() {
     demoLs,
     // demoVibrate,
     demoCameraInfo,
-    demoSetUpStorage,
+    // demoSetUpStorage,
     demoCameraPhoto,
     demoOpenFile,
     // demoOpenURL,
