@@ -90,7 +90,6 @@ async function run() {
     demoOpenFile,
     // demoOpenURL,
     // demoDialogConfirm,
-    demoRm,
     wait,
     demoEnd,
   ];
