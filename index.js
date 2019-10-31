@@ -19,6 +19,16 @@ async function run() {
   console.log('Calling android.cameraInfo()...');
   console.log(await android.cameraInfo());
   console.log('Done!');
+  console.log('JSON parsing android.cameraInfo()...');
+  try {
+    console.log(JSON.parse({ stdout } = await android.cameraInfo()));
+  }
+  catch (error) {
+    if (error.name !== 'TypeError') {
+      throw error;
+    }
+  }
+  console.log('Done!');
   console.log('Exiting node...');
 }
 
