@@ -80,7 +80,6 @@ const demoEnd = async () => {
 async function run() {
   const androidFunctions = [
     demoStart,
-    demoEval,
     demoLs,
     demoRm,
     demoLs,
