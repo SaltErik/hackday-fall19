@@ -16,13 +16,13 @@ async function run() {
   const result = await android.ls();
   console.log(result);
   console.log('Done!');
-  // console.log('Calling android.vibrate()...');
-  // console.log(await android.vibrate());
-  // console.log('Done!');
-  // console.log('Calling android.cameraInfo()...');
-  // console.log(await android.cameraInfo());
-  // console.log('Done!');
-  // console.log('Exiting node...');
+  console.log('Calling android.vibrate()...');
+  console.log(await android.vibrate());
+  console.log('Done!');
+  console.log('Calling android.cameraInfo()...');
+  console.log(await android.cameraInfo());
+  console.log('Done!');
+  console.log('Exiting node...');
 }
 
 run();
