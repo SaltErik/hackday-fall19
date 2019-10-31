@@ -33,16 +33,6 @@ class Android {
     }
   }
 
-  async eval(command, ...args) {
-    try {
-      const { stdout, stderr } = await execFile(command, args);
-      if (stderr) console.log(`STDERR: ${stderr}`);
-      if (stdout) return stdout;
-    } catch (error) {
-      console.log(`UH-OH! Something broke: ${error}`);
-    }
-  }
-
   async vibrate(duration=1000, force=false) {
     const args = [`-d`, `${duration}`];
     if (!!force) args.push(`-f`);

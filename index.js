@@ -18,12 +18,6 @@ const demoStart = async () => {
   console.log('Node started!');
 };
 
-const demoEval = async () => {
-  console.log(`Calling android.eval('rm', '-rf', 'myman.jpg')...`);
-  console.log(await android.eval('rm', '-rf', 'myman.jpg'));
-  console.log('Done!');
-};
-
 const demoLs = async () => {
   console.log('Calling android.ls()...');
   console.log(await android.ls());
