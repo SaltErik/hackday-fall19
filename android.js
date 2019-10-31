@@ -46,8 +46,8 @@ class Android {
   async setUpStorage() {
     try {
       const { stderr } = await execFile(`termux-setup-storage`);
-      if (stderr) console.log(`STDERR: ${stderr}`);
-      return true; // I guess this makes sense here
+      if (stderr) console.log(`STDERR: ${stderr}`)
+      else return true; // I guess this makes sense here
     } catch (error) {
       console.log(`UH-OH! Something broke: ${error}`);
     }
@@ -66,6 +66,16 @@ class Android {
 
   async openFile(pathToFile) {
     const args = [`${pathToFile}`];
+    try {
+      const { stderr } = await execFile(`termux-open`, args);
+      if (stderr) console.log(`STDERR: ${stderr}`);
+    } catch (error) {
+      console.log(`UH-OH! Something broke: ${error}`);
+    }
+  }
+
+  async openURL(URL) {
+    const args = [`${URL}`];
     try {
       const { stderr } = await execFile(`termux-open`, args);
       if (stderr) console.log(`STDERR: ${stderr}`);

@@ -30,8 +30,8 @@ async function run() {
   console.log('Calling android.openFile(`myman.jpg`)...');
   console.log(await android.openFile(`myman.jpg`));
   console.log('Done!');
-  console.log('Calling android.openFile(`./myman.jpg`)...');
-  console.log(await android.openFile(`./myman.jpg`));
+  console.log('Calling android.openURL(`https://www.study-at-salt.com`)...');
+  console.log(await android.openURL(`https://www.study-at-salt.com`));
   console.log('Done!');
   console.log('Exiting node...');
 }
