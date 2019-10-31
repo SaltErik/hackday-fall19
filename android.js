@@ -1,8 +1,7 @@
-'use strict';
-const { promisify } = require('util');
-const execFile = promisify(require('child_process').execFile);
+`use strict`;
+const { promisify } = require(`util`);
+const execFile = promisify(require(`child_process`).execFile);
 
-const apiPath = '/data/data/com.termux/files/usr/libexec/termux-api '; // Intentional whitespace at the end
 
 const _call = (apiMethod) => apiPath.concat(apiMethod);
 
@@ -17,18 +16,17 @@ class Android {
 
   async ls() {
     try {
-      return await execFile('ls');
+      return await execFile(`ls`);
     } catch (error) {
       console.log(`UH-OH! Something broke: ${error}`);
     }
   }
 
-  async vibrate(duration=1000, force=true) {
-    const args = [];
-    args.push(`--ei duration_ms ${duration}`);
-    args.push(`--ez force ${force}`);
+  async vibrate(duration=1000, force=false) {
+    const args = [`-d`, `${duration}`];
+    if (!!force) args.push(`-f`);
     try {
-      return await execFile(_call('Vibrate'), args);
+      return await execFile(`termux-vibrate`, args);
     } catch (error) {
       console.log(`UH-OH! Something broke: ${error}`);
     }
@@ -36,7 +34,7 @@ class Android {
 
   async cameraInfo() {
     try {
-      return await execFile(_call('CameraInfo'));
+      return await execFile(`CameraInfo`);
     } catch (error) {
       console.log(`UH-OH! Something broke: ${error}`);
     }

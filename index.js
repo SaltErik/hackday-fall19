@@ -14,7 +14,7 @@ async function run() {
   console.log('Calling android.vibrate()...');
   console.log(await android.vibrate());
   console.log('Done!');
-  console.log('Calling android.cameraInfoHI()...');
+  console.log('Calling android.cameraInfo()...');
   console.log(await android.cameraInfo());
   console.log('Done!');
   console.log('Exiting node...');
