@@ -5,6 +5,10 @@ process.on('unhandledRejection', (error, promise) => {
   console.log(' The error was: ', error );
 });
 
+const wait = async () => {
+  return await setTimeout(console.log, 100000000)
+};
+
 // User facing API
 const { Android } = require('./android.js');
 
@@ -69,7 +73,7 @@ const demoDialogConfirm = async () => {
 };
 
 const demoEnd = async () => {
-  console.log('Exiting node...');
+  console.log('CTRL+C to kill node...');
 };
 
 
@@ -85,6 +89,7 @@ async function run() {
     demoOpenFile,
     demoOpenURL,
     demoDialogConfirm,
+    wait,
     demoEnd,
   ];
   for (const each of androidFunctions) {
