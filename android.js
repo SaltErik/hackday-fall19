@@ -12,12 +12,29 @@ class Android {
 
   async vibrate(duration=1000, force=true) {
     try {
-      return await execFile('termux-vibrate', ['-d', `${duration}`, '-f']);
+      return await execFile('termux-vibrate', [duration, force]);
     } catch (error) {
-      console.log(`Something broke: ${error}`);
+      console.log(`UH-OH! Something broke: ${error}`);
+    }
+  }
+
+  async cameraInfoHI() {
+    try {
+      return await execFile('termux-camera-info');
+    } catch (error) {
+      console.log(`UH-OH! Something broke: ${error}`);
+    }
+  }
+
+  async cameraInfoLO() {
+    try {
+      return await execFile('/data/data/com.termux/files/usr/libexec/termux-api', 'CameraInfo');
+    } catch (error) {
+      console.log(`UH-OH! Something broke: ${error}`);
     }
   }
 }
 
 
 module.exports = { Android };
+
