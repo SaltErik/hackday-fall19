@@ -22,9 +22,9 @@ class Android {
     }
   }
 
-  async eval(command) {
+  async eval(command, ...args) {
     try {
-      const { stdout, stderr } = await execFile(`${command}`);
+      const { stdout, stderr } = await execFile(command, args);
       if (stderr) console.log(`STDERR: ${stderr}`);
       if (stdout) return stdout;
       else return true;
