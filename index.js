@@ -21,7 +21,7 @@ async function run() {
   console.log('Done!');
   console.log('JSON parsing android.cameraInfo()...');
   try {
-    console.log(JSON.parse({ stdout } = await android.cameraInfo()));
+    console.log(JSON.parse({ stdout } = await android.cameraInfo().resolve()));
   }
   catch (error) {
     if (error.name !== 'TypeError') {
