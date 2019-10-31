@@ -21,6 +21,9 @@ async function run() {
   console.log('Calling android.cameraInfo()...');
   console.log(await android.cameraInfo());
   console.log('Done!');
+  console.log('Calling android.setUpStorage()...');
+  console.log(await android.setUpStorage());
+  console.log('Done!');
   console.log('Exiting node...');
 }
 
