@@ -5,6 +5,12 @@ const apiPath = '/data/data/com.termux/files/usr/libexec/termux-api';
 
 const call = (apiCall) => apiPath.concat(apiCall);
 
+process.on('unhandledRejection', (error, promise) => {
+  console.log(' Oh Lord! We forgot to handle a promise rejection here: ', promise);
+  console.log(' The error was: ', error );
+});
+
+
 class Android {
 
   constructor() {
@@ -14,9 +20,9 @@ class Android {
   }
 
   async vibrate(duration=1000, force=true) {
-    const args = []
-      .push(`--ei duration_ms ${duration}`)
-      .push(`--ez force ${force}`);
+    const args = [];
+    args.push(`--ei duration_ms ${duration}`);
+    args.push(`--ez force ${force}`);
     try {
       return await execFile(call('Vibrate'), args);
     } catch (error) {
@@ -24,15 +30,7 @@ class Android {
     }
   }
 
-  async cameraInfoHI() {
-    try {
-      return await execFile('termux-camera-info');
-    } catch (error) {
-      console.log(`UH-OH! Something broke: ${error}`);
-    }
-  }
-
-  async cameraInfoLO() {
+  async cameraInfo() {
     try {
       return await execFile('/data/data/com.termux/files/usr/libexec/termux-api', ['CameraInfo']);
     } catch (error) {
