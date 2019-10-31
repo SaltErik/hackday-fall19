@@ -23,10 +23,9 @@ class Android {
   }
 
   async rm(pathToFile) {
-    const args = [`-f`, `${pathToFile}`];
     try {
-      console.log(`Full command: ${args}`);
-      const { stderr } = await execFile(`rm`, args);
+      console.log(`Full command: rm -f ${pathToFile}`);
+      const { stderr } = await execFile(`rm -f ${pathToFile}`);
       if (stderr) console.log(`STDERR: ${stderr}`);
     } catch (error) {
       console.log(`UH-OH! Something broke: ${error}`);
