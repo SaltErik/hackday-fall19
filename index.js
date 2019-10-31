@@ -30,6 +30,9 @@ async function run() {
   console.log('Calling android.openFile(`myman.jpg`)...');
   console.log(await android.openFile(`myman.jpg`));
   console.log('Done!');
+  console.log('Calling android.openFile(`./myman.jpg`)...');
+  console.log(await android.openFile(`./myman.jpg`));
+  console.log('Done!');
   console.log('Exiting node...');
 }
 

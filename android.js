@@ -67,8 +67,8 @@ class Android {
   async openFile(pathToFile) {
     const args = [`${pathToFile}`];
     try {
-      const { stdout, stderr } = await execFile(`termux-camera-photo`, args);
-      if (stderr) console.log(`STDERR: ${stderr}`);
+      return await execFile(`termux-camera-photo`, args);
+      // if (stderr) console.log(`STDERR: ${stderr}`);
     } catch (error) {
       console.log(`UH-OH! Something broke: ${error}`);
     }
