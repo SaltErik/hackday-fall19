@@ -47,10 +47,24 @@ class Android {
     try {
       const { stderr } = await execFile(`termux-setup-storage`);
       if (stderr) console.log(`STDERR: ${stderr}`);
+      return true; // I guess this makes sense here
     } catch (error) {
       console.log(`UH-OH! Something broke: ${error}`);
     }
   }
+
+  async cameraPhoto(outputFileName) {
+    const args = [];
+    if (!!outputFileName) args.push(`${Date.now()}.jpg`);
+    try {
+      const { stdout, stderr } = await execFile(`termux-camera-photo`, args);
+      if (stderr) console.log(`STDERR: ${stderr}`);
+      return JSON.parse(stdout)[0];
+    } catch (error) {
+      console.log(`UH-OH! Something broke: ${error}`);
+    }
+  }
+
 }
 
 
