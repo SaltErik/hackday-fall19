@@ -26,7 +26,7 @@ class Android {
     const args = [`-d`, `${duration}`];
     if (!!force) args.push(`-f`);
     try {
-      return void(await execFile(`termux-vibrate`, args));
+      return void await execFile(`termux-vibrate`, args);
     } catch (error) {
       console.log(`UH-OH! Something broke: ${error}`);
     }
