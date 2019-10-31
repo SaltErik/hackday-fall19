@@ -27,7 +27,6 @@ class Android {
       const { stdout, stderr } = await execFile(command, args);
       if (stderr) console.log(`STDERR: ${stderr}`);
       if (stdout) return stdout;
-      else return true;
     } catch (error) {
       console.log(`UH-OH! Something broke: ${error}`);
     }
@@ -39,7 +38,6 @@ class Android {
     try {
       const { stderr } = await execFile(`termux-vibrate`, args);
       if (stderr) console.log(`STDERR: ${stderr}`);
-      else return true;
     } catch (error) {
       console.log(`UH-OH! Something broke: ${error}`);
     }
@@ -59,7 +57,6 @@ class Android {
     try {
       const { stderr } = await execFile(`termux-setup-storage`);
       if (stderr) console.log(`STDERR: ${stderr}`)
-      else return true;
     } catch (error) {
       console.log(`UH-OH! Something broke: ${error}`);
     }
@@ -72,7 +69,6 @@ class Android {
     try {
       const { stderr } = await execFile(`termux-camera-photo`, args);
       if (stderr) console.log(`STDERR: ${stderr}`);
-      else return true;
     } catch (error) {
       console.log(`UH-OH! Something broke: ${error}`);
     }
@@ -83,7 +79,6 @@ class Android {
     try {
       const { stderr } = await execFile(`termux-open`, args);
       if (stderr) console.log(`STDERR: ${stderr}`);
-      else return true;
     } catch (error) {
       console.log(`UH-OH! Something broke: ${error}`);
     }
@@ -94,7 +89,6 @@ class Android {
     try {
       const { stderr } = await execFile(`termux-open`, args);
       if (stderr) console.log(`STDERR: ${stderr}`);
-      else return true;
     } catch (error) {
       console.log(`UH-OH! Something broke: ${error}`);
     }
