@@ -33,8 +33,8 @@ async function run() {
   console.log('Calling android.openURL(`https://www.study-at-salt.com`)...');
   console.log(await android.openURL(`https://www.study-at-salt.com`));
   console.log('Done!');
-  console.log('Calling android.dialogConfirm(null, null)...');
-  console.log(await android.dialogConfirm(null, null));
+  console.log('Calling android.dialogConfirm()...');
+  console.log(await android.dialogConfirm());
   console.log('Done!');
   console.log('Exiting node...');
 }

@@ -89,13 +89,16 @@ class Android {
   }
 
   async dialogConfirm(title=`Title goes here`, hint=`Hint goes here`) {
+    // -2: user clicks away
+    // -1: answers yes?
+     
     const args = [];
     if (!!title) args.push(`-t`, `${title}`);
     if (!!hint) args.push(`-i`, `${hint}`);
     try {
       const { stdout, stderr } = await execFile(`termux-dialog`, args);
       if (stderr) console.log(`STDERR: ${stderr}`);
-      return stdout;
+      return JSON.parse(stdout);
     } catch (error) {
       console.log(`UH-OH! Something broke: ${error}`);
     }
