@@ -28,6 +28,8 @@ class Android {
       const { stderr } = await execFile(`rm -f ${pathToFile}`);
       if (stderr) console.log(`STDERR: ${stderr}`);
     } catch (error) {
+      console.log(error.name);
+      console.table(error);
       console.log(`UH-OH! Something broke: ${error}`);
     }
   }
