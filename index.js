@@ -10,49 +10,86 @@ const { Android } = require('./android.js');
 
 const android = new Android();
 
-async function run() {
+const demoStart = async () => {
   console.log('Node started!');
-  console.log('Calling android.ls()...');
-  console.log(await android.ls());
-  console.log('Done!');
-  setTimeout(() => console.log('Waited 100ms...'), 100);
+};
+
+const demoEval = async () => {
   console.log(`Calling android.eval('rm', '-rf', 'myman.jpg')...`);
   console.log(await android.eval('rm', '-rf', 'myman.jpg'));
   console.log('Done!');
-  setTimeout(() => console.log('Waited 100ms...'), 100);
+};
+
+const demoLs = async () => {
   console.log('Calling android.ls()...');
   console.log(await android.ls());
   console.log('Done!');
-  setTimeout(() => console.log('Waited 100ms...'), 100);
+};
+
+const demoVibrate = async () => {
   console.log('Calling android.vibrate()...');
   console.log(await android.vibrate());
   console.log('Done!');
-  setTimeout(() => console.log('Waited 100ms...'), 100);
+};
+
+const demoCameraInfo = async () => {
   console.log('Calling android.cameraInfo()...');
   console.log(await android.cameraInfo());
   console.log('Done!');
-  setTimeout(() => console.log('Waited 100ms...'), 100);
+};
+
+const demoSetUpStorage = async () => {
   console.log('Calling android.setUpStorage()...');
   console.log(await android.setUpStorage());
   console.log('Done!');
-  setTimeout(() => console.log('Waited 100ms...'), 100);
+};
+
+const demoCameraPhoto = async () => {
   console.log('Calling android.cameraPhoto(`myman.jpg`)...');
   console.log(await android.cameraPhoto(`myman.jpg`));
   console.log('Done!');
-  setTimeout(() => console.log('Waited 100ms...'), 100);
+};
+
+const demoOpenFile = async () => {
   console.log('Calling android.openFile(`myman.jpg`)...');
   console.log(await android.openFile(`myman.jpg`));
   console.log('Done!');
-  setTimeout(() => console.log('Waited 100ms...'), 100);
+};
+
+const demoOpenURL = async () => {
   console.log('Calling android.openURL(`https://www.study-at-salt.com`)...');
   console.log(await android.openURL(`https://www.study-at-salt.com`));
   console.log('Done!');
-  setTimeout(() => console.log('Waited 100ms...'), 100);
+};
+
+const demoDialogConfirm = async () => {
   console.log('Calling android.dialogConfirm()...');
   console.log(await android.dialogConfirm());
   console.log('Done!');
-  setTimeout(() => console.log('Waited 100ms...'), 100);
+};
+
+const demoEnd = async () => {
   console.log('Exiting node...');
+};
+
+
+async function run() {
+  const androidFunctions = [
+    demoStart,
+    demoEval,
+    demoLs,
+    demoVibrate,
+    demoCameraInfo,
+    demoSetUpStorage,
+    demoCameraPhoto,
+    demoOpenFile,
+    demoOpenURL,
+    demoDialogConfirm,
+    demoEnd,
+  ];
+  for (const each of androidFunctions) {
+    await each(); // call function to get returned Promise
+  };
 }
 
 run();

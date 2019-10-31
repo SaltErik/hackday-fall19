@@ -15,5 +15,6 @@
   "bugs": {
     "url": "https://github.com/SaltErik/hackday-fall19/issues"
   },
-  "homepage": "https://github.com/SaltErik/hackday-fall19#readme"
+  "homepage": "https://github.com/SaltErik/hackday-fall19#readme",
+  "dependencies": {}
 }
