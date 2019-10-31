@@ -1,7 +1,10 @@
 'use strict';
 const { promisify } = require('util');
+const execFile = promisify(require('child_process').execFile);
+
 const apiPath = '/data/data/com.termux/files/usr/libexec/termux-api '; // Intentional whitespace at the end
-const execFile = apiPath.concat(promisify(require('child_process').execFile));
+
+const _call = (apiMethod) => apiPath.concat(apiMethod);
 
 
 class Android {
@@ -25,7 +28,7 @@ class Android {
     args.push(`--ei duration_ms ${duration}`);
     args.push(`--ez force ${force}`);
     try {
-      return await execFile('Vibrate', args);
+      return await execFile(_call('Vibrate'), args);
     } catch (error) {
       console.log(`UH-OH! Something broke: ${error}`);
     }
@@ -33,7 +36,7 @@ class Android {
 
   async cameraInfo() {
     try {
-      return await execFile('CameraInfo');
+      return await execFile(_call('CameraInfo'));
     } catch (error) {
       console.log(`UH-OH! Something broke: ${error}`);
     }
@@ -42,4 +45,3 @@ class Android {
 
 
 module.exports = { Android };
-
