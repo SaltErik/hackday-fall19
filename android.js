@@ -45,7 +45,7 @@ class Android {
 
   async setUpStorage() {
     try {
-      const { stderr } = ecexecFile(`termux-setup-storage`);
+      const { stderr } = await execFile(`termux-setup-storage`);
       if (stderr) console.log(`STDERR: ${stderr}`);
     } catch (error) {
       console.log(`UH-OH! Something broke: ${error}`);
