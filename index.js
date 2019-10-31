@@ -38,11 +38,11 @@ const demoCameraInfo = async () => {
   console.log('Done!');
 };
 
-// const demoSetUpStorage = async () => {
-//   console.log('Calling android.setUpStorage()...');
-//   console.log(await android.setUpStorage());
-//   console.log('Done!');
-// };
+const demoSetUpStorage = async () => {
+  console.log('Calling android.setUpStorage()...');
+  console.log(await android.setUpStorage());
+  console.log('Done!');
+};
 
 const demoCameraPhoto = async () => {
   console.log('Calling android.cameraPhoto(`myman`)...');
@@ -64,7 +64,7 @@ const demoOpenURL = async () => {
 
 const demoDialogConfirm = async () => {
   console.log('Calling android.dialogConfirm()...');
-  console.log(await android.dialogConfirm());
+  console.log(typeof await android.dialogConfirm());
   console.log('Done!');
 };
 
@@ -78,13 +78,13 @@ async function run() {
     demoStart,
     demoEval,
     demoLs,
-    // demoVibrate,
+    demoVibrate,
     demoCameraInfo,
-    // demoSetUpStorage,
+    demoSetUpStorage,
     demoCameraPhoto,
     demoOpenFile,
-    // demoOpenURL,
-    // demoDialogConfirm,
+    demoOpenURL,
+    demoDialogConfirm,
     demoEnd,
   ];
   for (const each of androidFunctions) {
