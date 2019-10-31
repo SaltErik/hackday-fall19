@@ -4,8 +4,17 @@ const { Android } = require('./android.js');
 // User facing API
 const android = new Android();
 
-async function print() {
-  console.log(await android.vibrate());
+async function run() {
+  console.log('Node started!');
+  console.log('Calling android.vibrate()...');
+  await android.vibrate();
+  console.log('Done!');
+  console.log('Calling android.cameraInfoHI()...');
+  await android.cameraInfoHI();
+  console.log('Done!');
+  console.log('Calling android.cameraInfoLO()...');
+  console.log('Done!');
+  console.log('Exiting node...');
 }
 
-print();
+run();
