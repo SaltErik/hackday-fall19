@@ -22,6 +22,16 @@ class Android {
     }
   }
 
+  async rm(pathToFile) {
+    args = [`-f`, `${pathToFile}`];
+    try {
+      const { stderr } = await execFile(`rm`, args);
+      if (stderr) console.log(`STDERR: ${stderr}`);
+    } catch (error) {
+      console.log(`UH-OH! Something broke: ${error}`);
+    }
+  }
+
   async eval(command, ...args) {
     try {
       const { stdout, stderr } = await execFile(command, args);

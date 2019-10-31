@@ -30,6 +30,12 @@ const demoLs = async () => {
   console.log('Done!');
 };
 
+const demoRm = async () => {
+  console.log('Calling android.rm(`myman.jpg`)...');
+  console.log(await android.rm(`myman.jpg`));
+  console.log('Done!');
+};
+
 const demoVibrate = async () => {
   console.log('Calling android.vibrate()...');
   console.log(await android.vibrate());
@@ -81,6 +87,7 @@ async function run() {
   const androidFunctions = [
     demoStart,
     demoEval,
+    demoRm,
     demoLs,
     demoVibrate,
     demoCameraInfo,
