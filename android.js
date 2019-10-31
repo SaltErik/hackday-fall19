@@ -23,7 +23,7 @@ class Android {
   }
 
   async rm(pathToFile) {
-    args = [`-f`, `${pathToFile}`];
+    const args = [`-f`, `${pathToFile}`];
     try {
       const { stderr } = await execFile(`rm`, args);
       if (stderr) console.log(`STDERR: ${stderr}`);
