@@ -10,9 +10,11 @@ class Android {
     else Android.instance = this;
   }
 
-  async vibrate(duration=1000, force=true) {
+  async vibrate(duration=1000, force=false) {
+    const args = ['-d', `${duration}`];
+    if (force === true) args.push('-f');
     try {
-      return await execFile('termux-vibrate', ['-d', `${duration}`, '-f', `${force}`]);
+      return await execFile('termux-vibrate', args);
     } catch (error) {
       console.log(`UH-OH! Something broke: ${error}`);
     }
