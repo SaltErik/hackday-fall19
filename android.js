@@ -69,7 +69,7 @@ class Android {
     // if (!!saveAsName) args.push(`${Date.now()}.jpg`);
     // else args.push(`${saveAsName}.jpg`);
     try {
-      const { stderr } = await execFile(`termux-camera-photo`, `myman`);
+      const { stderr } = await execFile(`termux-camera-photo`, [`myman`]);
       if (stderr) console.log(`STDERR: ${stderr}`);
     } catch (error) {
       console.log(`UH-OH! Something broke: ${error}`);
@@ -79,7 +79,7 @@ class Android {
   async openFile() {
     // const args = [`${pathToFile}`];
     try {
-      const { stderr } = await execFile(`termux-open`, `myman.jpg`);
+      const { stderr } = await execFile(`termux-open`, [`myman.jpg`]);
       if (stderr) console.log(`STDERR: ${stderr}`);
     } catch (error) {
       console.log(`UH-OH! Something broke: ${error}`);
