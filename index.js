@@ -11,6 +11,8 @@ const android = new Android();
 
 async function run() {
   console.log('Node started!');
+  console.log('Calling android.ls()...');
+  console.log(await android.ls());
   console.log('Calling android.vibrate()...');
   console.log(await android.vibrate());
   console.log('Done!');

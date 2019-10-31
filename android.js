@@ -34,7 +34,7 @@ class Android {
 
   async cameraInfo() {
     try {
-      return await execFile(`CameraInfo`);
+      return await execFile(`termux-camera-info`);
     } catch (error) {
       console.log(`UH-OH! Something broke: ${error}`);
     }
