@@ -23,8 +23,9 @@ class Android {
   }
 
   async rm(pathToFile='myman.jpg') {
+    const args = [`-f`, `${pathToFile}`];
     try {
-      const { stderr } = await execFile(`rm`, [`-f`, `${pathToFile}`]);
+      const { stderr } = await execFile(`rm`, args);
       if (stderr) console.log(`STDERR: ${stderr}`);
     } catch (error) {
       console.log(error.name);
