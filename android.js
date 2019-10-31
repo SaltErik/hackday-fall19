@@ -12,7 +12,7 @@ class Android {
 
   async vibrate(duration=1000, force=true) {
     try {
-      return await execFile('termux-vibrate', [duration, force]);
+      return await execFile('termux-vibrate', [`${duration}`, `${force}`]);
     } catch (error) {
       console.log(`UH-OH! Something broke: ${error}`);
     }
