@@ -24,8 +24,7 @@ async function run() {
   // console.table(result);
   // console.log(result.stdout);
   // console.table(result.stdout);
-  const result = await android.cameraInfo();
-  console.log(await JSON.parse(result.stdout));
+  console.log(await JSON.parse(await android.cameraInfo()));
   console.log('Done!');
   console.log('Exiting node...');
 }
