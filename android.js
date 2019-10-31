@@ -18,9 +18,8 @@ class Android {
     try {
       const { stdout, stderr } = await execFile(`ls`);
       if (stderr) console.log(`STDERR: ${stderr}`);
-      const parsed = stdout.split(`\n`);
-      const result = parsed.filter((string) => !!string);
-      return result;
+      const result = stdout.split(`\n`);
+      return result.filter((string) => !!string);
     } catch (error) {
       console.log(`UH-OH! Something broke: ${error}`);
     }
