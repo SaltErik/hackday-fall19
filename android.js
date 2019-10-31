@@ -29,12 +29,10 @@ class Android {
     const args = [`-d`, `${duration}`];
     if (!!force) args.push(`-f`);
     try {
-      const promise = await execFile(`termux-vibrate`, args);
-      if (promise.stderr) console.log(`STDERR: ${promise.stderr}`);
-      return true;
+      const { stderr } = await execFile(`termux-vibrate`, args);
+      if (stderr) console.log(`STDERR: ${stderr}`);
     } catch (error) {
       console.log(`UH-OH! Something broke: ${error}`);
-      return false;
     }
   }
 
