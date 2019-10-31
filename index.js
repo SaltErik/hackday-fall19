@@ -68,7 +68,7 @@ const demoOpenURL = async () => {
 
 const demoDialogConfirm = async () => {
   console.log('Calling android.dialogConfirm()...');
-  console.log(typeof await android.dialogConfirm());
+  console.log(await android.dialogConfirm());
   console.log('Done!');
 };
 
