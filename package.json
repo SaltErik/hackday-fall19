@@ -1,0 +1,19 @@
+{
+  "name": "hackday-fall19",
+  "version": "1.0.0",
+  "description": "Something, something, hire me",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SaltErik/hackday-fall19.git"
+  },
+  "author": "SaltErik",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/SaltErik/hackday-fall19/issues"
+  },
+  "homepage": "https://github.com/SaltErik/hackday-fall19#readme"
+}
