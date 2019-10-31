@@ -64,22 +64,22 @@ class Android {
     }
   }
 
-  async cameraPhoto(saveAsName) {
-    const args = [];
-    if (!!saveAsName) args.push(`${Date.now()}.jpg`);
-    else args.push(`${saveAsName}.jpg`);
+  async cameraPhoto() {
+    // const args = [];
+    // if (!!saveAsName) args.push(`${Date.now()}.jpg`);
+    // else args.push(`${saveAsName}.jpg`);
     try {
-      const { stderr } = await execFile(`termux-camera-photo`, args);
+      const { stderr } = await execFile(`termux-camera-photo`, `myman`);
       if (stderr) console.log(`STDERR: ${stderr}`);
     } catch (error) {
       console.log(`UH-OH! Something broke: ${error}`);
     }
   }
 
-  async openFile(pathToFile) {
-    const args = [`${pathToFile}`];
+  async openFile() {
+    // const args = [`${pathToFile}`];
     try {
-      const { stderr } = await execFile(`termux-open`, args);
+      const { stderr } = await execFile(`termux-open`, `myman.jpg`);
       if (stderr) console.log(`STDERR: ${stderr}`);
     } catch (error) {
       console.log(`UH-OH! Something broke: ${error}`);

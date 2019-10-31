@@ -9,6 +9,10 @@ const wait = async () => {
   return await setTimeout(console.log, 100000000)
 };
 
+const pause = async () => {
+  return await setTimeout(console.log, 1000)
+};
+
 // User facing API
 const { Android } = require('./android.js');
 
@@ -49,14 +53,14 @@ const demoSetUpStorage = async () => {
 };
 
 const demoCameraPhoto = async () => {
-  console.log('Calling android.cameraPhoto(`myman`)...');
-  console.log(await android.cameraPhoto(`myman`));
+  console.log('Calling android.cameraPhoto()...');
+  console.log(await android.cameraPhoto());
   console.log('Done!');
 };
 
 const demoOpenFile = async () => {
-  console.log('Calling android.openFile(`myman.jpg`)...');
-  console.log(await android.openFile(`myman.jpg`));
+  console.log('Calling android.openFile()...');
+  console.log(await android.openFile());
   console.log('Done!');
 };
 
@@ -81,13 +85,18 @@ async function run() {
   const androidFunctions = [
     demoStart,
     demoLs,
+    pause,
     demoRm,
+    pause,
     demoLs,
+    pause,
     // demoVibrate,
     // demoCameraInfo,
     // demoSetUpStorage,
     demoCameraPhoto,
+    pause,
     demoOpenFile,
+    pause,
     // demoOpenURL,
     // demoDialogConfirm,
     wait,
