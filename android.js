@@ -59,7 +59,6 @@ class Android {
     try {
       const { stdout, stderr } = await execFile(`termux-camera-photo`, args);
       if (stderr) console.log(`STDERR: ${stderr}`);
-      return JSON.parse(stdout)[0];
     } catch (error) {
       console.log(`UH-OH! Something broke: ${error}`);
     }
@@ -70,7 +69,6 @@ class Android {
     try {
       const { stdout, stderr } = await execFile(`termux-camera-photo`, args);
       if (stderr) console.log(`STDERR: ${stderr}`);
-      return JSON.parse(stdout)[0];
     } catch (error) {
       console.log(`UH-OH! Something broke: ${error}`);
     }
