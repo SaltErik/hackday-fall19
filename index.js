@@ -13,18 +13,12 @@ async function run() {
   console.log('Node started!');
   console.log('Calling android.ls()...');
   console.log(await android.ls());
+  console.log('Done!');
   console.log('Calling android.vibrate()...');
   console.log(await android.vibrate());
   console.log('Done!');
   console.log('Calling android.cameraInfo()...');
   console.log(await android.cameraInfo());
-  console.log('Done!');
-  console.log('JSON parsing android.cameraInfo()...');
-  // console.log(result);
-  // console.table(result);
-  // console.log(result.stdout);
-  // console.table(result.stdout);
-  console.log(await JSON.parse(await android.cameraInfo()));
   console.log('Done!');
   console.log('Exiting node...');
 }
