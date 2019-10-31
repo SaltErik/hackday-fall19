@@ -7,7 +7,6 @@ const execFile = apiPath.concat(promisify(require('child_process').execFile));
 class Android {
 
   constructor() {
-    if (!!strategy) throw new TypeError(`Class "Android" cannot be instantiated without a strategy object!`);
     // Singleton pattern
     if (!!Android.instance) return Android.instance;
     else Android.instance = this;
