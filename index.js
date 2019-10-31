@@ -1,6 +1,11 @@
 'use strict';
 const { Android } = require('./android.js');
 
+process.on('unhandledRejection', (error, promise) => {
+  console.log(' Oh Lord! We forgot to handle a promise rejection here: ', promise);
+  console.log(' The error was: ', error );
+});
+
 // User facing API
 const android = new Android();
 
