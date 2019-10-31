@@ -51,8 +51,8 @@ const demoCameraPhoto = async () => {
 };
 
 const demoOpenFile = async () => {
-  console.log('Calling android.openFile(`myman.jpg`)...');
-  console.log(await android.openFile(`myman.jpg`));
+  console.log('Calling android.openFile(`myman`)...');
+  console.log(await android.openFile(`myman`));
   console.log('Done!');
 };
 
