@@ -24,6 +24,12 @@ async function run() {
   console.log('Calling android.setUpStorage()...');
   console.log(await android.setUpStorage());
   console.log('Done!');
+  console.log('Calling android.cameraPhoto(`myman.jpg`)...');
+  console.log(await android.cameraPhoto(`myman.jpg`));
+  console.log('Done!');
+  console.log('Calling android.open(`myman.jpg`)...');
+  console.log(await android.open(`myman.jpg`));
+  console.log('Done!');
   console.log('Exiting node...');
 }
 

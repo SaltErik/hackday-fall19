@@ -53,9 +53,20 @@ class Android {
     }
   }
 
-  async cameraPhoto(outputFileName) {
+  async cameraPhoto(saveAsName) {
     const args = [];
-    if (!!outputFileName) args.push(`${Date.now()}.jpg`);
+    if (!!saveAsName) args.push(`${Date.now()}.jpg`);
+    try {
+      const { stdout, stderr } = await execFile(`termux-camera-photo`, args);
+      if (stderr) console.log(`STDERR: ${stderr}`);
+      return JSON.parse(stdout)[0];
+    } catch (error) {
+      console.log(`UH-OH! Something broke: ${error}`);
+    }
+  }
+
+  async openFile(pathToFile) {
+    const args = [];
     try {
       const { stdout, stderr } = await execFile(`termux-camera-photo`, args);
       if (stderr) console.log(`STDERR: ${stderr}`);
