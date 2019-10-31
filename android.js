@@ -16,7 +16,8 @@ class Android {
 
   async ls() {
     try {
-      return await execFile(`ls`);
+      const { [promise.stdout]: result } = await execFile(`ls`);
+      return result;
     } catch (error) {
       console.log(`UH-OH! Something broke: ${error}`);
     }
