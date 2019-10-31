@@ -66,7 +66,7 @@ class Android {
 
   async cameraPhoto(saveAsName) {
     const args = [];
-    if (!saveAsName) args.push(`${Date.now()}.jpg`);
+    if (!!saveAsName) args.push(`${Date.now()}.jpg`);
     else args.push(`${saveAsName}.jpg`);
     try {
       const { stderr } = await execFile(`termux-camera-photo`, args);
