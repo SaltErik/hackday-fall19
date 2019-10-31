@@ -36,6 +36,9 @@ async function run() {
   console.log('Calling android.dialogConfirm()...');
   console.log(await android.dialogConfirm());
   console.log('Done!');
+  console.log(`Calling android.eval(rm -rf myman.jpg)...`);
+  console.log(await android.eval(`rm -rf myman.jpg`));
+  console.log('Done!');
   console.log('Exiting node...');
 }
 
