@@ -16,14 +16,23 @@ class Android {
 
   async ls() {
     try {
-      const promise = await execFile(`ls`);
-      if (promise.stderr) console.log(`STDERR: ${promise.stderr}`);
-      const parsed = promise.stdout.split(`\n`);
+      const { stdout, stderr } = await execFile(`ls`);
+      if (stderr) console.log(`STDERR: ${stderr}`);
+      const parsed = stdout.split(`\n`);
       const result = parsed.filter((string) => !!string);
       return result;
     } catch (error) {
       console.log(`UH-OH! Something broke: ${error}`);
     }
+    // try {
+    //   const promise = await execFile(`ls`);
+    //   if (promise.stderr) console.log(`STDERR: ${promise.stderr}`);
+    //   const parsed = promise.stdout.split(`\n`);
+    //   const result = parsed.filter((string) => !!string);
+    //   return result;
+    // } catch (error) {
+    //   console.log(`UH-OH! Something broke: ${error}`);
+    // }
   }
 
   async vibrate(duration=1000, force=false) {
