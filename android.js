@@ -16,8 +16,11 @@ class Android {
 
   async ls() {
     try {
-      const { stdout } = await execFile(`ls`);
-      return stdout;
+      const promise = await execFile(`ls`);
+      if (promise.stderr) console.log(`STDERR: ${promise.stderr}`);
+      const parsed = promise.stdout.split(`\n`);
+      const result = parsed.filter((string) => !!string);
+      return result;
     } catch (error) {
       console.log(`UH-OH! Something broke: ${error}`);
     }
@@ -27,7 +30,8 @@ class Android {
     const args = [`-d`, `${duration}`];
     if (!!force) args.push(`-f`);
     try {
-      await execFile(`termux-vibrate`, args);
+      const promise = await execFile(`termux-vibrate`, args);
+      if (promise.stderr) console.log(`STDERR: ${promise.stderr}`);
       return true;
     } catch (error) {
       console.log(`UH-OH! Something broke: ${error}`);
@@ -38,6 +42,7 @@ class Android {
   async cameraInfo() {
     try {
       const promise = await execFile(`termux-camera-info`);
+      if (promise.stderr) console.log(`STDERR: ${promise.stderr}`);
       const [result] = await JSON.parse(promise.stdout);
       return await result;
     } catch (error) {
