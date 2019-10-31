@@ -1,7 +1,7 @@
 'use strict';
 const { promisify } = require('util');
 const execFile = promisify(require('child_process').execFile);
-const apiPath = '/data/data/com.termux/files/usr/libexec/termux-api';
+const apiPath = '/data/data/com.termux/files/usr/libexec/termux-api '; // Intentional whitespace at the end
 
 const call = (apiCall) => apiPath.concat(apiCall);
 
