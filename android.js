@@ -38,10 +38,9 @@ class Android {
 
   async cameraInfo() {
     try {
-      const promise = await execFile(`termux-camera-info`);
-      if (promise.stderr) console.log(`STDERR: ${promise.stderr}`);
-      const [result] = await JSON.parse(promise.stdout);
-      return await result;
+      const { stdout, stderr } = await execFile(`termux-camera-info`);
+      if (stderr) console.log(`STDERR: ${stderr}`);
+      return JSON.parse(stdout)[0];
     } catch (error) {
       console.log(`UH-OH! Something broke: ${error}`);
     }

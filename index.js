@@ -13,8 +13,7 @@ const android = new Android();
 async function run() {
   console.log('Node started!');
   console.log('Calling android.ls()...');
-  const result = await android.ls();
-  console.log(result);
+  console.log(await android.ls());
   console.log('Done!');
   console.log('Calling android.vibrate()...');
   console.log(await android.vibrate());
