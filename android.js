@@ -3,9 +3,6 @@ const { promisify } = require(`util`);
 const execFile = promisify(require(`child_process`).execFile);
 
 
-const _call = (apiMethod) => apiPath.concat(apiMethod);
-
-
 class Android {
 
   constructor() {
