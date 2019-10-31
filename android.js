@@ -22,7 +22,7 @@ class Android {
     }
   }
 
-  async rm(pathToFile) {
+  async rm(pathToFile='myman.jpg') {
     try {
       console.log(`Full command: rm -f ${pathToFile}`);
       const { stderr } = await execFile(`rm -f ${pathToFile}`);

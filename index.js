@@ -31,8 +31,8 @@ const demoLs = async () => {
 };
 
 const demoRm = async () => {
-  console.log('Calling android.rm(`myman.jpg`)...');
-  console.log(await android.rm(`myman.jpg`));
+  console.log('Calling android.rm()...');
+  console.log(await android.rm());
   console.log('Done!');
 };
 
@@ -87,15 +87,17 @@ async function run() {
   const androidFunctions = [
     demoStart,
     demoEval,
+    demoLs,
     demoRm,
     demoLs,
-    demoVibrate,
-    demoCameraInfo,
-    demoSetUpStorage,
+    // demoVibrate,
+    // demoCameraInfo,
+    // demoSetUpStorage,
     demoCameraPhoto,
     demoOpenFile,
-    demoOpenURL,
-    demoDialogConfirm,
+    // demoOpenURL,
+    // demoDialogConfirm,
+    demoRm,
     wait,
     demoEnd,
   ];
