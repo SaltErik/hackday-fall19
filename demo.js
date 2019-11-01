@@ -229,6 +229,19 @@ const toggleFlashlight = async () => {
 }
 
 
+const getLocationInfo = async () => {
+  if (DEBUG) console.log('\nandroid.getLocationInfo() begin...');
+  try {
+    await android.getLocationInfo();
+  } catch (error) {
+    if (error.code === 'ENOENT') DEBUG ? console.log(`Not running on Android! That's fine. Skipping...`) : void(0);
+    else throw error;
+  } finally {
+    if (DEBUG) console.log('android.getLocationInfo() done!\n');
+  }
+};
+
+
 const snapAndShowFace = async () => {
   await rm(`face_cam_test.jpg`);
   await getFaceCamPhoto(`test`);
@@ -306,23 +319,28 @@ async function run() {
   ];
 
   const vibrationDemo = [
-    [console.log, `\nDEMO: The intentful stare (200ms vibration)...'\n`],
-    [vibratePhone, 200],
-    [console.log, `\nDEMO: The throat-clearer (400ms vibration)...'\n`],
-    [vibratePhone, 400],
-    [console.log, `\nDEMO: The shoulder tap (800ms)...'\n`],
-    [vibratePhone, 800],
-    [console.log, `\nDEMO: The prolonged sigh (1600ms)'\n`],
-    [vibratePhone, 1600],
+    [console.log, `\nDEMO: The intentful stare (250ms vibration)...'\n`],
+    [vibratePhone, 250],
+    [console.log, `\nDEMO: The throat-clearer (500ms vibration)...'\n`],
+    [vibratePhone, 500],
+    [console.log, `\nDEMO: The shoulder tap (1000ms vibration)...'\n`],
+    [vibratePhone, 1000],
+    [console.log, `\nDEMO: The prolonged sigh (2000ms vibration)'\n`],
+    [vibratePhone, 2000],
+  ];
+
+  const userLocationDemo = [
+    [console.log, `\nDEMO: Where in th world is our user currenty located?'\n`],
+    [console.log, `\nDEMO: Let's find out...\n`],
+    [getLocationInfo],
   ];
 
   const demoReels = [
     // createAndDeleteFileDemo,
     // toggleFlashlightDemo,
-    vibrationDemo,
+    // vibrationDemo,
     // getPhoneCameraInfo,
-    // snapFaceCamAndShowPhoto,
-
+    snapFaceCamAndShowPhoto,
   ];
 
   for await (const eachReel of demoReels) {  // Consecutive execution on purpose

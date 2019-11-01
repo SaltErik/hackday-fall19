@@ -50,6 +50,9 @@ class Android {
     return await run(`termux-camera-photo`, args);
   }
 
+  async getLocationInfo() {
+    return await run(`termux-location`);
+  }
 
   async vibratePhone(duration=1000, force=true) {
     const args = [`-d`, `${duration}`];
