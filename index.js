@@ -23,9 +23,9 @@ class Android {
   }
 
 
-  async touch(newFileName) {
+  async touchFile(newFileName) {
     const args = [`${newFileName}`];
-    return await run(`touch`, args);
+    return await run(`touchFile`, args);
   }
 
 

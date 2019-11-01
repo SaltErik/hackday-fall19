@@ -36,16 +36,16 @@ const rm = async (pathToFile) => {
   }
 };
 
-const touch = async (newFileName) => {  // Admittedly an ambigous name on a touch device
-  if (DEBUG) console.log('\nandroid.touch() begin...');
+const touchFile = async (newFileName) => {
+  if (DEBUG) console.log('\nandroid.touchFile() begin...');
   try {
-    await android.touch(newFileName);
+    await android.touchFile(newFileName);
   } catch (error) {
     if (error.code === 'ENOENT') console.log(`\t"${newFileName}" not found! Skipping...`);
     else throw error;
   }
   finally {
-    if (DEBUG) console.log('android.touch() done!\n');
+    if (DEBUG) console.log('android.touchFile() done!\n');
   }
 };
 
@@ -202,7 +202,7 @@ async function run() {
   await longRun();
   const createDeleteFileDemo = [
     [ls],
-    [touch, `dummyFile.txt`],
+    [touchFile, `dummyFile.txt`],
     [ls],
     [rm, `dummyFile.txt`],
     [ls],
