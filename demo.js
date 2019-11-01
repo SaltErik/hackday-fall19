@@ -28,7 +28,7 @@ const rm = async (pathToFile) => {
   try {
     await android.rm(pathToFile);
   } catch (error) {
-    if (error.code === 'ENOENT') console.log(`\t"${pathToFile}" not found! Skipping...`);
+    if (error.code === 'ENOENT') console.log(`Not running on Android! That's fine. Skipping...`);
     else throw error;
   }
   finally {
@@ -41,7 +41,7 @@ const touchFile = async (newFileName) => {
   try {
     await android.touchFile(newFileName);
   } catch (error) {
-    if (error.code === 'ENOENT') console.log(`\t"${newFileName}" not found! Skipping...`);
+    if (error.code === 'ENOENT') console.log(`Not running on Android! That's fine. Skipping...`);
     else throw error;
   }
   finally {
@@ -55,7 +55,7 @@ const vibratePhone = async () => {
   try {
     await android.vibratePhone();
   } catch (error) {
-    if (error.code === 'ENOENT') console.log(`\tTiny rumbling hamster not found! Skipping...`);
+    if (error.code === 'ENOENT') console.log(`Not running on Android! That's fine. Skipping...`);
     else throw error;
   }
   finally {
@@ -70,7 +70,7 @@ const getCameraInfo = async () => {
     const { stdout } = await android.getCameraInfo();
     console.log(await JSON.parse(stdout));
   } catch (error) {
-    if (error.code === 'ENOENT') console.log(`\tAndroid camera not found! Skipping...`);
+    if (error.code === 'ENOENT') console.log(`Not running on Android! That's fine. Skipping...`);
     else throw error;
   }
   finally {
@@ -84,7 +84,7 @@ const setUpStorage = async () => {
   try {
     await android.setUpStorage();
   } catch (error) {
-    if (error.code === 'ENOENT') console.log(`\tAndroid storage not found! Skipping...`);
+    if (error.code === 'ENOENT') console.log(`Not running on Android! That's fine. Skipping...`);
     else throw error;
   }
   finally {
@@ -98,7 +98,7 @@ const takeFaceCamPhoto = async (saveFileAs) => {
   try {
     await android.takeFaceCamPhoto(saveFileAs);
   } catch (error) {
-    if (error.code === 'ENOENT') console.log(`\tCamera not found! Skipping...`);
+    if (error.code === 'ENOENT') console.log(`Not running on Android! That's fine. Skipping...`);
     else throw error;
   } finally {
     if (DEBUG) console.log('android.takeFaceCamPhoto() done!\n');
@@ -111,7 +111,7 @@ const takeBackCamPhoto = async (saveFileAs) => {
   try {
     await android.takeBackCamPhotoSync(saveFileAs);
   } catch (error) {
-    if (error.code === 'ENOENT') console.log(`\tCamera not found! Skipping...`);
+    if (error.code === 'ENOENT') console.log(`Not running on Android! That's fine. Skipping...`);
     else throw error;
   } finally {
     if (DEBUG) console.log('android.takeBackCamPhoto() done!\n');
@@ -124,7 +124,7 @@ const showFile = async (pathToFile) => {
   try {
     await android.showFile(pathToFile);
   } catch (error) {
-    if (error.code === 'ENOENT') console.log(`\t"${pathToFile}" not found! Skipping...`);
+    if (error.code === 'ENOENT') console.log(`Not running on Android! That's fine. Skipping...`);
     else throw error;
   }
   if (DEBUG) console.log('android.showFile() done!\n');
@@ -136,7 +136,7 @@ const openURL = async () => {
   try {
     await android.openURL(`https://www.study-at-salt.com`);
   } catch (error) {
-    if (error.code === 'ENOENT') console.log(`\tAndroid browser not found! Skipping...`);
+    if (error.code === 'ENOENT') console.log(`Not running on Android! That's fine. Skipping...`);
     else throw error;
   } finally {
     if (DEBUG) console.log('android.openURL() done!\n');
@@ -150,7 +150,7 @@ const showDialog = async () => {
     const { stdout } = await android.showDialog(`What is your favorite color?`, `Don't answer yellow...`);
     console.log(await JSON.parse(stdout));
   } catch (error) {
-    if (error.code === 'ENOENT') console.log(`\tAndroid dialog not found! Skipping...`);
+    if (error.code === 'ENOENT') console.log(`Not running on Android! That's fine. Skipping...`);
     else throw error;
   } finally {
     if (DEBUG) console.log('android.showDialog() done!\n');
@@ -163,7 +163,7 @@ const turnFlashlightOn = async () => {
   try {
     await android.turnFlashlightOn();
   } catch (error) {
-    if (error.code === 'ENOENT') console.log(`\tAndroid flashlight not found! Skipping...`);
+    if (error.code === 'ENOENT') console.log(`Not running on Android! That's fine. Skipping...`);
     else throw error;
   } finally {
     if (DEBUG) console.log('android.turnFlashlightOn() done!\n');
@@ -176,7 +176,7 @@ const turnFlashlightOff = async () => {
   try {
     await android.turnFlashlightOff();
   } catch (error) {
-    if (error.code === 'ENOENT') console.log(`\tAndroid flashlight not found! Skipping...`);
+    if (error.code === 'ENOENT') console.log(`Not running on Android! That's fine. Skipping...`);
     else throw error;
   } finally {
     if (DEBUG) console.log('android.turnFlashlightOff() done!\n');
@@ -189,7 +189,7 @@ const toggleFlashlight = async () => {
   try {
     await android.toggleFlashlight();
   } catch (error) {
-    if (error.code === 'ENOENT') console.log(`\tAndroid flashlight not found! Skipping...`);
+    if (error.code === 'ENOENT') console.log(`Not running on Android! That's fine. Skipping...`);
     else throw error;
   } finally {
     if (DEBUG) console.log('android.toggleFlashlight() done!\n');
@@ -223,11 +223,11 @@ async function run() {
   ];
 
   const toggleFlashlightDemo = [
-    [console.log, `Assuming the flashlight is already off...`],
+    [console.log, `\nDEMO: Assuming the flashlight is already off...\n`],
     [toggleFlashlight],
-    [console.log, `Should be on now...`],
+    [console.log, `\nDEMO: Should be on now...\n`],
     [toggleFlashlight],
-    [console.log, `Should be off again...`],
+    [console.log, `\nDEMO: Should be off again...\n`],
   ];
 
   const demoReels = [
@@ -236,9 +236,9 @@ async function run() {
   ];
 
   for (const eachReel of demoReels) {  // Runs consecutively on purpose
-    await pause().then(DEBUG ? console.log(`Running next reel...`) : void(0));
+    await pause().then(DEBUG ? console.log(`\nDEMO: Running next reel...\n`) : void(0));
     for (const eachDemo of eachReel) {
-      await eachDemo[0](eachDemo[1] ? eachDemo[1] : void(0)).then(await pause);
+      await pause().then(await eachDemo[0](eachDemo[1] ? eachDemo[1] : void(0)));
     }
   };
 }
