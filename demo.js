@@ -5,9 +5,11 @@ const android = new Android();
 
 process.on('unhandledRejection', console.log);
 
-const longRun = async () => await setTimeout(console.log, 100000000);
+const longRun = async (ms=10000000) => await setTimeout(console.log, ms);
 
-const pause = async () => await setTimeout(console.log, 1000);
+const pause = async (ms=1000) => {
+  if (DEBUG) console.log(`pause...`);
+  return await setTimeout(console.log, ms);}
 
 const DEBUG = true;
 
@@ -156,7 +158,30 @@ const showDialog = async () => {
 };
 
 
+const turnFlashlightOn = async () => {
+  if (DEBUG) console.log('\nandroid.turnFlashlightOn() begin...');
+  try {
+    await android.turnFlashlightOn();
+  } catch (error) {
+    if (error.code === 'ENOENT') console.log(`\tAndroid flashlight not found! Skipping...`);
+    else throw error;
+  } finally {
+    if (DEBUG) console.log('android.turnFlashlightOn() done!\n');
+  }
+}
 
+
+const turnFlashlightOff = async () => {
+  if (DEBUG) console.log('\nandroid.turnFlashlightOff() begin...');
+  try {
+    await android.turnFlashlightOff();
+  } catch (error) {
+    if (error.code === 'ENOENT') console.log(`\tAndroid flashlight not found! Skipping...`);
+    else throw error;
+  } finally {
+    if (DEBUG) console.log('android.turnFlashlightOff() done!\n');
+  }
+}
 
 
 const snapAndShowFace = async () => {
@@ -175,15 +200,21 @@ const snapAndShowBack = async () => {
 
 async function run() {
   await longRun();
-  const demoReel = [
+  const createDeleteFileDemo = [
     [ls],
     [touch, `dummyFile.txt`],
     [ls],
     [rm, `dummyFile.txt`],
     [ls],
   ];
-  for (const eachDemo of demoReel) {  // Consecutive execution on purpose
-    await eachDemo[0](eachDemo[1] ? eachDemo[1] : void(0)).then(await pause);
+  const demoReels = [
+    createDeleteFileDemo,
+  ];
+  for (const eachReel of demoReels) {  // Runs consecutively on purpose
+    await pause().then(DEBUG ? console.log(`Running next reel...`) : void(0));
+    for (const eachDemo of eachReel) {
+      await eachDemo[0](eachDemo[1] ? eachDemo[1] : void(0)).then(await pause);
+    }
   };
 }
 
