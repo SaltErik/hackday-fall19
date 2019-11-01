@@ -18,11 +18,10 @@ const ls = async () => {
   console.log('android.ls() done!');
 };
 
-const rm = async () => {
+const rm = async (pathToFile) => {
   console.log('android.rm() begin...');
-  const pathToFile = `myman.jpg`;
   try {
-    await android.rm();
+    await android.rm(pathToFile);
   } catch (error) {
     if (error.code === 'ENOENT') console.log(`\t"${pathToFile}" not found! Skipping...`);
     else throw error;
@@ -145,13 +144,15 @@ const showConfirmDialog = async () => {
 };
 
 const snapAndShowFace = async () => {
-  getBackCamPhoto(`test`);
-  showFileSync(`back_cam_test.jpg`);
+  await rm(`face_cam_test.jpg`);
+  await getFaceCamPhoto(`test`);
+  await showFileSync(`face_cam_test.jpg`);
 };
 
 const snapAndShowBack = async () => {
-  getFaceCamPhoto(`test`);
-  showFileSync(`back_cam_test.jpg`);
+  await rm(`face_cam_test.jpg`);
+  await getBackCamPhoto(`test`);
+  await showFileSync(`back_cam_test.jpg`);
 };
 
 

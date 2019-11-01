@@ -39,6 +39,11 @@ class Android {
     return await run(`rm`, args);
   }
 
+  rmSync(pathToFile) {
+    const args = [`-f`, `${pathToFile}`];
+    return runSync(`rm`, args);
+  }
+
   async vibrate(duration=1000, force=false) {
     const args = [`-d`, `${duration}`];
     if (force) args.push(`-f`);
