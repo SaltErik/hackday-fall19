@@ -1,6 +1,8 @@
 `use strict`;
 const { promisify } = require(`util`);
-const run = promisify(require(`child_process`).execFile);
+const { execFile, execFileSync } = require(`child_process`);
+const run = promisify(execFile);
+const runSync = execFileSync;
 
 
 class Android {
@@ -14,10 +16,17 @@ class Android {
     return await run(`termux-camera-info`);
   }
 
-  async takePhoto(saveAsName) {
-    const args = [];
-    if (saveAsName) args.push(`${saveAsName}.jpg`);
-    else args.push(`${Date.now()}.jpg`);
+  async getFaceCamPhoto(saveAsName) {
+    const args = [`-c`, `1`];  // Face cam (methinks)
+    if (saveAsName) args.push(`face_cam_${saveAsName}.jpg`);
+    else args.push(`face_cam_${Date.now()}.jpg`);
+    return await run(`termux-camera-photo`, args);
+  }
+
+  async getBackCamPhoto(saveAsName) {
+    const args = [`-c`, `0`]; // Back cam (methinks)
+    if (saveAsName) args.push(`back_cam_${saveAsName}.jpg`);
+    else args.push(`back_cam_${Date.now()}.jpg`);
     return await run(`termux-camera-photo`, args);
   }
 
@@ -40,9 +49,14 @@ class Android {
     return await run(`termux-setup-storage`);
   }
 
-  async openFile(pathToFile) {
+  async showFile(pathToFile) {
     const args = [`${pathToFile}`];
     return await run(`termux-open`, args);
+  }
+
+  showFileSync(pathToFile) {
+    const args = [`${pathToFile}`];
+    return runSync(`termux-open`, args);
   }
 
   async openURL(URL) {

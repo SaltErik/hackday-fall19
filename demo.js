@@ -70,28 +70,50 @@ const setUpStorage = async () => {
   }
 };
 
-const takePhoto = async () => {
-  console.log('android.takePhoto() begin...');
+const getFaceCamPhoto = async (saveFileAs) => {
+  console.log('android.getFaceCamPhoto() begin...');
   try {
-    await android.takePhoto(`myman`);
+    await android.getFaceCamPhoto(saveFileAs);
   } catch (error) {
     if (error.code === 'ENOENT') console.log(`\tCamera not found! Skipping...`);
     else throw error;
   } finally {
-  console.log('android.takePhoto() done!');
+  console.log('android.getFaceCamPhoto() done!');
   }
 };
 
-const openFile = async () => {
-  console.log('android.openFile() begin...');
-  const pathToFile = `myman.jpg`;
+const getBackCamPhoto = async (saveFileAs) => {
+  console.log('android.getBackCamPhoto() begin...');
   try {
-    await android.openFile(pathToFile);
+    await android.getBackCamPhoto(saveFileAs);
+  } catch (error) {
+    if (error.code === 'ENOENT') console.log(`\tCamera not found! Skipping...`);
+    else throw error;
+  } finally {
+  console.log('android.getBackCamPhoto() done!');
+  }
+};
+
+const showFile = async (pathToFile) => {
+  console.log('android.showFile() begin...');
+  try {
+    await android.showFile(pathToFile);
   } catch (error) {
     if (error.code === 'ENOENT') console.log(`\t"${pathToFile}" not found! Skipping...`);
     else throw error;
   }
-  console.log('android.openFile() done!');
+  console.log('android.showFile() done!');
+};
+
+const showFileSync = async (pathToFile) => {
+  console.log('android.showFile() begin...');
+  try {
+    await android.showFile(pathToFile);
+  } catch (error) {
+    if (error.code === 'ENOENT') console.log(`\t"${pathToFile}" not found! Skipping...`);
+    else throw error;
+  }
+  console.log('android.showFile() done!');
 };
 
 const openURL = async () => {
@@ -120,6 +142,16 @@ const showConfirmDialog = async () => {
   }
 };
 
+const snapAndShowFront = () {
+  getBackCamPhoto(`cam_test`);
+  showFile(`back_cam_test.jpg`);
+};
+
+const snapAndShowBack = () {
+  getFrontCamPhoto(`cam_test`);
+  showFile(`back_cam_test.jpg`);
+};
+
 
 async function run() {
   const androidFunctions = [
@@ -129,10 +161,14 @@ async function run() {
     vibrate,
     getCameraInfo,
     setUpStorage,
-    takePhoto,
-    openFile,
-    openURL,
+    // getBackCamPhoto,
+    // showFileSync,
+    // getFaceCamPhoto,
+    // showFileSync,
+    snapAndShowFront,
+    snapAndShowBack,
     showConfirmDialog,
+    openURL,
   ];
   for (const each of androidFunctions) {
     await each();
