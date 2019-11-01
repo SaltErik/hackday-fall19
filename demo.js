@@ -11,7 +11,7 @@ const pause = async (ms=1000) => {
   if (DEBUG) console.log(`pause...`);
   return await setTimeout(console.log, ms);}
 
-const DEBUG = true;
+const DEBUG = false;
 
 
 const ls = async () => {
