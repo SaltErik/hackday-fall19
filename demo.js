@@ -317,7 +317,8 @@ async function run() {
     // createAndDeleteFileDemo,
     // toggleFlashlightDemo,
     // getPhoneCameraInfo,
-    snapFaceCamAndShowPhoto,
+    // snapFaceCamAndShowPhoto,
+    vibrationDemo,
   ];
 
   for await (const eachReel of demoReels) {  // Consecutive execution on purpose
