@@ -7,7 +7,7 @@ process.on('unhandledRejection', console.log);
 
 const longRun = async (ms=10000000) => await setTimeout(console.log, ms);
 
-const pause = async (ms=1000) => {
+const pause = async (ms=2500) => {
   if (DEBUG) console.log(`pause...`);
   return await setTimeout(console.log, ms);}
 
@@ -79,6 +79,36 @@ const getCameraInfo = async () => {
 };
 
 
+const getBackCameraInfo = async () => {
+  if (DEBUG) console.log('\nandroid.getCameraInfo() begin...');
+  try {
+    const { stdout } = await android.getCameraInfo();
+    console.log(await JSON.parse(stdout[0]));
+  } catch (error) {
+    if (error.code === 'ENOENT') DEBUG ? console.log(`Not running on Android! That's fine. Skipping...`) : void(0);
+    else throw error;
+  }
+  finally {
+    if (DEBUG) console.log('android.getCameraInfo() done!\n');
+  }
+};
+
+
+const getFrontCameraInfo = async () => {
+  if (DEBUG) console.log('\nandroid.getCameraInfo() begin...');
+  try {
+    const { stdout } = await android.getCameraInfo();
+    console.log(await JSON.parse(stdout[1]));
+  } catch (error) {
+    if (error.code === 'ENOENT') DEBUG ? console.log(`Not running on Android! That's fine. Skipping...`) : void(0);
+    else throw error;
+  }
+  finally {
+    if (DEBUG) console.log('android.getCameraInfo() done!\n');
+  }
+};
+
+
 const setUpStorage = async () => {
   if (DEBUG) console.log('\nandroid.setUpStorage() begin...');
   try {
@@ -93,10 +123,10 @@ const setUpStorage = async () => {
 };
 
 
-const takeFaceCamPhoto = async (saveFileAs) => {
+const takeFaceCamPhoto = async (saveAsName) => {
   if (DEBUG) console.log('\nandroid.getFaceCamPhoto() begin...');
   try {
-    await android.takeFaceCamPhoto(saveFileAs);
+    await android.takeFaceCamPhoto(saveAsName);
   } catch (error) {
     if (error.code === 'ENOENT') DEBUG ? console.log(`Not running on Android! That's fine. Skipping...`) : void(0);
     else throw error;
@@ -106,10 +136,10 @@ const takeFaceCamPhoto = async (saveFileAs) => {
 };
 
 
-const takeBackCamPhoto = async (saveFileAs) => {
+const takeBackCamPhoto = async (saveAsName) => {
   if (DEBUG) console.log('\nandroid.takeBackCamPhoto() begin...');
   try {
-    await android.takeBackCamPhotoSync(saveFileAs);
+    await android.takeBackCamPhotoSync(saveAsName);
   } catch (error) {
     if (error.code === 'ENOENT') DEBUG ? console.log(`Not running on Android! That's fine. Skipping...`) : void(0);
     else throw error;
@@ -242,17 +272,46 @@ async function run() {
     [console.log, `\nDEMO: And finally OFF.\n`],
   ];
 
-  // const snapFaceCamAndShowPhoto = [
-  //   [],
-  // ];
+  const getPhoneCameraInfo = [
+    [console.log, `\nDEMO: Wonder which cameras are available on this phone...'\n`],
+    [console.log, `\nDEMO: let's find out!'\n`],
+    [getCameraInfo],
+    [console.log, `\nDEMO: Whoah! That's a lot of info!\n`],
+    [takeFaceCamPhoto, `test_photo`],
+    [console.log, `\nDEMO: Let's just focus on the front camera...\n`],
+    [getFrontCameraInfo],
+    [console.log, `\nDEMO: There, that's better...\n`],
+    [console.log, `\nDEMO: And how about the back camera?\n`],
+    [getBackCameraInfo],
+    [console.log, `\nDEMO: Cool! So we know we have some cameras to work with.\n`],
+  ];
+
+  const snapFaceCamAndShowPhoto = [
+    [rm, `dummyFile.txt`],  // Pre-emptive cleanup
+    [console.log, `\nDEMO: We examine the contents of the current directory...'\n`],
+    [ls],
+    [console.log, `\nDEMO: Dang. We have no sweet selfies of our user...'\n`],
+    [console.log, `\nDEMO: Well, no problem. Let's snap a fresh pic with the face camera...'\n`],
+    [console.log, `\nDEMO: Say cheese!'\n`],
+    [takeFaceCamPhoto, `dope_selfie`],
+    [vibratePhone, `500`]  // Some tactile feedback
+    [console.log, `\nDEMO: There we are. Did it save properly?'\n`],
+    [ls],
+    [console.log, `\nDEMO: See any "dope_selfie.jpg"?'\n`],
+    [console.log, `\nDEMO: Allright, let's dislay it to the user!'\n`],
+    [showFile, `dope_selfie.jpg`],
+    [console.log, `\nDEMO: My man!'\n`],
+  ];
 
   // const snapBackCamAndShowPhoto = [
   //   [],
   // ];
 
   const demoReels = [
-    createAndDeleteFileDemo,
-    toggleFlashlightDemo,
+    // createAndDeleteFileDemo,
+    // toggleFlashlightDemo,
+    getPhoneCameraInfo,
+    snapFaceCamAndShowPhoto,
   ];
 
   for await (const eachReel of demoReels) {  // Consecutive execution on purpose

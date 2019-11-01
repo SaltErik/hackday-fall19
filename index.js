@@ -37,16 +37,16 @@ class Android {
 
   async takeFaceCamPhoto(saveAsName) {
     const args = [`-c`, `1`];
-    if (saveAsName) args.push(`face_cam_${saveAsName}.jpg`);
-    else args.push(`face_cam_${Date.now()}.jpg`);
+    if (saveAsName) args.push(`${saveAsName}.jpg`);
+    else args.push(`${Date.now()}.jpg`);
     return await run(`termux-camera-photo`, args);
   }
 
 
   async takeBackCamPhoto(saveAsName) {
     const args = [`-c`, `0`];
-    if (saveAsName) args.push(`back_cam_${saveAsName}.jpg`);
-    else args.push(`back_cam_${Date.now()}.jpg`);
+    if (saveAsName) args.push(`${saveAsName}.jpg`);
+    else args.push(`${Date.now()}.jpg`);
     return await run(`termux-camera-photo`, args);
   }
 
