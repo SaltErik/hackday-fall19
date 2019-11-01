@@ -83,7 +83,6 @@ const getBackCameraInfo = async () => {
   if (DEBUG) console.log('\nandroid.getCameraInfo() begin...');
   try {
     const { stdout } = await android.getCameraInfo();
-    console.log(await JSON.parse(stdout[0]));
     const cameras = await JSON.parse(stdout);
     console.log(await cameras[0]);
   } catch (error) {
