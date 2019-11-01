@@ -41,7 +41,6 @@ const touchFile = async (newFileName) => {
   try {
     await android.touchFile(newFileName);
   } catch (error) {
-    console.log(`TOUCHFILE:`, error);
     if (error.code === 'ENOENT') console.log(`Not running on Android! That's fine. Skipping...`);
     else throw error;
   }
