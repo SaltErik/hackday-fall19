@@ -31,6 +31,19 @@ const rm = async (pathToFile) => {
   }
 };
 
+const rmSync = (pathToFile) => {
+  console.log('android.rm() begin...');
+  try {
+    android.rm(pathToFile);
+  } catch (error) {
+    if (error.code === 'ENOENT') console.log(`\t"${pathToFile}" not found! Skipping...`);
+    else throw error;
+  }
+  finally {
+    console.log('android.rm() done!');
+  }
+};
+
 const vibrate = async () => {
   console.log('android.vibrate() begin...');
   try {
@@ -106,10 +119,10 @@ const showFile = async (pathToFile) => {
   console.log('android.showFile() done!');
 };
 
-const showFileSync = async (pathToFile) => {
+const showFileSync = (pathToFile) => {
   console.log('android.showFile() begin...');
   try {
-    await android.showFile(pathToFile);
+    android.showFileSync(pathToFile);
   } catch (error) {
     if (error.code === 'ENOENT') console.log(`\t"${pathToFile}" not found! Skipping...`);
     else throw error;
