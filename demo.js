@@ -317,7 +317,7 @@ async function run() {
     // createAndDeleteFileDemo,
     // toggleFlashlightDemo,
     // getPhoneCameraInfo,
-    // snapFaceCamAndShowPhoto,
+    snapFaceCamAndShowPhoto,
     vibrationDemo,
   ];
 

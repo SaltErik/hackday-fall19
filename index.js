@@ -54,7 +54,7 @@ class Android {
   async vibratePhone(duration=1000, force=true) {
     const args = [`-d`, `${duration}`];
     if (force) args.push(`-f`);
-    return await run(`termux-vibratePhone`, args);
+    return await run(`termux-vibrate`, args);
   }
 
 
