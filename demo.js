@@ -41,6 +41,7 @@ const touchFile = async (newFileName) => {
   try {
     await android.touchFile(newFileName);
   } catch (error) {
+    console.log(`TOUCHFILE:`, error);
     if (error.code === 'ENOENT') console.log(`Not running on Android! That's fine. Skipping...`);
     else throw error;
   }
@@ -214,7 +215,7 @@ const snapAndShowBack = async () => {
 async function run() {
   await longRun();
 
-  const createDeleteFileDemo = [
+  const createAndDeleteFileDemo = [
     [console.log, `\nDEMO: We list the contents of the phone's working directory...\n`],
     [ls],
     [console.log, `\nDEMO: Notice, no file named "dummyFile.txt" exists...\n`],
@@ -229,11 +230,13 @@ async function run() {
   ];
 
   const toggleFlashlightDemo = [
-    [console.log, `\nDEMO: Assuming the flashlight is already off...\n`],
+    [console.log, `\nDEMO: We ensure the flashlight is OFF before starting...\n`],
+    [turnFlashlightOff]
+    [console.log, `\nDEMO: And so -- assuming the flashlight is OFF...\n`],
     [toggleFlashlight],
-    [console.log, `\nDEMO: Should be on now...\n`],
+    [console.log, `\nDEMO: Now it should be ON instead...\n`],
     [toggleFlashlight],
-    [console.log, `\nDEMO: Should be off again...\n`],
+    [console.log, `\nDEMO: And now it should be OFF once again...\n`],
   ];
 
   // const gpsDemo = [
@@ -242,12 +245,12 @@ async function run() {
 
   const demoReels = [
     // toggleFlashlightDemo,
-    createDeleteFileDemo,
+    createAndDeleteFileDemo,
   ];
 
-  for (const eachReel of demoReels) {  // Runs consecutively on purpose
+  for await (const eachReel of demoReels) {  // Runs consecutively on purpose
     await pause().then(DEBUG ? console.log(`\nDEMO: Running next reel...\n`) : void(0));
-    for (const eachDemo of eachReel) {
+    for await (const eachDemo of eachReel) {
       await pause().then(await eachDemo[0](eachDemo[1] ? eachDemo[1] : void(0)));
     }
   };
