@@ -5,7 +5,9 @@ const android = new Android();
 
 process.on('unhandledRejection', console.log);
 
-const wait = async () => await setTimeout(console.log, 100000000);
+const longRun = async () => await setTimeout(console.log, 100000000);
+
+const pause = async () => await setTimeout(console.log, 5000);
 
 const ls = async () => {
   console.log('android.ls() begin...');
@@ -142,12 +144,12 @@ const showConfirmDialog = async () => {
   }
 };
 
-const snapAndShowFace = () => {
+const snapAndShowFace = async () => {
   getBackCamPhoto(`test`);
   showFileSync(`back_cam_test.jpg`);
 };
 
-const snapAndShowBack = () => {
+const snapAndShowBack = async () => {
   getFaceCamPhoto(`test`);
   showFileSync(`back_cam_test.jpg`);
 };
@@ -155,7 +157,7 @@ const snapAndShowBack = () => {
 
 async function run() {
   const androidFunctions = [
-    wait,
+    longRun,
     ls,
     rm,
     vibrate,
@@ -166,9 +168,11 @@ async function run() {
     // getFaceCamPhoto,
     // showFileSync,
     snapAndShowFace,
+    pause,
     snapAndShowBack,
-    showConfirmDialog,
-    openURL,
+    pause,
+    // showConfirmDialog,
+    // openURL,
   ];
   for (const each of androidFunctions) {
     await each();
