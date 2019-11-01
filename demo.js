@@ -175,7 +175,9 @@ async function run() {
   const demoReel = [
     [ls],
     [touch, `dummyFile.txt`],
+    [ls],
     [rm, `dummyFile.txt`],
+    [ls],
   ];
   for (const eachDemo of demoReel) {  // Consecutive execution on purpose
     await eachDemo[0](eachDemo[1] ? eachDemo[1] : void(0)).then(pause);
