@@ -184,6 +184,19 @@ const turnFlashlightOff = async () => {
 }
 
 
+const toggleFlashlight = async () => {
+  if (DEBUG) console.log('\nandroid.toggleFlashlight() begin...');
+  try {
+    await android.toggleFlashlight();
+  } catch (error) {
+    if (error.code === 'ENOENT') console.log(`\tAndroid flashlight not found! Skipping...`);
+    else throw error;
+  } finally {
+    if (DEBUG) console.log('android.toggleFlashlight() done!\n');
+  }
+}
+
+
 const snapAndShowFace = async () => {
   await rm(`face_cam_test.jpg`);
   await getFaceCamPhoto(`test`);
@@ -200,6 +213,7 @@ const snapAndShowBack = async () => {
 
 async function run() {
   await longRun();
+
   const createDeleteFileDemo = [
     [ls],
     [touchFile, `dummyFile.txt`],
@@ -207,9 +221,20 @@ async function run() {
     [rm, `dummyFile.txt`],
     [ls],
   ];
-  const demoReels = [
-    createDeleteFileDemo,
+
+  const toggleFlashlightDemo = [
+    [console.log, `Assuming the flashlight is already off...`],
+    [toggleFlashlight],
+    [console.log, `Should be on now...`],
+    [toggleFlashlight],
+    [console.log, `Should be off again...`],
   ];
+
+  const demoReels = [
+    toggleFlashlightDemo,
+    // createDeleteFileDemo,
+  ];
+
   for (const eachReel of demoReels) {  // Runs consecutively on purpose
     await pause().then(DEBUG ? console.log(`Running next reel...`) : void(0));
     for (const eachDemo of eachReel) {

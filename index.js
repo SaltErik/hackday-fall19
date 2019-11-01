@@ -9,6 +9,7 @@ class Android {
   constructor() {
     if (!!Android.instance) return Android.instance;
     else Android.instance = this;
+    this.flashlightIsOn = false;
   }
 
 
@@ -83,14 +84,26 @@ class Android {
     return await run(`termux-dialog`, args);
   }
 
+
   async turnFlashlightOn() {
+    this.flashlightIsOn = true;
     const args = [`on`];
     return await run(`termux-torch`, args);
   }
 
+
   async turnFlashlightOff() {
+    this.flashlightIsOn = false;
     const args = [`off`];
     return await run(`termux-torch`, args);
+  }
+
+  async toggleFlashlight() {
+    if (this.flashlightIsOn) {
+      return await this.turnFlashlightOff();
+    } else {
+      return await this.turnFlashlightOn();
+    }
   }
 
 }
