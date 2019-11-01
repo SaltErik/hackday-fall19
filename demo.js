@@ -60,7 +60,7 @@ const getCameraInfo = async () => {
 const setUpStorage = async () => {
   console.log('android.setUpStorage() begin...');
   try {
-    console.log(await android.setUpStorage());
+    await android.setUpStorage();
   } catch (error) {
     if (error.code === 'ENOENT') console.log(`\tAndroid storage not found! Skipping...`);
     else throw error;
@@ -73,7 +73,7 @@ const setUpStorage = async () => {
 const takePhoto = async () => {
   console.log('android.takePhoto() begin...');
   try {
-    console.log(await android.takePhoto(`myman`));
+    await android.takePhoto(`myman`);
   } catch (error) {
     if (error.code === 'ENOENT') console.log(`\tCamera not found! Skipping...`);
     else throw error;
@@ -86,7 +86,7 @@ const openFile = async () => {
   console.log('android.openFile() begin...');
   const pathToFile = `myman.jpg`;
   try {
-    console.log(await android.openFile(pathToFile));
+    await android.openFile(pathToFile);
   } catch (error) {
     if (error.code === 'ENOENT') console.log(`\t"${pathToFile}" not found! Skipping...`);
     else throw error;
@@ -97,7 +97,7 @@ const openFile = async () => {
 const openURL = async () => {
   console.log('android.openURL() begin...');
   try {
-    console.log(await android.openURL(`https://www.study-at-salt.com`));
+    await android.openURL(`https://www.study-at-salt.com`);
   } catch (error) {
     if (error.code === 'ENOENT') console.log(`\tAndroid browser not found! Skipping...`);
     else throw error;
@@ -110,7 +110,8 @@ const openURL = async () => {
 const showConfirmDialog = async () => {
   console.log('android.showConfirmDialog() begin...');
   try {
-    console.log(await android.showConfirmDialog(`What is your favorite color?`, `Don't answer yellow...`));
+    const { stdout } = await android.showConfirmDialog(`What is your favorite color?`, `Don't answer yellow...`);
+    console.log(await JSON.parse(stdout));
   } catch (error) {
     if (error.code === 'ENOENT') console.log(`\tAndroid dialog not found! Skipping...`);
     else throw error;
