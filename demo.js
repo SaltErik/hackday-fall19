@@ -305,6 +305,14 @@ async function run() {
     [console.log, `\nDEMO: My man!'\n`],
   ];
 
+  const vibrationDemo = [
+    [console.log, `\nDEMO: This should vibrate a ton...'\n`],
+    [vibratePhone],
+    [vibratePhone],
+    [vibratePhone],
+    [console.log, `\nDEMO: It better have vibrated...'\n`],
+  ];
+
   const demoReels = [
     // createAndDeleteFileDemo,
     // toggleFlashlightDemo,
