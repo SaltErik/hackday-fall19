@@ -296,7 +296,7 @@ async function run() {
     [console.log, `\nDEMO: Well, no problem. Let's snap a fresh pic with the face camera...'\n`],
     [console.log, `\nDEMO: Say cheese!'\n`],
     [takeFaceCamPhoto, `dope_selfie`],
-    [vibratePhone, `500`]  // Some tactile feedback
+    [vibratePhone, `500`],  // Some tactile feedback
     [console.log, `\nDEMO: There we are. Did it save properly?'\n`],
     [ls],
     [console.log, `\nDEMO: See any "dope_selfie.jpg"?'\n`],
