@@ -143,16 +143,16 @@ const showConfirmDialog = async () => {
   }
 };
 
-const snapAndShowFace = async () => {
-  await rm(`face_cam_test.jpg`);
-  await getFaceCamPhoto(`test`);
-  await showFile(`face_cam_test.jpg`);
+const snapAndShowFace = () => {
+  rmSync(`face_cam_test.jpg`);
+  getFaceCamPhoto(`test`);
+  showFileSync(`face_cam_test.jpg`);
 };
 
-const snapAndShowBack = async () => {
-  await rm(`back_cam_test.jpg`);
-  await getBackCamPhoto(`test`);
-  await showFile(`back_cam_test.jpg`);
+const snapAndShowBack = () => {
+  rmSync(`back_cam_test.jpg`);
+  getBackCamPhoto(`test`);
+  showFileSync(`back_cam_test.jpg`);
 };
 
 
