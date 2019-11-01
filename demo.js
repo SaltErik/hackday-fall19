@@ -337,10 +337,10 @@ async function run() {
 
   const demoReels = [
     // createAndDeleteFileDemo,
-    // toggleFlashlightDemo,
+    toggleFlashlightDemo,
     // vibrationDemo,
-    // getPhoneCameraInfo,
-    snapFaceCamAndShowPhoto,
+    getPhoneCameraInfo,
+    // snapFaceCamAndShowPhoto,
   ];
 
   for await (const eachReel of demoReels) {  // Consecutive execution on purpose
