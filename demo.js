@@ -315,7 +315,7 @@ async function run() {
   for await (const eachReel of demoReels) {  // Consecutive execution on purpose
     await pause().then(DEBUG ? console.log(`\nDEMO: Running next reel...\n`) : void(0));
     for await (const eachDemo of eachReel) {
-      await pause().then(await Promise.resolve(eachDemo[0](eachDemo[1] ? eachDemo[1] : void(0))));
+      await pause().then(await eachDemo[0](eachDemo[1] ? eachDemo[1] : ['hello']));
     }
   };
 }
