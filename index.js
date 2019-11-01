@@ -83,6 +83,16 @@ class Android {
     return await run(`termux-dialog`, args);
   }
 
+  async turnFlashlightOn() {
+    const args = [`on`];
+    return await run(`termux-torch`, args);
+  }
+
+  async turnFlashlightOff() {
+    const args = [`off`];
+    return await run(`termux-torch`, args);
+  }
+
 }
 
 

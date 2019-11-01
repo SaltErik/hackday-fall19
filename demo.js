@@ -7,7 +7,7 @@ process.on('unhandledRejection', console.log);
 
 const longRun = async () => await setTimeout(console.log, 100000000);
 
-const pause = async () => await setTimeout(console.log, 5000);
+const pause = async () => await setTimeout(console.log, 1000);
 
 const DEBUG = true;
 
@@ -156,6 +156,9 @@ const showDialog = async () => {
 };
 
 
+
+
+
 const snapAndShowFace = async () => {
   await rm(`face_cam_test.jpg`);
   await getFaceCamPhoto(`test`);
@@ -180,7 +183,7 @@ async function run() {
     [ls],
   ];
   for (const eachDemo of demoReel) {  // Consecutive execution on purpose
-    await eachDemo[0](eachDemo[1] ? eachDemo[1] : void(0)).then(pause);
+    await eachDemo[0](eachDemo[1] ? eachDemo[1] : void(0)).then(await pause);
   };
 }
 
