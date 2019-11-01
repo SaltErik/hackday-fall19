@@ -23,11 +23,25 @@ class Android {
     return await run(`termux-camera-photo`, args);
   }
 
+  getFaceCamPhotoSync(saveAsName) {
+    const args = [`-c`, `1`];  // Face cam (methinks)
+    if (saveAsName) args.push(`face_cam_${saveAsName}.jpg`);
+    else args.push(`face_cam_${Date.now()}.jpg`);
+    return runSync(`termux-camera-photo`, args);
+  }
+
   async getBackCamPhoto(saveAsName) {
     const args = [`-c`, `0`]; // Back cam (methinks)
     if (saveAsName) args.push(`back_cam_${saveAsName}.jpg`);
     else args.push(`back_cam_${Date.now()}.jpg`);
     return await run(`termux-camera-photo`, args);
+  }
+
+  getBackCamPhotoSync(saveAsName) {
+    const args = [`-c`, `0`]; // Back cam (methinks)
+    if (saveAsName) args.push(`back_cam_${saveAsName}.jpg`);
+    else args.push(`back_cam_${Date.now()}.jpg`);
+    return runSync(`termux-camera-photo`, args);
   }
 
   async ls() {

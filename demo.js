@@ -34,7 +34,7 @@ const rm = async (pathToFile) => {
 const rmSync = (pathToFile) => {
   console.log('android.rm() begin...');
   try {
-    android.rm(pathToFile);
+    android.rmSync(pathToFile);
   } catch (error) {
     if (error.code === 'ENOENT') console.log(`\t"${pathToFile}" not found! Skipping...`);
     else throw error;
@@ -96,10 +96,34 @@ const getFaceCamPhoto = async (saveFileAs) => {
   }
 };
 
+const getFaceCamPhotoSync = (saveFileAs) => {
+  console.log('android.getFaceCamPhoto() begin...');
+  try {
+    android.getFaceCamPhoto(saveFileAs);
+  } catch (error) {
+    if (error.code === 'ENOENT') console.log(`\tCamera not found! Skipping...`);
+    else throw error;
+  } finally {
+  console.log('android.getFaceCamPhoto() done!');
+  }
+};
+
 const getBackCamPhoto = async (saveFileAs) => {
   console.log('android.getBackCamPhoto() begin...');
   try {
-    await android.getBackCamPhoto(saveFileAs);
+    await android.getBackCamPhotoSync(saveFileAs);
+  } catch (error) {
+    if (error.code === 'ENOENT') console.log(`\tCamera not found! Skipping...`);
+    else throw error;
+  } finally {
+  console.log('android.getBackCamPhoto() done!');
+  }
+};
+
+const getBackCamPhotoSync = (saveFileAs) => {
+  console.log('android.getBackCamPhoto() begin...');
+  try {
+    android.getBackCamPhotoSync(saveFileAs);
   } catch (error) {
     if (error.code === 'ENOENT') console.log(`\tCamera not found! Skipping...`);
     else throw error;
@@ -158,13 +182,13 @@ const showConfirmDialog = async () => {
 
 const snapAndShowFace = () => {
   rmSync(`face_cam_test.jpg`);
-  getFaceCamPhoto(`test`);
+  getFaceCamPhotoSync(`test`);
   showFileSync(`face_cam_test.jpg`);
 };
 
 const snapAndShowBack = () => {
   rmSync(`back_cam_test.jpg`);
-  getBackCamPhoto(`test`);
+  getBackCamPhotoSync(`test`);
   showFileSync(`back_cam_test.jpg`);
 };
 
