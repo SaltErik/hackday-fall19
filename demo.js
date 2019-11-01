@@ -296,7 +296,7 @@ async function run() {
     [console.log, `\nDEMO: Well, no problem. Let's snap a fresh pic with the face camera...'\n`],
     [console.log, `\nDEMO: Say cheese!'\n`],
     [takeFaceCamPhoto, `dope_selfie`],
-    [vibratePhone, `750`],  // Some tactile feedback
+    [vibratePhone, `500`],  // Some tactile feedback
     [console.log, `\nDEMO: There we are. Did it save properly?'\n`],
     [ls],
     [console.log, `\nDEMO: See any "dope_selfie.jpg"?'\n`],
@@ -306,19 +306,23 @@ async function run() {
   ];
 
   const vibrationDemo = [
-    [console.log, `\nDEMO: This should vibrate a ton...'\n`],
-    [vibratePhone],
-    [vibratePhone],
-    [vibratePhone],
-    [console.log, `\nDEMO: It better have vibrated...'\n`],
+    [console.log, `\nDEMO: The intentful stare (200ms vibration)...'\n`],
+    [vibratePhone, 200],
+    [console.log, `\nDEMO: The throat-clearer (400ms vibration)...'\n`],
+    [vibratePhone, 400],
+    [console.log, `\nDEMO: The shoulder tap (800ms)...'\n`],
+    [vibratePhone, 800],
+    [console.log, `\nDEMO: The prolonged sigh (1600ms)'\n`],
+    [vibratePhone, 1600],
   ];
 
   const demoReels = [
     // createAndDeleteFileDemo,
     // toggleFlashlightDemo,
-    // getPhoneCameraInfo,
-    snapFaceCamAndShowPhoto,
     vibrationDemo,
+    // getPhoneCameraInfo,
+    // snapFaceCamAndShowPhoto,
+
   ];
 
   for await (const eachReel of demoReels) {  // Consecutive execution on purpose
