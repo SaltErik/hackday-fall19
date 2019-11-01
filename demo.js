@@ -142,14 +142,14 @@ const showConfirmDialog = async () => {
   }
 };
 
-const snapAndShowFront = () => {
+const snapAndShowFace = () => {
   getBackCamPhoto(`cam_test`);
-  showFile(`back_cam_test.jpg`);
+  showFileSync(`back_cam_test.jpg`);
 };
 
 const snapAndShowBack = () => {
-  getFrontCamPhoto(`cam_test`);
-  showFile(`back_cam_test.jpg`);
+  getFaceCamPhoto(`cam_test`);
+  showFileSync(`back_cam_test.jpg`);
 };
 
 
@@ -165,7 +165,7 @@ async function run() {
     // showFileSync,
     // getFaceCamPhoto,
     // showFileSync,
-    snapAndShowFront,
+    snapAndShowFace,
     snapAndShowBack,
     showConfirmDialog,
     openURL,
