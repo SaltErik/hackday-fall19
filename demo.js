@@ -236,6 +236,10 @@ async function run() {
     [console.log, `\nDEMO: Now it should be ON instead...\n`],
     [toggleFlashlight],
     [console.log, `\nDEMO: And now it should be OFF once again...\n`],
+    [toggleFlashlight],
+    [console.log, `\nDEMO: And ON again...\n`],
+    [toggleFlashlight],
+    [console.log, `\nDEMO: And finally OFF.\n`],
   ];
 
   // const snapFaceCamAndShowPhoto = [
