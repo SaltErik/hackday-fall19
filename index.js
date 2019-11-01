@@ -11,7 +11,7 @@ class Android {
   }
 
   async getCameraInfo() {
-    return await JSON.parse(await run(`termux-camera-info`));
+    return await run(`termux-camera-info`);
   }
 
   async takePhoto(saveAsName) {

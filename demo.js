@@ -5,16 +5,7 @@ const android = new Android();
 
 process.on('unhandledRejection', console.log);
 
-const wait = async () => {
-  return await setTimeout(console.log, 100000000)
-};
-
-const pause = async () => {
-  return await setTimeout(console.log, 1000)
-};
-
-// User facing API
-
+const wait = async () => await setTimeout(console.log, 100000000);
 
 const ls = async () => {
   console.log('android.ls() begin...');
@@ -55,7 +46,7 @@ const vibrate = async () => {
 const getCameraInfo = async () => {
   console.log('android.getCameraInfo() begin...');
   try {
-    console.log(await android.getCameraInfo());
+    console.log(await JSON.parse(await android.getCameraInfo()));
   } catch (error) {
     if (error.code === 'ENOENT') console.log(`\tAndroid camera not found! Skipping...`);
     else throw error;
@@ -114,6 +105,7 @@ const openURL = async () => {
   }
 };
 
+
 const showConfirmDialog = async () => {
   console.log('android.showConfirmDialog() begin...');
   try {
@@ -141,7 +133,7 @@ async function run() {
     showConfirmDialog,
   ];
   for (const each of androidFunctions) {
-    await each(); // call function to get returned Promise
+    await each();
   };
 }
 
