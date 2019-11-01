@@ -143,12 +143,12 @@ const showConfirmDialog = async () => {
 };
 
 const snapAndShowFace = () => {
-  getBackCamPhoto(`cam_test`);
+  getBackCamPhoto(`test`);
   showFileSync(`back_cam_test.jpg`);
 };
 
 const snapAndShowBack = () => {
-  getFaceCamPhoto(`cam_test`);
+  getFaceCamPhoto(`test`);
   showFileSync(`back_cam_test.jpg`);
 };
 
