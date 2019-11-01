@@ -9,7 +9,7 @@ const longRun = async () => await setTimeout(console.log, 100000000);
 
 const pause = async () => await setTimeout(console.log, 5000);
 
-const DEBUG = false;
+const DEBUG = true;
 
 
 const ls = async () => {
