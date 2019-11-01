@@ -11,7 +11,7 @@ const pause = async (ms=2500) => {
   if (DEBUG) console.log(`pause...`);
   return await setTimeout(console.log, ms);}
 
-const DEBUG = false;
+const DEBUG = true;
 
 
 const ls = async () => {
@@ -306,8 +306,8 @@ async function run() {
   ];
 
   const demoReels = [
-    // createAndDeleteFileDemo,
-    // toggleFlashlightDemo,
+    createAndDeleteFileDemo,
+    toggleFlashlightDemo,
     getPhoneCameraInfo,
     snapFaceCamAndShowPhoto,
   ];
@@ -315,7 +315,7 @@ async function run() {
   for await (const eachReel of demoReels) {  // Consecutive execution on purpose
     await pause().then(DEBUG ? console.log(`\nDEMO: Running next reel...\n`) : void(0));
     for await (const eachDemo of eachReel) {
-      await pause().then(await eachDemo[0](eachDemo[1] ? eachDemo[1] : ['hello']));
+      await pause().then(await eachDemo[0](eachDemo[1] ? eachDemo[1] : void(0)));
     }
   };
 }
