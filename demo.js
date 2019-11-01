@@ -146,13 +146,13 @@ const showConfirmDialog = async () => {
 const snapAndShowFace = async () => {
   await rm(`face_cam_test.jpg`);
   await getFaceCamPhoto(`test`);
-  await showFileSync(`face_cam_test.jpg`);
+  await showFile(`face_cam_test.jpg`);
 };
 
 const snapAndShowBack = async () => {
   await rm(`face_cam_test.jpg`);
   await getBackCamPhoto(`test`);
-  await showFileSync(`back_cam_test.jpg`);
+  await showFile(`back_cam_test.jpg`);
 };
 
 
