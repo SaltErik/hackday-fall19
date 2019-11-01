@@ -83,6 +83,9 @@ const getBackCameraInfo = async () => {
   if (DEBUG) console.log('\nandroid.getCameraInfo() begin...');
   try {
     const { stdout } = await android.getCameraInfo();
+    console.log(`Back STDOUT:`, stdout);
+    console.log(`Back STDOUT[0]:`, stdout[0]);
+    console.log(`Back STDOUT[1]:`, stdout[1]);
     console.log(await JSON.parse(stdout[0]));
   } catch (error) {
     if (error.code === 'ENOENT') DEBUG ? console.log(`Not running on Android! That's fine. Skipping...`) : void(0);
@@ -98,6 +101,9 @@ const getFrontCameraInfo = async () => {
   if (DEBUG) console.log('\nandroid.getCameraInfo() begin...');
   try {
     const { stdout } = await android.getCameraInfo();
+    console.log(`Front STDOUT:`, stdout);
+    console.log(`Front STDOUT[0]:`, stdout[0]);
+    console.log(`Front STDOUT[1]:`, stdout[1]);
     console.log(await JSON.parse(stdout[1]));
   } catch (error) {
     if (error.code === 'ENOENT') DEBUG ? console.log(`Not running on Android! That's fine. Skipping...`) : void(0);
