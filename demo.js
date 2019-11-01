@@ -215,11 +215,17 @@ async function run() {
   await longRun();
 
   const createDeleteFileDemo = [
+    [console.log, `\nDEMO: We list the contents of the phone's working directory...\n`],
     [ls],
+    [console.log, `\nDEMO: Notice, no file named "dummyFile.txt" exists...\n`],
     [touchFile, `dummyFile.txt`],
+    [console.log, `\nDEMO: We run the shell "touch" command on the phone...\n`],
     [ls],
+    [console.log, `\nDEMO: Presto! Now "dummyfile.txt" exists...\n`],
     [rm, `dummyFile.txt`],
+    [console.log, `\nDEMO: We run the shell "rm" command on "dummyFile.txt"...\n`],
     [ls],
+    [console.log, `\nDEMO: ...aaaaand it's gone.\n`],
   ];
 
   const toggleFlashlightDemo = [
@@ -230,9 +236,13 @@ async function run() {
     [console.log, `\nDEMO: Should be off again...\n`],
   ];
 
+  // const gpsDemo = [
+
+  // ];
+
   const demoReels = [
-    toggleFlashlightDemo,
-    // createDeleteFileDemo,
+    // toggleFlashlightDemo,
+    createDeleteFileDemo,
   ];
 
   for (const eachReel of demoReels) {  // Runs consecutively on purpose
