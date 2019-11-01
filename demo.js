@@ -150,7 +150,7 @@ const snapAndShowFace = async () => {
 };
 
 const snapAndShowBack = async () => {
-  await rm(`face_cam_test.jpg`);
+  await rm(`back_cam_test.jpg`);
   await getBackCamPhoto(`test`);
   await showFile(`back_cam_test.jpg`);
 };
