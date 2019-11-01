@@ -142,12 +142,12 @@ const showConfirmDialog = async () => {
   }
 };
 
-const snapAndShowFront = () {
+const snapAndShowFront = () => {
   getBackCamPhoto(`cam_test`);
   showFile(`back_cam_test.jpg`);
 };
 
-const snapAndShowBack = () {
+const snapAndShowBack = () => {
   getFrontCamPhoto(`cam_test`);
   showFile(`back_cam_test.jpg`);
 };
