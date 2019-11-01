@@ -9,17 +9,20 @@ const longRun = async () => await setTimeout(console.log, 100000000);
 
 const pause = async () => await setTimeout(console.log, 5000);
 
+const DEBUG = false;
+
+
 const ls = async () => {
-  console.log('android.ls() begin...');
-  const { stdout, stderr } = await android.ls();
-  if (await stderr) console.log(`STDERR: ${await stderr}`);
+  if (DEBUG) console.log('\nandroid.ls() begin...');
+  const { stdout } = await android.ls();
   const result = await stdout.split(`\n`);
   console.log(await result.filter((string) => !!string));
-  console.log('android.ls() done!');
+  if (DEBUG) console.log('android.ls() done!\n');
 };
 
+
 const rm = async (pathToFile) => {
-  console.log('android.rm() begin...');
+  if (DEBUG) console.log('\nandroid.rm() begin...');
   try {
     await android.rm(pathToFile);
   } catch (error) {
@@ -27,38 +30,40 @@ const rm = async (pathToFile) => {
     else throw error;
   }
   finally {
-    console.log('android.rm() done!');
+    if (DEBUG) console.log('android.rm() done!\n');
   }
 };
 
-const rmSync = (pathToFile) => {
-  console.log('android.rm() begin...');
+const touch = async (newFileName) => {  // Admittedly an ambigous name on a touch device
+  if (DEBUG) console.log('\nandroid.touch() begin...');
   try {
-    android.rmSync(pathToFile);
+    await android.touch(newFileName);
   } catch (error) {
-    if (error.code === 'ENOENT') console.log(`\t"${pathToFile}" not found! Skipping...`);
+    if (error.code === 'ENOENT') console.log(`\t"${newFileName}" not found! Skipping...`);
     else throw error;
   }
   finally {
-    console.log('android.rm() done!');
+    if (DEBUG) console.log('android.touch() done!\n');
   }
 };
 
-const vibrate = async () => {
-  console.log('android.vibrate() begin...');
+
+const vibratePhone = async () => {
+  if (DEBUG) console.log('\nandroid.vibratePhone() begin...');
   try {
-    await android.vibrate();
+    await android.vibratePhone();
   } catch (error) {
     if (error.code === 'ENOENT') console.log(`\tTiny rumbling hamster not found! Skipping...`);
     else throw error;
   }
   finally {
-    console.log('android.vibrate() done!');
+    if (DEBUG) console.log('android.vibratePhone() done!\n');
   }
 };
 
+
 const getCameraInfo = async () => {
-  console.log('android.getCameraInfo() begin...');
+  if (DEBUG) console.log('\nandroid.getCameraInfo() begin...');
   try {
     const { stdout } = await android.getCameraInfo();
     console.log(await JSON.parse(stdout));
@@ -67,12 +72,13 @@ const getCameraInfo = async () => {
     else throw error;
   }
   finally {
-    console.log('android.getCameraInfo() done!');
+    if (DEBUG) console.log('android.getCameraInfo() done!\n');
   }
 };
 
+
 const setUpStorage = async () => {
-  console.log('android.setUpStorage() begin...');
+  if (DEBUG) console.log('\nandroid.setUpStorage() begin...');
   try {
     await android.setUpStorage();
   } catch (error) {
@@ -80,140 +86,99 @@ const setUpStorage = async () => {
     else throw error;
   }
   finally {
-    console.log('android.setUpStorage() done!');
+    if (DEBUG) console.log('android.setUpStorage() done!\n');
   }
 };
 
-const getFaceCamPhoto = async (saveFileAs) => {
-  console.log('android.getFaceCamPhoto() begin...');
+
+const takeFaceCamPhoto = async (saveFileAs) => {
+  if (DEBUG) console.log('\nandroid.getFaceCamPhoto() begin...');
   try {
-    await android.getFaceCamPhoto(saveFileAs);
+    await android.takeFaceCamPhoto(saveFileAs);
   } catch (error) {
     if (error.code === 'ENOENT') console.log(`\tCamera not found! Skipping...`);
     else throw error;
   } finally {
-  console.log('android.getFaceCamPhoto() done!');
+    if (DEBUG) console.log('android.takeFaceCamPhoto() done!\n');
   }
 };
 
-const getFaceCamPhotoSync = (saveFileAs) => {
-  console.log('android.getFaceCamPhoto() begin...');
+
+const takeBackCamPhoto = async (saveFileAs) => {
+  if (DEBUG) console.log('\nandroid.takeBackCamPhoto() begin...');
   try {
-    android.getFaceCamPhoto(saveFileAs);
+    await android.takeBackCamPhotoSync(saveFileAs);
   } catch (error) {
     if (error.code === 'ENOENT') console.log(`\tCamera not found! Skipping...`);
     else throw error;
   } finally {
-  console.log('android.getFaceCamPhoto() done!');
+    if (DEBUG) console.log('android.takeBackCamPhoto() done!\n');
   }
 };
 
-const getBackCamPhoto = async (saveFileAs) => {
-  console.log('android.getBackCamPhoto() begin...');
-  try {
-    await android.getBackCamPhotoSync(saveFileAs);
-  } catch (error) {
-    if (error.code === 'ENOENT') console.log(`\tCamera not found! Skipping...`);
-    else throw error;
-  } finally {
-  console.log('android.getBackCamPhoto() done!');
-  }
-};
-
-const getBackCamPhotoSync = (saveFileAs) => {
-  console.log('android.getBackCamPhoto() begin...');
-  try {
-    android.getBackCamPhotoSync(saveFileAs);
-  } catch (error) {
-    if (error.code === 'ENOENT') console.log(`\tCamera not found! Skipping...`);
-    else throw error;
-  } finally {
-  console.log('android.getBackCamPhoto() done!');
-  }
-};
 
 const showFile = async (pathToFile) => {
-  console.log('android.showFile() begin...');
+  if (DEBUG) console.log('\nandroid.showFile() begin...');
   try {
     await android.showFile(pathToFile);
   } catch (error) {
     if (error.code === 'ENOENT') console.log(`\t"${pathToFile}" not found! Skipping...`);
     else throw error;
   }
-  console.log('android.showFile() done!');
+  if (DEBUG) console.log('android.showFile() done!\n');
 };
 
-const showFileSync = (pathToFile) => {
-  console.log('android.showFile() begin...');
-  try {
-    android.showFileSync(pathToFile);
-  } catch (error) {
-    if (error.code === 'ENOENT') console.log(`\t"${pathToFile}" not found! Skipping...`);
-    else throw error;
-  }
-  console.log('android.showFile() done!');
-};
 
 const openURL = async () => {
-  console.log('android.openURL() begin...');
+  if (DEBUG) console.log('\nandroid.openURL() begin...');
   try {
     await android.openURL(`https://www.study-at-salt.com`);
   } catch (error) {
     if (error.code === 'ENOENT') console.log(`\tAndroid browser not found! Skipping...`);
     else throw error;
   } finally {
-    console.log('android.openURL() done!');
+    if (DEBUG) console.log('android.openURL() done!\n');
   }
 };
 
 
-const showConfirmDialog = async () => {
-  console.log('android.showConfirmDialog() begin...');
+const showDialog = async () => {
+  if (DEBUG) console.log('\nandroid.showDialog() begin...');
   try {
-    const { stdout } = await android.showConfirmDialog(`What is your favorite color?`, `Don't answer yellow...`);
+    const { stdout } = await android.showDialog(`What is your favorite color?`, `Don't answer yellow...`);
     console.log(await JSON.parse(stdout));
   } catch (error) {
     if (error.code === 'ENOENT') console.log(`\tAndroid dialog not found! Skipping...`);
     else throw error;
   } finally {
-    console.log('android.showConfirmDialog() done!');
+    if (DEBUG) console.log('android.showDialog() done!\n');
   }
 };
 
-const snapAndShowFace = () => {
-  rmSync(`face_cam_test.jpg`);
-  getFaceCamPhotoSync(`test`);
-  showFileSync(`face_cam_test.jpg`);
+
+const snapAndShowFace = async () => {
+  await rm(`face_cam_test.jpg`);
+  await getFaceCamPhoto(`test`);
+  await showFile(`face_cam_test.jpg`);
 };
 
-const snapAndShowBack = () => {
-  rmSync(`back_cam_test.jpg`);
-  getBackCamPhotoSync(`test`);
-  showFileSync(`back_cam_test.jpg`);
+
+const snapAndShowBack = async () => {
+  await rm(`back_cam_test.jpg`);
+  await getBackCamPhoto(`test`);
+  await showFile(`back_cam_test.jpg`);
 };
 
 
 async function run() {
-  const androidFunctions = [
-    longRun,
-    ls,
-    rm,
-    vibrate,
-    getCameraInfo,
-    setUpStorage,
-    // getBackCamPhoto,
-    // showFileSync,
-    // getFaceCamPhoto,
-    // showFileSync,
-    snapAndShowFace,
-    pause,
-    snapAndShowBack,
-    pause,
-    // showConfirmDialog,
-    // openURL,
+  await longRun();
+  const demoReel = [
+    [ls],
+    [touch, `dummyFile.txt`],
+    [rm, `dummyFile.txt`],
   ];
-  for (const each of androidFunctions) {
-    await each();
+  for (const eachDemo of demoReel) {  // Consecutive execution on purpose
+    await eachDemo[0](eachDemo[1] ? eachDemo[1] : void(0)).then(pause);
   };
 }
 
