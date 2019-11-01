@@ -33,7 +33,7 @@ const rm = async () => {
 const vibrate = async () => {
   console.log('android.vibrate() begin...');
   try {
-    console.log(await android.vibrate());
+    await android.vibrate();
   } catch (error) {
     if (error.code === 'ENOENT') console.log(`\tTiny rumbling hamster not found! Skipping...`);
     else throw error;
@@ -46,7 +46,8 @@ const vibrate = async () => {
 const getCameraInfo = async () => {
   console.log('android.getCameraInfo() begin...');
   try {
-    console.log(await JSON.parse(await android.getCameraInfo()));
+    const { stdout } = await android.getCameraInfo();
+    console.log(await JSON.parse(stdout));
   } catch (error) {
     if (error.code === 'ENOENT') console.log(`\tAndroid camera not found! Skipping...`);
     else throw error;
