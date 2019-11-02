@@ -64,11 +64,9 @@ const vibratePhone = async (ms) => {
 const getCameraInfo = async () => {
   if (DEBUG) console.log('\nandroid.getCameraInfo() begin...');
   try {
-    console.log(await android.getCameraInfo());
     const { stdout } = await android.getCameraInfo();
-    console.log(stdout);
     const cameras = await JSON.parse(await stdout);
-    console.log(await cameras);
+    console.log([...cameras]);
   } catch (error) {
     if (error.code === 'ENOENT') DEBUG ? console.log(`Not running on Android! That's fine. Skipping...`) : void (0);
     else throw error;
@@ -328,7 +326,6 @@ const main = async () => {
     [console.log, `\nlet's find out!'\n`],
     [getCameraInfo],
     [console.log, `\nWhoah! That's a lot of info!\n`],
-    [takeFaceCamPhoto, `test_photo`],
     [console.log, `\nLet's just focus on the front camera...\n`],
     [getFrontCameraInfo],
     [console.log, `\nThere, that's better...\n`],
