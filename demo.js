@@ -298,18 +298,22 @@ const main = async () => {
     [rm, `foo.txt`],  // Pre-emptive cleanup
     [console.log, `\nWe list the contents of the phone's current working directory using ${yellow('shell.ls()')}.\n`],
     [ls],
-    [console.log, `\nNotice, no file named ${green('foo.txt')} exists.\n`],
+    [console.log, `\nNotice no file named ${green('foo.txt')} exists.\n`],
     [console.log, `\nFair enough.\n`],
     [touchFile, `foo.txt`],
-    [console.log, `\nWe create a new empty file named ${green('foo.txt')} by calling ${yellow("shell.touch('foo.txt')")}...\n`],
+    [console.log, `\nSo we create an empty file named ${green('foo.txt')} using ${yellow("shell.touch('foo.txt')")}.\n`],
+    [vibratePhone, 500],
+    [console.log, `\nWe call ${yellow('shell.ls()')} a second time...\n`],
     [ls],
-    [console.log, `\n...and presto! Now ${green('foo.txt')} exists.\n`],
+    [console.log, `\n...and there it is -- ${green('foo.txt')} now exists.\n`],
     [console.log, `\nBut not for long!\n`],
-    [console.log, `\nWe invoke ${yellow("shell.rm('foo.txt')")}.\n`],
-    [console.log, `\nWe call ${yellow('shell.ls()')} once more, looking for ${green('foo.txt')}...\n`],
+    [console.log, `\nLet's delete it again using ${yellow("shell.rm('foo.txt')")}!\n`],
+    [vibratePhone, 500],
+    [console.log, `\nDid it work? Only one way to find out!\n`],
+    [console.log, `\nWe call ${yellow('shell.ls()')} one last time, looking for ${green('foo.txt')}...\n`],
     [rm, `foo.txt`],
     [ls],
-    [console.log, `\n...aaaaand ${green('foo.txt')} is gone.\n`],
+    [console.log, `\n...aaaaand it's gone.\n`],
   ];
 
   const toggleFlashlightDemo = [
@@ -379,13 +383,13 @@ const main = async () => {
   for (const reel of demoReels) {
     await clear();
     if (DEBUG) console.log(`\nRunning next demoReel...\n`);
-    await sleep(333);  // Set above zero if it please you Sir
+    await sleep(500);  // Set above zero if it please you Sir
     for (const demo of reel) {  // Consecutive on purpose
       const [demoFunction, demoArguments] = demo;
       if (DEBUG) console.log(`\nRunning next step in the current demo...\n`);
-      await sleep(333);
+      await sleep(500);
       await demoFunction(demoArguments);
-      await sleep(333);
+      await sleep(500);
     }
   };
 }
