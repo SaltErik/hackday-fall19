@@ -21,15 +21,4 @@ dependencies = {
 
 const android = new Android(dependencies);  // Constructor injection
 
-// const proxyHandler = {}; // Lets everything through atm
-
-// const proxiedAndroid = new Proxy(android, proxyHandler);
-
 module.exports.android = android;
-
-// from exploringjs.com/es6/ch_proxies.html#_revocable-references
-// function createRevocableReference(target) {
-//   const handler = {}; // forward everything
-//   const { proxy, revoke } = Proxy.revocable(target, handler);
-//   return { reference: proxy, revoke };
-// }

@@ -261,7 +261,9 @@ const pwd = async () => {
   }
 };
 
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 const tactileDelete = async (fileName) => await Promise.all([vibratePhone(200), rm(`${fileName}`)]);
 const tactileCreate = async (fileName) => await Promise.all([vibratePhone(200), touch(`${fileName}`)]);
@@ -290,7 +292,7 @@ const underline = (text) => reset(`\u001b[4m${text}`);
 const reversed = (text) => reset(`\u001b[7m${text}`);
 
 
-const sleep = (delay=1000) => new Promise(resolve => setTimeout(resolve, delay));
+const sleep = (delay=500) => new Promise(resolve => setTimeout(resolve, delay));
 
 const main = async () => {
 
