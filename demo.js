@@ -383,7 +383,7 @@ const main = async () => {
   for (const reel of demoReels) {
     await clear();
     if (DEBUG) console.log(`\nRunning next demoReel...\n`);
-    await sleep(2500);  // Set above zero if it please you Sir
+    await sleep(0);  // Set above zero if it please you Sir
     for (const demo of reel) {  // Consecutive on purpose
       const [demoFunction, demoArguments] = demo;
       if (DEBUG) console.log(`\nRunning next step in the current demo...\n`);
