@@ -8,6 +8,7 @@ process.on('unhandledRejection', console.log);
 const keepNodeRunning = async (ms=10000000) => await setTimeout(console.log, ms);
 
 const DEBUG = true;
+const delay = 2500;
 
 const execute = (args) => {
   if (DEBUG) console.log(`Executing ${args[0]}(${args[1] ? args[1] : ''}...)`);
@@ -15,7 +16,7 @@ const execute = (args) => {
   givenFunction(givenArguments);
 }
 
-const executeDelayed = (delay=2500, args) => {
+const executeDelayed = (args) => {
   if (DEBUG) console.log(`Pausing for ${delay} ms...`);
   setTimeout(execute(args), delay);
 }
