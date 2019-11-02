@@ -11,12 +11,14 @@ const DEBUG = true;
 const delay = 2500;
 
 const execute = (args) => {
+  console.log(`execute args: `, args)
   if (DEBUG) console.log(`Executing ${args[0]}(${args[1] ? args[1] : ''}...)`);
   const [givenFunction, givenArguments] = args;
   givenFunction(givenArguments);
 }
 
 const executeDelayed = (args) => {
+  console.log(`executeDelayed args: `, args)
   if (DEBUG) console.log(`Pausing for ${delay} ms...`);
   setTimeout(execute(args), delay);
 }
