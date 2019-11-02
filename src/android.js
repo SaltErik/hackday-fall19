@@ -109,16 +109,3 @@ module.exports.Android = class Android {
   }
 
 }
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////
-
-// const ProxiedClass = new Proxy(Android, {
-//   construct(target, argArray, newTarget) {
-//     return new target(...argArray);
-//   },
-//   get(one, two, three) {
-//     console.log(one, two, three);
-//   }
-// });
-
-// module.exports.Android = ProxiedClass;

@@ -305,6 +305,7 @@ const main = async () => {
   ];
 
   const toggleFlashlightDemo = [
+    [console.log, `\n\n${brightGreen('\t>>>')} ${bold('Toggling the flashlight')} ${brightGreen('<<<')}\n`],
     [console.log, `\nWe ensure the flashlight is OFF before starting...\n`],
     [turnFlashlightOff],
     [console.log, `\nAnd so — assuming the flashlight is OFF...\n`],
@@ -319,6 +320,7 @@ const main = async () => {
   ];
 
   const getPhoneCameraInfo = [
+    [console.log, `\n\n${brightGreen('\t>>>')} ${bold('Retrieving camera information')} ${brightGreen('<<<')}\n`],
     [console.log, `\nWonder which cameras are available on this phone...'\n`],
     [console.log, `\nlet's find out!'\n`],
     [getCameraInfo],
@@ -334,6 +336,7 @@ const main = async () => {
 
   const snapFaceCamAndShowPhoto = [
     [rm, `foo.txt`],  // Pre-emptive cleanup
+    [console.log, `\n\n${brightGreen('\t>>>')} ${bold('Snapping a photo and showing it to the user')} ${brightGreen('<<<')}\n`],
     [console.log, `\nWe examine the contents of the current directory...'\n`],
     [ls],
     [console.log, `\nDang. We have no sweet selfies of our user...'\n`],
@@ -350,6 +353,7 @@ const main = async () => {
   ];
 
   const vibrationDemo = [
+    [console.log, `\n\n${brightGreen('\t>>>')} ${bold('Feeling the vibrations')} ${brightGreen('<<<')}\n`],
     [console.log, `\nThe intentful stare (250ms vibration)...'\n`],
     [vibratePhone, 250],
     [console.log, `\nThe throat-clearer (500ms vibration)...'\n`],
@@ -361,11 +365,11 @@ const main = async () => {
   ];
 
   const demoReels = [
-    // createAndDeleteFileDemo,
+    createAndDeleteFileDemo,
     toggleFlashlightDemo,
-    // vibrationDemo,
-    // getPhoneCameraInfo,
-    // snapFaceCamAndShowPhoto,
+    vibrationDemo,
+    getPhoneCameraInfo,
+    snapFaceCamAndShowPhoto,
   ];
 
   for (const reel of demoReels) {
@@ -374,9 +378,9 @@ const main = async () => {
     for (const demo of reel) {  // Consecutive on purpose
       const [demoFunction, demoArguments] = demo;
       if (DEBUG) console.log(`\nRunning next step in the current demo...\n`);
-      await sleep(750);
+      await sleep(666);
       await demoFunction(demoArguments);
-      await sleep(750);
+      await sleep(666);
     }
   };
 }

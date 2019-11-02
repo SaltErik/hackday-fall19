@@ -11,11 +11,3 @@ module.exports.State = class State {
   }
 
 }
-
-// const ProxiedClass = new Proxy(State, {
-//   construct(target, argArray, newTarget) {
-//     return new target(...argArray);
-//   },
-// });
-
-// module.exports.State = ProxiedClass;
