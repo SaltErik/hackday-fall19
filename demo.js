@@ -264,6 +264,9 @@ const pwd = async () => {
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+const tactileDelete = async (fileName) => await Promise.all([vibratePhone(200), rm(`${fileName}`)]);
+
+const tactileCreate = async (fileName) => await Promise.all([vibratePhone(200), rm(`${fileName}`)]);
 
 const reset = (coloredText) => `${coloredText}\u001b[0m`; 
 const black = (text) => reset(`\u001b[30m${text}`);
@@ -302,15 +305,17 @@ const main = async () => {
     [console.log, `\nNotice no file named ${green('foo.txt')} exists.\n`],
     [console.log, `\nFair enough.\n`],
     [console.log, `\nSo we create an empty file named ${green('foo.txt')} using ${yellow("shell.touch('foo.txt')")}.\n`],
-    [vibratePhone, 250],
-    [touchFile, `foo.txt`],
+    // [vibratePhone, 200],
+    // [touchFile, `foo.txt`],
+    [tactileCreate, `foo.txt`],
     [console.log, `\nWe then call ${yellow('shell.ls()')} a second time...\n`],
     [ls],
     [console.log, `\n...and there it is -- ${green('foo.txt')} now exists.\n`],
     [console.log, `\nBut not for long!\n`],
     [console.log, `\nLet's delete it again, using ${yellow("shell.rm('foo.txt')")}!\n`],
-    [vibratePhone, 250],
-    [rm, `foo.txt`],
+    // [vibratePhone, 200],
+    // [rm, `foo.txt`],
+    [tactileDelete, `foo.txt`],
     [console.log, `\nDid it work? Only one way to find out!\n`],
     [console.log, `\nWe call ${yellow('shell.ls()')} one last time, looking for ${green('foo.txt')}...\n`],
     [ls],
