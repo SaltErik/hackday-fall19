@@ -1,18 +1,20 @@
 'use strict';
-const { Android } = require('../hackday-fall19');
+const { Android } = require('./android');
 
-const android = new Android();
+// const android = new Android();
 
 process.on('unhandledRejection', console.log);
 
-const longRun = async (ms=10000000) => await setTimeout(console.log, ms);
+const keepNodeRunning = async (ms=10000000) => await setTimeout(console.log, ms);
 
-const pause = async (ms=2500) => {
-  if (DEBUG) console.log(`pause...`);
-  return await setTimeout(console.log, ms);}
+const pause = (ms=2500) => {
+  if (DEBUG) console.log(`Pausing for ${ms} ms...`);
+  setTimeout(console.log, ms);
+}
 
 const DEBUG = true;
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 const ls = async () => {
   if (DEBUG) console.log('\nandroid.ls() begin...');
@@ -28,7 +30,7 @@ const rm = async (pathToFile) => {
   try {
     await android.rm(pathToFile);
   } catch (error) {
-    if (error.code === 'ENOENT') DEBUG ? console.log(`Not running on Android! That's fine. Skipping...`) : void(0);
+    if (error.code === 'ENOENT') DEBUG ? console.log(`Not running on Android! That's fine. Skipping...`) : void (0);
     else throw error;
   }
   finally {
@@ -41,7 +43,7 @@ const touchFile = async (newFileName) => {
   try {
     await android.touchFile(newFileName);
   } catch (error) {
-    if (error.code === 'ENOENT') DEBUG ? console.log(`Not running on Android! That's fine. Skipping...`) : void(0);
+    if (error.code === 'ENOENT') DEBUG ? console.log(`Not running on Android! That's fine. Skipping...`) : void (0);
     else throw error;
   }
   finally {
@@ -55,7 +57,7 @@ const vibratePhone = async (ms) => {
   try {
     await android.vibratePhone(ms);
   } catch (error) {
-    if (error.code === 'ENOENT') DEBUG ? console.log(`Not running on Android! That's fine. Skipping...`) : void(0);
+    if (error.code === 'ENOENT') DEBUG ? console.log(`Not running on Android! That's fine. Skipping...`) : void (0);
     else throw error;
   }
   finally {
@@ -70,7 +72,7 @@ const getCameraInfo = async () => {
     const { stdout } = await android.getCameraInfo();
     console.log(await JSON.parse(stdout));
   } catch (error) {
-    if (error.code === 'ENOENT') DEBUG ? console.log(`Not running on Android! That's fine. Skipping...`) : void(0);
+    if (error.code === 'ENOENT') DEBUG ? console.log(`Not running on Android! That's fine. Skipping...`) : void (0);
     else throw error;
   }
   finally {
@@ -86,7 +88,7 @@ const getBackCameraInfo = async () => {
     const cameras = await JSON.parse(stdout);
     console.log(await cameras[0]);
   } catch (error) {
-    if (error.code === 'ENOENT') DEBUG ? console.log(`Not running on Android! That's fine. Skipping...`) : void(0);
+    if (error.code === 'ENOENT') DEBUG ? console.log(`Not running on Android! That's fine. Skipping...`) : void (0);
     else throw error;
   }
   finally {
@@ -102,7 +104,7 @@ const getFrontCameraInfo = async () => {
     const cameras = await JSON.parse(stdout);
     console.log(await cameras[1]);
   } catch (error) {
-    if (error.code === 'ENOENT') DEBUG ? console.log(`Not running on Android! That's fine. Skipping...`) : void(0);
+    if (error.code === 'ENOENT') DEBUG ? console.log(`Not running on Android! That's fine. Skipping...`) : void (0);
     else throw error;
   }
   finally {
@@ -116,7 +118,7 @@ const setUpStorage = async () => {
   try {
     await android.setUpStorage();
   } catch (error) {
-    if (error.code === 'ENOENT') DEBUG ? console.log(`Not running on Android! That's fine. Skipping...`) : void(0);
+    if (error.code === 'ENOENT') DEBUG ? console.log(`Not running on Android! That's fine. Skipping...`) : void (0);
     else throw error;
   }
   finally {
@@ -130,7 +132,7 @@ const takeFaceCamPhoto = async (saveAsName) => {
   try {
     await android.takeFaceCamPhoto(saveAsName);
   } catch (error) {
-    if (error.code === 'ENOENT') DEBUG ? console.log(`Not running on Android! That's fine. Skipping...`) : void(0);
+    if (error.code === 'ENOENT') DEBUG ? console.log(`Not running on Android! That's fine. Skipping...`) : void (0);
     else throw error;
   } finally {
     if (DEBUG) console.log('android.takeFaceCamPhoto() done!\n');
@@ -143,7 +145,7 @@ const takeBackCamPhoto = async (saveAsName) => {
   try {
     await android.takeBackCamPhotoSync(saveAsName);
   } catch (error) {
-    if (error.code === 'ENOENT') DEBUG ? console.log(`Not running on Android! That's fine. Skipping...`) : void(0);
+    if (error.code === 'ENOENT') DEBUG ? console.log(`Not running on Android! That's fine. Skipping...`) : void (0);
     else throw error;
   } finally {
     if (DEBUG) console.log('android.takeBackCamPhoto() done!\n');
@@ -156,7 +158,7 @@ const showFile = async (pathToFile) => {
   try {
     await android.showFile(pathToFile);
   } catch (error) {
-    if (error.code === 'ENOENT') DEBUG ? console.log(`Not running on Android! That's fine. Skipping...`) : void(0);
+    if (error.code === 'ENOENT') DEBUG ? console.log(`Not running on Android! That's fine. Skipping...`) : void (0);
     else throw error;
   }
   if (DEBUG) console.log('android.showFile() done!\n');
@@ -168,7 +170,7 @@ const openURL = async () => {
   try {
     await android.openURL(`https://www.study-at-salt.com`);
   } catch (error) {
-    if (error.code === 'ENOENT') DEBUG ? console.log(`Not running on Android! That's fine. Skipping...`) : void(0);
+    if (error.code === 'ENOENT') DEBUG ? console.log(`Not running on Android! That's fine. Skipping...`) : void (0);
     else throw error;
   } finally {
     if (DEBUG) console.log('android.openURL() done!\n');
@@ -182,20 +184,19 @@ const showDialog = async () => {
     const { stdout } = await android.showDialog(`What is your favorite color?`, `Don't answer yellow...`);
     console.log(await JSON.parse(stdout));
   } catch (error) {
-    if (error.code === 'ENOENT') DEBUG ? console.log(`Not running on Android! That's fine. Skipping...`) : void(0);
+    if (error.code === 'ENOENT') DEBUG ? console.log(`Not running on Android! That's fine. Skipping...`) : void (0);
     else throw error;
   } finally {
     if (DEBUG) console.log('android.showDialog() done!\n');
   }
 };
 
-
 const turnFlashlightOn = async () => {
   if (DEBUG) console.log('\nandroid.turnFlashlightOn() begin...');
   try {
     await android.turnFlashlightOn();
   } catch (error) {
-    if (error.code === 'ENOENT') DEBUG ? console.log(`Not running on Android! That's fine. Skipping...`) : void(0);
+    if (error.code === 'ENOENT') DEBUG ? console.log(`Not running on Android! That's fine. Skipping...`) : void (0);
     else throw error;
   } finally {
     if (DEBUG) console.log('android.turnFlashlightOn() done!\n');
@@ -208,7 +209,7 @@ const turnFlashlightOff = async () => {
   try {
     await android.turnFlashlightOff();
   } catch (error) {
-    if (error.code === 'ENOENT') DEBUG ? console.log(`Not running on Android! That's fine. Skipping...`) : void(0);
+    if (error.code === 'ENOENT') DEBUG ? console.log(`Not running on Android! That's fine. Skipping...`) : void (0);
     else throw error;
   } finally {
     if (DEBUG) console.log('android.turnFlashlightOff() done!\n');
@@ -221,20 +222,19 @@ const toggleFlashlight = async () => {
   try {
     await android.toggleFlashlight();
   } catch (error) {
-    if (error.code === 'ENOENT') DEBUG ? console.log(`Not running on Android! That's fine. Skipping...`) : void(0);
+    if (error.code === 'ENOENT') DEBUG ? console.log(`Not running on Android! That's fine. Skipping...`) : void (0);
     else throw error;
   } finally {
     if (DEBUG) console.log('android.toggleFlashlight() done!\n');
   }
 }
 
-
 const getLocationInfo = async () => {
   if (DEBUG) console.log('\nandroid.getLocationInfo() begin...');
   try {
     await android.getLocationInfo();
   } catch (error) {
-    if (error.code === 'ENOENT') DEBUG ? console.log(`Not running on Android! That's fine. Skipping...`) : void(0);
+    if (error.code === 'ENOENT') DEBUG ? console.log(`Not running on Android! That's fine. Skipping...`) : void (0);
     else throw error;
   } finally {
     if (DEBUG) console.log('android.getLocationInfo() done!\n');
@@ -242,22 +242,11 @@ const getLocationInfo = async () => {
 };
 
 
-const snapAndShowFace = async () => {
-  await rm(`face_cam_test.jpg`);
-  await getFaceCamPhoto(`test`);
-  await showFile(`face_cam_test.jpg`);
-};
-
-
-const snapAndShowBack = async () => {
-  await rm(`back_cam_test.jpg`);
-  await getBackCamPhoto(`test`);
-  await showFile(`back_cam_test.jpg`);
-};
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 async function run() {
-  await longRun();
+  await keepNodeRunning();
 
   const createAndDeleteFileDemo = [
     [console.log, `\nDEMO: We list the contents of the phone's working directory...\n`],
@@ -336,17 +325,19 @@ async function run() {
   ];
 
   const demoReels = [
-    // createAndDeleteFileDemo,
-    toggleFlashlightDemo,
+    createAndDeleteFileDemo,
+    // toggleFlashlightDemo,
     // vibrationDemo,
     getPhoneCameraInfo,
     // snapFaceCamAndShowPhoto,
   ];
 
-  for await (const eachReel of demoReels) {  // Consecutive execution on purpose
-    await pause().then(DEBUG ? console.log(`\nDEMO: Running next reel...\n`) : void(0));
-    for await (const eachDemo of eachReel) {
-      await pause().then(await eachDemo[0](eachDemo[1] ? eachDemo[1] : void(0)));
+  for (const eachReel of demoReels) {
+    pause();
+    DEBUG ? console.log(`\nDEMO: Running next reel...\n`) : void (0);
+    for (const eachDemo of eachReel) {
+      pause();
+      await eachDemo[0](eachDemo[1] ? eachDemo[1] : void (0));
     }
   };
 }

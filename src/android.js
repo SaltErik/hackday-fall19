@@ -1,14 +1,15 @@
 `use strict`;
-const { promisify } = require(`util`);
-const { execFile, execFileSync } = require(`child_process`);
-const run = promisify(execFile);
 
 
-class Android {
+module.exports.Android = class Android {
 
-  constructor() {
+  constructor({ run, state, shell }) {
+    // Singleton Android smartphone -> singleton class instance to represent it
     if (!!Android.instance) return Android.instance;
     else Android.instance = this;
+    // Composition happens here
+    this.shell = shell || null;
+    // State is managed here
     this.flashlightIsOn = false;
   }
 
@@ -101,6 +102,7 @@ class Android {
     return await run(`termux-torch`, args);
   }
 
+
   async toggleFlashlight() {
     if (this.flashlightIsOn) {
       return await this.turnFlashlightOff();
@@ -110,6 +112,3 @@ class Android {
   }
 
 }
-
-
-module.exports = { Android };
