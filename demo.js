@@ -300,18 +300,18 @@ const main = async () => {
     [ls],
     [console.log, `\nNotice no file named ${green('foo.txt')} exists.\n`],
     [console.log, `\nFair enough.\n`],
-    [touchFile, `foo.txt`],
     [console.log, `\nSo we create an empty file named ${green('foo.txt')} using ${yellow("shell.touch('foo.txt')")}.\n`],
-    [vibratePhone, 500],
-    [console.log, `\nWe call ${yellow('shell.ls()')} a second time...\n`],
+    [vibratePhone, 250],
+    [touchFile, `foo.txt`],
+    [console.log, `\nWe then call ${yellow('shell.ls()')} a second time...\n`],
     [ls],
     [console.log, `\n...and there it is -- ${green('foo.txt')} now exists.\n`],
     [console.log, `\nBut not for long!\n`],
-    [console.log, `\nLet's delete it again using ${yellow("shell.rm('foo.txt')")}!\n`],
-    [vibratePhone, 500],
+    [console.log, `\nLet's delete it again, using ${yellow("shell.rm('foo.txt')")}!\n`],
+    [vibratePhone, 250],
+    [rm, `foo.txt`],
     [console.log, `\nDid it work? Only one way to find out!\n`],
     [console.log, `\nWe call ${yellow('shell.ls()')} one last time, looking for ${green('foo.txt')}...\n`],
-    [rm, `foo.txt`],
     [ls],
     [console.log, `\n...aaaaand it's gone.\n`],
   ];
@@ -383,13 +383,13 @@ const main = async () => {
   for (const reel of demoReels) {
     await clear();
     if (DEBUG) console.log(`\nRunning next demoReel...\n`);
-    await sleep(500);  // Set above zero if it please you Sir
+    await sleep(2500);  // Set above zero if it please you Sir
     for (const demo of reel) {  // Consecutive on purpose
       const [demoFunction, demoArguments] = demo;
       if (DEBUG) console.log(`\nRunning next step in the current demo...\n`);
-      await sleep(500);
+      await sleep(750);
       await demoFunction(demoArguments);
-      await sleep(500);
+      await sleep(750);
     }
   };
 }
