@@ -7,5 +7,6 @@ module.exports.State = class State {
     // Quantum superposition considered harmful
     if (!!State.instance) return State.instance;
     else State.instance = this;
+  }
 
 }
