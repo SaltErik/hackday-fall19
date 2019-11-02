@@ -306,7 +306,7 @@ const main = async () => {
     [tactileCreate, `foo.txt`],
     [console.log, `\nWe then call ${yellow('shell.ls()')} a second time...\n`],
     [ls],
-    [console.log, `\n...and there it is -- ${green('foo.txt')} now exists.\n`],
+    [console.log, `\n...and there it is — ${green('foo.txt')} now exists.\n`],
     [console.log, `\nBut not for long!\n`],
     [console.log, `\nLet's delete it again, using ${yellow("shell.rm('foo.txt')")}!\n`],
     [tactileDelete, `foo.txt`],
@@ -319,7 +319,7 @@ const main = async () => {
   const toggleFlashlightDemo = [
     [console.log, `\nWe ensure the flashlight is OFF before starting...\n`],
     [turnFlashlightOff],
-    [console.log, `\nAnd so -- assuming the flashlight is OFF...\n`],
+    [console.log, `\nAnd so — assuming the flashlight is OFF...\n`],
     [toggleFlashlight],
     [console.log, `\nNow it should be ON instead...\n`],
     [toggleFlashlight],
