@@ -295,7 +295,7 @@ const main = async () => {
 
   const createAndDeleteFileDemo = [
     [rm, `foo.txt`],  // Pre-emptive cleanup
-    [android.clear],
+    [clear],
     [console.log, `\n\n${brightGreen('\t>>>>')} ${bold('Creating and deleting files')} ${brightGreen('<<<<')}\n`],
     [console.log, `\nWe list the contents of the phone's current working directory using ${yellow('shell.ls()')}.\n`],
     [ls],
