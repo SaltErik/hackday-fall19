@@ -257,8 +257,8 @@ const main = async () => {
   ];
 
   const toggleFlashlightDemo = [
-    // [console.log, `\nDEMO: We ensure the flashlight is OFF before starting...\n`],
-    // [turnFlashlightOff],
+    [console.log, `\nDEMO: We ensure the flashlight is OFF before starting...\n`],
+    [turnFlashlightOff],
     [console.log, `\nDEMO: And so -- assuming the flashlight is OFF...\n`],
     [toggleFlashlight],
     [console.log, `\nDEMO: Now it should be ON instead...\n`],
@@ -303,7 +303,6 @@ const main = async () => {
 
   const vibrationDemo = [
     [console.log, `\nDEMO: The intentful stare (250ms vibration)...'\n`],
-    [setTimeout, 250],
     [vibratePhone, 250],
     [console.log, `\nDEMO: The throat-clearer (500ms vibration)...'\n`],
     [vibratePhone, 500],
@@ -324,8 +323,9 @@ const main = async () => {
   for (const reel of demoReels) {
     if (DEBUG) console.log(`\nDEMO: Next reel...\n`);
     for (const demo of reel) {
+      const [demoFunction, demoArguments] = demo;
       if (DEBUG) console.log(`\nDEMO: Next demo...\n`);
-      await demo[0](demo[1] ? demo[1] : void(0));
+      await demoFunction(demoArguments);
     }
   };
 }
