@@ -64,8 +64,11 @@ const vibratePhone = async (ms) => {
 const getCameraInfo = async () => {
   if (DEBUG) console.log('\nandroid.getCameraInfo() begin...');
   try {
-    const { stdout } = await JSON.parse(await android.getCameraInfo());
-    console.log(await stdout);
+    console.log(await android.getCameraInfo());
+    const { stdout } = await android.getCameraInfo();
+    console.log(stdout);
+    const cameras = await JSON.parse(await stdout);
+    console.log(await cameras);
   } catch (error) {
     if (error.code === 'ENOENT') DEBUG ? console.log(`Not running on Android! That's fine. Skipping...`) : void (0);
     else throw error;
