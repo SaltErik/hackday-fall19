@@ -15,7 +15,7 @@ const { Shell } = require('./shell.js');
 // Use null to say "unavailable in the current environment"
 dependencies = {
   run: promisify(execFile),  // overall execution strategy
-  state: new State(),  // encapsulate phone state
+  state: new State(),
   shell: new Shell(),  // provide shell commands
 };
 

@@ -1,9 +1,9 @@
 `use strict`;
 
 
-class Android {
+module.exports.Android = class Android {
 
-  constructor({ run, state, shell }) {
+  constructor({ run, shell, state }) {
     // Singleton smartphone in your hand -> singleton object to represent it
     if (!!Android.instance) return Android.instance;
     else Android.instance = this;
@@ -12,7 +12,7 @@ class Android {
     this.state = state;
     this.shell = shell;
     // State is managed here
-    this.flashlight = this.state.flashlight;
+    this.flashlightIsOn = null; // Start in an unknown state
   }
 
   async pwd() {
@@ -89,19 +89,21 @@ class Android {
   }
 
   async turnFlashlightOn() {
-    this.flashlight = true;
+    if (!!this.flashlightIsOn) return true;
+    this.flashlightIsOn = true;
     const args = [`on`];
     return await this.run(`termux-torch`, args);
   }
 
   async turnFlashlightOff() {
-    this.flashlight = false;
+    if (!!this.flashlightIsOn) return false;
+    this.flashlightIsOn = false;
     const args = [`off`];
     return await this.run(`termux-torch`, args);
   }
 
   async toggleFlashlight() {
-    if (this.flashlight) {
+    if (!!this.flashlightIsOn) {
       return await this.turnFlashlightOff();
     } else {
       return await this.turnFlashlightOn();
@@ -112,10 +114,13 @@ class Android {
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 
-const ProxiedClass = new Proxy(Android, {
-  construct(target, argArray, newTarget) {
-    return new target(...argArray);
-  },
-});
+// const ProxiedClass = new Proxy(Android, {
+//   construct(target, argArray, newTarget) {
+//     return new target(...argArray);
+//   },
+//   get(one, two, three) {
+//     console.log(one, two, three);
+//   }
+// });
 
-module.exports.Android = ProxiedClass;
+// module.exports.Android = ProxiedClass;

@@ -236,19 +236,6 @@ const getLocationInfo = async () => {
   }
 };
 
-
-const clear = async () => {
-  if (DEBUG) console.log('\nandroid.clear() begin...');
-  try {
-    await android.clear();
-  } catch (error) {
-    if (error.code === 'ENOENT') DEBUG ? console.log(`Not running on Android! That's fine. Skipping...`) : void (0);
-    else throw error;
-  } finally {
-    if (DEBUG) console.log('android.clear() done!\n');
-  }
-};
-
 const pwd = async () => {
   if (DEBUG) console.log('\nandroid.pwd() begin...');
   try {
@@ -298,7 +285,6 @@ const main = async () => {
 
   const createAndDeleteFileDemo = [
     [rm, `foo.txt`],  // Pre-emptive cleanup
-    [clear],
     [console.log, `\n\n${brightGreen('\t>>>')} ${bold('Creating and deleting files')} ${brightGreen('<<<')}\n`],
     [console.log, `\nWe list the contents of the phone's current working directory using ${yellow('shell.ls()')}.\n`],
     [ls],
@@ -375,15 +361,14 @@ const main = async () => {
   ];
 
   const demoReels = [
-    createAndDeleteFileDemo,
-    // toggleFlashlightDemo,
+    // createAndDeleteFileDemo,
+    toggleFlashlightDemo,
     // vibrationDemo,
     // getPhoneCameraInfo,
     // snapFaceCamAndShowPhoto,
   ];
 
   for (const reel of demoReels) {
-    await clear();
     if (DEBUG) console.log(`\nRunning next demoReel...\n`);
     await sleep(0);  // Set above zero if it please you Sir
     for (const demo of reel) {  // Consecutive on purpose
