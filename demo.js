@@ -212,10 +212,10 @@ const turnFlashlightOff = async () => {
 }
  
 
-const toggleFlashlight = () => {
+const toggleFlashlight = async () => {
   if (DEBUG) console.log('\nandroid.toggleFlashlight() begin...');
   try {
-    android.toggleFlashlight();
+    await android.toggleFlashlight();
   } catch (error) {
     if (error.code === 'ENOENT') DEBUG ? console.log(`Not running on Android! That's fine. Skipping...`) : void (0);
     // else throw error;
