@@ -218,7 +218,7 @@ const toggleFlashlight = async () => {
     await android.toggleFlashlight();
   } catch (error) {
     if (error.code === 'ENOENT') DEBUG ? console.log(`Not running on Android! That's fine. Skipping...`) : void (0);
-    // else throw error;
+    else throw error;
   } finally {
     if (DEBUG) console.log('android.toggleFlashlight() done!\n');
   }
@@ -325,7 +325,7 @@ const main = async () => {
     if (DEBUG) console.log(`\nDEMO: Next reel...\n`);
     for (const demo of reel) {
       if (DEBUG) console.log(`\nDEMO: Next demo...\n`);
-      demo[0](demo[1] ? demo[1] : void(0));
+      await demo[0](demo[1] ? demo[1] : void(0));
     }
   };
 }
