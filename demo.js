@@ -366,11 +366,11 @@ const main = async () => {
   ];
 
   const demoReels = [
-    createAndDeleteFileDemo,
-    toggleFlashlightDemo,
-    vibrationDemo,
+    // createAndDeleteFileDemo,
+    // toggleFlashlightDemo,
+    // vibrationDemo,
     getPhoneCameraInfo,
-    snapFaceCamAndShowPhoto,
+    // snapFaceCamAndShowPhoto,
   ];
 
   for (const reel of demoReels) {
