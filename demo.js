@@ -19,7 +19,7 @@ const execute = (args) => {
 
 const executeDelayed = (args) => {
   console.log(`executeDelayed args: `, args)
-  for (const arg in args) {
+  for (const arg of args) {
     if (DEBUG) console.log(`Pausing for ${delay} ms...`);
     setTimeout(execute(arg), delay);
   }
