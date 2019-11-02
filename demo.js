@@ -294,20 +294,22 @@ const sleep = (delay=1000) => new Promise(resolve => setTimeout(resolve, delay))
 const main = async () => {
 
   const createAndDeleteFileDemo = [
-    [console.log, `\n\n${brightGreen('\t>>>')} ${bold('Creating and deleting files')} ${brightGreen('<<<')}\n`],
+    [console.log, `\n\n${brightGreen('\t>>>>')} ${bold('Creating and deleting files')} ${brightGreen('<<<<')}\n`],
     [rm, `foo.txt`],  // Pre-emptive cleanup
-    [console.log, `\nWe list the contents of the phone's current working directory using ${brightYellow('shell.ls()')}.\n`],
+    [console.log, `\nWe list the contents of the phone's current working directory using ${yellow('shell.ls()')}.\n`],
     [ls],
-    [console.log, `\nNotice, no file named ${red('foo.txt')} exists.\n`],
+    [console.log, `\nNotice, no file named ${green('foo.txt')} exists.\n`],
+    [console.log, `\nFair enough.\n`],
     [touchFile, `foo.txt`],
-    [console.log, `\nWe create an empty ${brightYellow('foo.txt')} on the phone using ${brightYellow("shell.touch('foo.txt')")}...\n`],
+    [console.log, `\nWe create a new empty file named ${green('foo.txt')} by calling ${yellow("shell.touch('foo.txt')")}...\n`],
     [ls],
-    [console.log, `\n...and, Presto! Now ${brightYellow('foo.txt')} exists.\n`],
+    [console.log, `\n...and presto! Now ${green('foo.txt')} exists.\n`],
     [console.log, `\nBut not for long!\n`],
-    [console.log, `\nWe invoke ${brightYellow("shell.rm('foo.txt')")}...\n`],
+    [console.log, `\nWe invoke ${yellow("shell.rm('foo.txt')")}.\n`],
+    [console.log, `\nWe call ${yellow('shell.ls()')} once more, looking for ${green('foo.txt')}...\n`],
     [rm, `foo.txt`],
     [ls],
-    [console.log, `\n...aaaaand it's gone.\n`],
+    [console.log, `\n...aaaaand ${green('foo.txt')} is gone.\n`],
   ];
 
   const toggleFlashlightDemo = [
@@ -377,12 +379,13 @@ const main = async () => {
   for (const reel of demoReels) {
     await clear();
     if (DEBUG) console.log(`\nRunning next demoReel...\n`);
-    await sleep(0);  // Set above zero if it please you Sir
+    await sleep(333);  // Set above zero if it please you Sir
     for (const demo of reel) {  // Consecutive on purpose
       const [demoFunction, demoArguments] = demo;
       if (DEBUG) console.log(`\nRunning next step in the current demo...\n`);
-      await sleep(500);
+      await sleep(333);
       await demoFunction(demoArguments);
+      await sleep(333);
     }
   };
 }
