@@ -21,9 +21,7 @@ dependencies = {
 
 const android = new Android(dependencies);  // Constructor injection
 
-const proxyHandler = {
-
-};
+const proxyHandler = {}; // Lets everything through atm
 
 const proxiedAndroid = new Proxy(android, proxyHandler);
 
