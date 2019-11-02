@@ -15,7 +15,7 @@ module.exports.Android = class Android {
     this.flashlightIsOn = false;
   }
 
-  
+
   async pwd() {
     return await this.run(`pwd`);
   }
@@ -37,7 +37,7 @@ module.exports.Android = class Android {
   }
 
 
-  async touchFile(newFileName) {
+  async touch(newFileName) {
     const args = [`${newFileName}`];
     return await this.run(`touch`, args);
   }

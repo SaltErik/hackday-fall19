@@ -33,16 +33,16 @@ const rm = async (pathToFile) => {
   }
 };
 
-const touchFile = async (newFileName) => {
-  if (DEBUG) console.log('\nandroid.touchFile() begin...');
+const touch = async (newFileName) => {
+  if (DEBUG) console.log('\nandroid.touch() begin...');
   try {
-    await android.touchFile(newFileName);
+    await android.touch(newFileName);
   } catch (error) {
     if (error.code === 'ENOENT') DEBUG ? console.log(`Not running on Android! That's fine. Skipping...`) : void (0);
     else throw error;
   }
   finally {
-    if (DEBUG) console.log('android.touchFile() done!\n');
+    if (DEBUG) console.log('android.touch() done!\n');
   }
 };
 
@@ -297,10 +297,10 @@ const main = async () => {
   const createAndDeleteFileDemo = [
     [rm, `foo.txt`],  // Pre-emptive cleanup
     [clear],
-    [console.log, `\n\n${brightGreen('\t>>>>')} ${bold('Creating and deleting files')} ${brightGreen('<<<<')}\n`],
+    [console.log, `\n\n${brightGreen('\t>>>')} ${bold('Creating and deleting files')} ${brightGreen('<<<')}\n`],
     [console.log, `\nWe list the contents of the phone's current working directory using ${yellow('shell.ls()')}.\n`],
     [ls],
-    [console.log, `\nNotice no file named ${green('foo.txt')} exists.\n`],
+    [console.log, `\nNotice, no file named ${green('foo.txt')} exists.\n`],
     [console.log, `\nFair enough.\n`],
     [console.log, `\nSo we create an empty file named ${green('foo.txt')} using ${yellow("shell.touch('foo.txt')")}.\n`],
     [tactileCreate, `foo.txt`],
