@@ -5,7 +5,7 @@ const { android } = require('./src');
 
 process.on('unhandledRejection', console.log);
 
-const DEBUG = true;
+const DEBUG = false;
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -236,15 +236,28 @@ const getLocationInfo = async () => {
   }
 };
 
-const echo = async (message) => {
-  if (DEBUG) console.log('\nandroid.echo() begin...');
+
+const clear = async () => {
+  if (DEBUG) console.log('\nandroid.clear() begin...');
   try {
-    await android.echo(message);
+    await android.clear();
   } catch (error) {
     if (error.code === 'ENOENT') DEBUG ? console.log(`Not running on Android! That's fine. Skipping...`) : void (0);
     else throw error;
   } finally {
-    if (DEBUG) console.log('android.echo() done!\n');
+    if (DEBUG) console.log('android.clear() done!\n');
+  }
+};
+
+const pwd = async () => {
+  if (DEBUG) console.log('\nandroid.pwd() begin...');
+  try {
+    await android.pwd();
+  } catch (error) {
+    if (error.code === 'ENOENT') DEBUG ? console.log(`Not running on Android! That's fine. Skipping...`) : void (0);
+    else throw error;
+  } finally {
+    if (DEBUG) console.log('android.pwd() done!\n');
   }
 };
 
@@ -252,75 +265,104 @@ const echo = async (message) => {
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
+const reset = (coloredText) => `${coloredText}\u001b[0m`; 
+const black = (text) => reset(`\u001b[30m${text}`);
+const red = (text) => reset(`\u001b[31m${text}`);
+const green = (text) => reset(`\u001b[32m${text}`);
+const yellow = (text) => reset(`\u001b[33m${text}`);
+const blue = (text) => reset(`\u001b[34m${text}`);
+const magenta = (text) => reset(`\u001b[35m${text}`);
+const cyan = (text) => reset(`\u001b[36m${text}`);
+const white = (text) => reset(`\u001b[37m${text}`);
+
+const brightBlack = (text) => reset(`\u001b[30;1m${text}`);
+const brightRed = (text) => reset(`\u001b[31;1m${text}`);
+const brightGreen = (text) => reset(`\u001b[32;1m${text}`);
+const brightYellow = (text) => reset(`\u001b[33;1m${text}`);
+const brightBlue = (text) => reset(`\u001b[34;1m${text}`);
+const brightMagenta = (text) => reset(`\u001b[35;1m${text}`);
+const brightCyan = (text) => reset(`\u001b[36;1m${text}`);
+const brightWhite = (text) => reset(`\u001b[37;1m${text}`);
+
+const bold = (text) => reset(`\u001b[1m${text}`);
+const underline = (text) => reset(`\u001b[4m${text}`);
+const reversed = (text) => reset(`\u001b[7m${text}`);
+
+
+const sleep = (delay=1000) => new Promise(resolve => setTimeout(resolve, delay));
+
 const main = async () => {
 
   const createAndDeleteFileDemo = [
-    [echo, `\nDEMO: We list the contents of the phone's working directory...\n`],
+    [console.log, `\n\n${brightGreen('\t>>>')} ${bold('Creating and deleting files')} ${brightGreen('<<<')}\n`],
+    [rm, `foo.txt`],  // Pre-emptive cleanup
+    [console.log, `\nWe list the contents of the phone's current working directory using ${brightYellow('shell.ls()')}.\n`],
     [ls],
-    [echo, `\nDEMO: Notice, no file named "dummyFile.txt" exists...\n`],
-    [touchFile, `dummyFile.txt`],
-    [echo, `\nDEMO: We run the shell "touch" command on the phone...\n`],
+    [console.log, `\nNotice, no file named ${red('foo.txt')} exists.\n`],
+    [touchFile, `foo.txt`],
+    [console.log, `\nWe create an empty ${brightYellow('foo.txt')} on the phone using ${brightYellow("shell.touch('foo.txt')")}...\n`],
     [ls],
-    [echo, `\nDEMO: Presto! Now "dummyfile.txt" exists...\n`],
-    [rm, `dummyFile.txt`],
-    [echo, `\nDEMO: We run the shell "rm" command on "dummyFile.txt"...\n`],
+    [console.log, `\n...and, Presto! Now ${brightYellow('foo.txt')} exists.\n`],
+    [console.log, `\nBut not for long!\n`],
+    [console.log, `\nWe invoke ${brightYellow("shell.rm('foo.txt')")}...\n`],
+    [rm, `foo.txt`],
     [ls],
-    [echo, `\nDEMO: ...aaaaand it's gone.\n`],
+    [console.log, `\n...aaaaand it's gone.\n`],
   ];
 
   const toggleFlashlightDemo = [
-    [echo, `\nDEMO: We ensure the flashlight is OFF before starting...\n`],
+    [console.log, `\nWe ensure the flashlight is OFF before starting...\n`],
     [turnFlashlightOff],
-    [echo, `\nDEMO: And so -- assuming the flashlight is OFF...\n`],
+    [console.log, `\nAnd so -- assuming the flashlight is OFF...\n`],
     [toggleFlashlight],
-    [echo, `\nDEMO: Now it should be ON instead...\n`],
+    [console.log, `\nNow it should be ON instead...\n`],
     [toggleFlashlight],
-    [echo, `\nDEMO: And now it should be OFF once again...\n`],
+    [console.log, `\nAnd now it should be OFF once again...\n`],
     [toggleFlashlight],
-    [echo, `\nDEMO: And ON again...\n`],
+    [console.log, `\nAnd ON again...\n`],
     [toggleFlashlight],
-    [echo, `\nDEMO: And finally OFF.\n`],
+    [console.log, `\nAnd finally OFF.\n`],
   ];
 
   const getPhoneCameraInfo = [
-    [echo, `\nDEMO: Wonder which cameras are available on this phone...'\n`],
-    [echo, `\nDEMO: let's find out!'\n`],
+    [console.log, `\nWonder which cameras are available on this phone...'\n`],
+    [console.log, `\nlet's find out!'\n`],
     [getCameraInfo],
-    [echo, `\nDEMO: Whoah! That's a lot of info!\n`],
+    [console.log, `\nWhoah! That's a lot of info!\n`],
     [takeFaceCamPhoto, `test_photo`],
-    [echo, `\nDEMO: Let's just focus on the front camera...\n`],
+    [console.log, `\nLet's just focus on the front camera...\n`],
     [getFrontCameraInfo],
-    [echo, `\nDEMO: There, that's better...\n`],
-    [echo, `\nDEMO: And how about the back camera?\n`],
+    [console.log, `\nThere, that's better...\n`],
+    [console.log, `\nAnd how about the back camera?\n`],
     [getBackCameraInfo],
-    [echo, `\nDEMO: Cool! So we know we have some cameras to work with.\n`],
+    [console.log, `\nCool! So we know we have some cameras to work with.\n`],
   ];
 
   const snapFaceCamAndShowPhoto = [
-    [rm, `dummyFile.txt`],  // Pre-emptive cleanup
-    [echo, `\nDEMO: We examine the contents of the current directory...'\n`],
+    [rm, `foo.txt`],  // Pre-emptive cleanup
+    [console.log, `\nWe examine the contents of the current directory...'\n`],
     [ls],
-    [echo, `\nDEMO: Dang. We have no sweet selfies of our user...'\n`],
-    [echo, `\nDEMO: Well, no problem. Let's snap a fresh pic with the face camera...'\n`],
-    [echo, `\nDEMO: Say cheese!'\n`],
+    [console.log, `\nDang. We have no sweet selfies of our user...'\n`],
+    [console.log, `\nWell, no problem. Let's snap a fresh pic with the face camera...'\n`],
+    [console.log, `\nSay cheese!'\n`],
     [takeFaceCamPhoto, `dope_selfie`],
     [vibratePhone, `500`],  // Some tactile feedback
-    [echo, `\nDEMO: There we are. Did it save properly?'\n`],
+    [console.log, `\nThere we are. Did it save properly?'\n`],
     [ls],
-    [echo, `\nDEMO: See any "dope_selfie.jpg"?'\n`],
-    [echo, `\nDEMO: Allright, let's dislay it to the user!'\n`],
+    [console.log, `\nSee any "dope_selfie.jpg"?'\n`],
+    [console.log, `\nAllright, let's dislay it to the user!'\n`],
     [showFile, `dope_selfie.jpg`],
-    [echo, `\nDEMO: My man!'\n`],
+    [console.log, `\nMy man!'\n`],
   ];
 
   const vibrationDemo = [
-    [echo, `\nDEMO: The intentful stare (250ms vibration)...'\n`],
+    [console.log, `\nThe intentful stare (250ms vibration)...'\n`],
     [vibratePhone, 250],
-    [echo, `\nDEMO: The throat-clearer (500ms vibration)...'\n`],
+    [console.log, `\nThe throat-clearer (500ms vibration)...'\n`],
     [vibratePhone, 500],
-    [echo, `\nDEMO: The shoulder tap (1000ms vibration)...'\n`],
+    [console.log, `\nThe shoulder tap (1000ms vibration)...'\n`],
     [vibratePhone, 1000],
-    [echo, `\nDEMO: The prolonged sigh (2000ms vibration)'\n`],
+    [console.log, `\nThe prolonged sigh (2000ms vibration)'\n`],
     [vibratePhone, 2000],
   ];
 
@@ -333,10 +375,13 @@ const main = async () => {
   ];
 
   for (const reel of demoReels) {
-    if (DEBUG) console.log(`\nDEMO: Next reel...\n`);
-    for (const demo of reel) {
+    await clear();
+    if (DEBUG) console.log(`\nRunning next demoReel...\n`);
+    await sleep(0);  // Set above zero if it please you Sir
+    for (const demo of reel) {  // Consecutive on purpose
       const [demoFunction, demoArguments] = demo;
-      if (DEBUG) console.log(`\nDEMO: Next demo...\n`);
+      if (DEBUG) console.log(`\nRunning next step in the current demo...\n`);
+      await sleep(500);
       await demoFunction(demoArguments);
     }
   };

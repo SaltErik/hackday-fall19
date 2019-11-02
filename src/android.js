@@ -15,10 +15,14 @@ module.exports.Android = class Android {
     this.flashlightIsOn = false;
   }
 
+  
+  async pwd() {
+    return await this.run(`pwd`);
+  }
 
-  async echo(message) {
-    const args = [`${message}`];
-    return await this.run(`echo`, args);
+
+  async clear() {
+    return await this.run(`clear`);
   }
 
 
