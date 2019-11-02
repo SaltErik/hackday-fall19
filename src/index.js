@@ -25,7 +25,7 @@ const proxyHandler = {}; // Lets everything through atm
 
 const proxiedAndroid = new Proxy(android, proxyHandler);
 
-module.exports.Android = proxiedAndroid;
+module.exports.android = proxiedAndroid;
 
 // from exploringjs.com/es6/ch_proxies.html#_revocable-references
 // function createRevocableReference(target) {

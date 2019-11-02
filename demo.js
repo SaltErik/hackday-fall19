@@ -1,5 +1,5 @@
 'use strict';
-const { Android } = require('./src');
+const { android } = require('./src');
 
 // const android = new Android();
 
@@ -7,12 +7,18 @@ process.on('unhandledRejection', console.log);
 
 const keepNodeRunning = async (ms=10000000) => await setTimeout(console.log, ms);
 
-const pause = (ms=2500) => {
-  if (DEBUG) console.log(`Pausing for ${ms} ms...`);
-  setTimeout(console.log, ms);
+const DEBUG = true;
+
+const execute = (args) => {
+  if (DEBUG) console.log(`Executing ${args[0]}(${args[1] ? args[1] : ''}...)`);
+  const [givenFunction, givenArguments] = args;
+  givenFunction(givenArguments);
 }
 
-const DEBUG = true;
+const executeDelayed = (delay=2500, args) => {
+  if (DEBUG) console.log(`Pausing for ${delay} ms...`);
+  setTimeout(execute(args), delay);
+}
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -245,7 +251,7 @@ const getLocationInfo = async () => {
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-async function run() {
+async function main() {
   await keepNodeRunning();
 
   const createAndDeleteFileDemo = [
@@ -287,7 +293,7 @@ async function run() {
     [console.log, `\nDEMO: There, that's better...\n`],
     [console.log, `\nDEMO: And how about the back camera?\n`],
     [getBackCameraInfo],
-    [console.log, `\nDEMO: Cool! So we know we have some cameras to work with.\n`],
+    [console.log, `\nDEMO: Cool! So we know we have some cameras to work given.\n`],
   ];
 
   const snapFaceCamAndShowPhoto = [
@@ -295,7 +301,7 @@ async function run() {
     [console.log, `\nDEMO: We examine the contents of the current directory...'\n`],
     [ls],
     [console.log, `\nDEMO: Dang. We have no sweet selfies of our user...'\n`],
-    [console.log, `\nDEMO: Well, no problem. Let's snap a fresh pic with the face camera...'\n`],
+    [console.log, `\nDEMO: Well, no problem. Let's snap a fresh pic given the face camera...'\n`],
     [console.log, `\nDEMO: Say cheese!'\n`],
     [takeFaceCamPhoto, `dope_selfie`],
     [vibratePhone, `500`],  // Some tactile feedback
@@ -332,14 +338,10 @@ async function run() {
     // snapFaceCamAndShowPhoto,
   ];
 
-  for (const eachReel of demoReels) {
-    pause();
-    DEBUG ? console.log(`\nDEMO: Running next reel...\n`) : void (0);
-    for (const eachDemo of eachReel) {
-      pause();
-      await eachDemo[0](eachDemo[1] ? eachDemo[1] : void (0));
-    }
+  for (const each of demoReels) {
+    if (DEBUG) console.log(`\nDEMO: Running next reel...\n`);
+    executeDelayed(each);
   };
 }
 
-run();
+main();
