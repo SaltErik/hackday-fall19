@@ -5,27 +5,11 @@ const { android } = require('./src');
 
 process.on('unhandledRejection', console.log);
 
-const keepNodeRunning = async (ms=10000000) => await setTimeout(console.log, ms);
-
 const DEBUG = true;
-const delay = 2500;
 
-const execute = (args) => {
-  console.log(`execute args: `, args)
-  if (DEBUG) console.log(`Executing ${args[0]}(${args[1] ? args[1] : ''}...)`);
-  const [givenFunction, givenArguments] = args;
-  givenFunction(givenArguments);
-}
-
-const executeDelayed = (args) => {
-  console.log(`executeDelayed args: `, args)
-  for (const arg of args) {
-    if (DEBUG) console.log(`Pausing for ${delay} ms...`);
-    setTimeout(execute(arg), delay);
-  }
-}
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 const ls = async () => {
   if (DEBUG) console.log('\nandroid.ls() begin...');
@@ -226,15 +210,15 @@ const turnFlashlightOff = async () => {
     if (DEBUG) console.log('android.turnFlashlightOff() done!\n');
   }
 }
+ 
 
-
-const toggleFlashlight = async () => {
+const toggleFlashlight = () => {
   if (DEBUG) console.log('\nandroid.toggleFlashlight() begin...');
   try {
-    await android.toggleFlashlight();
+    android.toggleFlashlight();
   } catch (error) {
     if (error.code === 'ENOENT') DEBUG ? console.log(`Not running on Android! That's fine. Skipping...`) : void (0);
-    else throw error;
+    // else throw error;
   } finally {
     if (DEBUG) console.log('android.toggleFlashlight() done!\n');
   }
@@ -256,8 +240,7 @@ const getLocationInfo = async () => {
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-async function main() {
-  await keepNodeRunning();
+const main = async () => {
 
   const createAndDeleteFileDemo = [
     [console.log, `\nDEMO: We list the contents of the phone's working directory...\n`],
@@ -274,8 +257,8 @@ async function main() {
   ];
 
   const toggleFlashlightDemo = [
-    [console.log, `\nDEMO: We ensure the flashlight is OFF before starting...\n`],
-    [turnFlashlightOff],
+    // [console.log, `\nDEMO: We ensure the flashlight is OFF before starting...\n`],
+    // [turnFlashlightOff],
     [console.log, `\nDEMO: And so -- assuming the flashlight is OFF...\n`],
     [toggleFlashlight],
     [console.log, `\nDEMO: Now it should be ON instead...\n`],
@@ -298,7 +281,7 @@ async function main() {
     [console.log, `\nDEMO: There, that's better...\n`],
     [console.log, `\nDEMO: And how about the back camera?\n`],
     [getBackCameraInfo],
-    [console.log, `\nDEMO: Cool! So we know we have some cameras to work given.\n`],
+    [console.log, `\nDEMO: Cool! So we know we have some cameras to work with.\n`],
   ];
 
   const snapFaceCamAndShowPhoto = [
@@ -306,7 +289,7 @@ async function main() {
     [console.log, `\nDEMO: We examine the contents of the current directory...'\n`],
     [ls],
     [console.log, `\nDEMO: Dang. We have no sweet selfies of our user...'\n`],
-    [console.log, `\nDEMO: Well, no problem. Let's snap a fresh pic given the face camera...'\n`],
+    [console.log, `\nDEMO: Well, no problem. Let's snap a fresh pic with the face camera...'\n`],
     [console.log, `\nDEMO: Say cheese!'\n`],
     [takeFaceCamPhoto, `dope_selfie`],
     [vibratePhone, `500`],  // Some tactile feedback
@@ -320,6 +303,7 @@ async function main() {
 
   const vibrationDemo = [
     [console.log, `\nDEMO: The intentful stare (250ms vibration)...'\n`],
+    [setTimeout, 250],
     [vibratePhone, 250],
     [console.log, `\nDEMO: The throat-clearer (500ms vibration)...'\n`],
     [vibratePhone, 500],
@@ -329,23 +313,20 @@ async function main() {
     [vibratePhone, 2000],
   ];
 
-  const userLocationDemo = [
-    [console.log, `\nDEMO: Where in th world is our user currenty located?'\n`],
-    [console.log, `\nDEMO: Let's find out...\n`],
-    [getLocationInfo],
-  ];
-
   const demoReels = [
-    createAndDeleteFileDemo,
-    // toggleFlashlightDemo,
+    // createAndDeleteFileDemo,
+    toggleFlashlightDemo,
     // vibrationDemo,
-    getPhoneCameraInfo,
+    // getPhoneCameraInfo,
     // snapFaceCamAndShowPhoto,
   ];
 
-  for (const each of demoReels) {
-    if (DEBUG) console.log(`\nDEMO: Running next reel...\n`);
-    executeDelayed(each);
+  for (const reel of demoReels) {
+    if (DEBUG) console.log(`\nDEMO: Next reel...\n`);
+    for (const demo of reel) {
+      if (DEBUG) console.log(`\nDEMO: Next demo...\n`);
+      demo[0](demo[1] ? demo[1] : void(0));
+    }
   };
 }
 

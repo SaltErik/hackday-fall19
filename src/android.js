@@ -8,31 +8,33 @@ module.exports.Android = class Android {
     if (!!Android.instance) return Android.instance;
     else Android.instance = this;
     // Composition happens here
-    this.shell = shell || null;
+    this.run = run;
+    this.state = state;
+    this.shell = shell;
     // State is managed here
     this.flashlightIsOn = false;
   }
 
 
   async ls() {
-    return await run(`ls`);
+    return await this.run(`ls`);
   }
 
 
   async rm(pathToFile) {
     const args = [`-f`, `${pathToFile}`];
-    return await run(`rm`, args);
+    return await this.run(`rm`, args);
   }
 
 
   async touchFile(newFileName) {
     const args = [`${newFileName}`];
-    return await run(`touch`, args);
+    return await this.run(`touch`, args);
   }
 
 
   async getCameraInfo() {
-    return await run(`termux-camera-info`);
+    return await this.run(`termux-camera-info`);
   }
 
 
@@ -40,7 +42,7 @@ module.exports.Android = class Android {
     const args = [`-c`, `1`];
     if (saveAsName) args.push(`${saveAsName}.jpg`);
     else args.push(`${Date.now()}.jpg`);
-    return await run(`termux-camera-photo`, args);
+    return await this.run(`termux-camera-photo`, args);
   }
 
 
@@ -48,34 +50,34 @@ module.exports.Android = class Android {
     const args = [`-c`, `0`];
     if (saveAsName) args.push(`${saveAsName}.jpg`);
     else args.push(`${Date.now()}.jpg`);
-    return await run(`termux-camera-photo`, args);
+    return await this.run(`termux-camera-photo`, args);
   }
 
   async getLocationInfo() {
-    return await run(`termux-location`);
+    return await this.run(`termux-location`);
   }
 
   async vibratePhone(duration=1000, force=true) {
     const args = [`-d`, `${duration}`];
     if (force) args.push(`-f`);
-    return await run(`termux-vibrate`, args);
+    return await this.run(`termux-vibrate`, args);
   }
 
 
   async setUpStorage() {
-    return await run(`termux-setup-storage`);
+    return await this.run(`termux-setup-storage`);
   }
 
 
   async showFile(pathToFile) {
     const args = [`${pathToFile}`];
-    return await run(`termux-open`, args);
+    return await this.run(`termux-open`, args);
   }
 
 
   async openURL(URL) {
     const args = [`${URL}`];
-    return await run(`termux-open`, args);
+    return await this.run(`termux-open`, args);
   }
 
 
@@ -85,21 +87,21 @@ module.exports.Android = class Android {
     const args = [];
     if (title) args.push(`-t`, `${title}`);
     if (hint) args.push(`-i`, `${hint}`);
-    return await run(`termux-dialog`, args);
+    return await this.run(`termux-dialog`, args);
   }
 
 
   async turnFlashlightOn() {
     this.flashlightIsOn = true;
     const args = [`on`];
-    return await run(`termux-torch`, args);
+    return await this.run(`termux-torch`, args);
   }
 
 
   async turnFlashlightOff() {
     this.flashlightIsOn = false;
     const args = [`off`];
-    return await run(`termux-torch`, args);
+    return await this.run(`termux-torch`, args);
   }
 
 
