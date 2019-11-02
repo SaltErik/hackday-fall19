@@ -236,6 +236,18 @@ const getLocationInfo = async () => {
   }
 };
 
+const echo = async (message) => {
+  if (DEBUG) console.log('\nandroid.echo() begin...');
+  try {
+    await android.echo(message);
+  } catch (error) {
+    if (error.code === 'ENOENT') DEBUG ? console.log(`Not running on Android! That's fine. Skipping...`) : void (0);
+    else throw error;
+  } finally {
+    if (DEBUG) console.log('android.echo() done!\n');
+  }
+};
+
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -243,78 +255,78 @@ const getLocationInfo = async () => {
 const main = async () => {
 
   const createAndDeleteFileDemo = [
-    [console.log, `\nDEMO: We list the contents of the phone's working directory...\n`],
+    [echo, `\nDEMO: We list the contents of the phone's working directory...\n`],
     [ls],
-    [console.log, `\nDEMO: Notice, no file named "dummyFile.txt" exists...\n`],
+    [echo, `\nDEMO: Notice, no file named "dummyFile.txt" exists...\n`],
     [touchFile, `dummyFile.txt`],
-    [console.log, `\nDEMO: We run the shell "touch" command on the phone...\n`],
+    [echo, `\nDEMO: We run the shell "touch" command on the phone...\n`],
     [ls],
-    [console.log, `\nDEMO: Presto! Now "dummyfile.txt" exists...\n`],
+    [echo, `\nDEMO: Presto! Now "dummyfile.txt" exists...\n`],
     [rm, `dummyFile.txt`],
-    [console.log, `\nDEMO: We run the shell "rm" command on "dummyFile.txt"...\n`],
+    [echo, `\nDEMO: We run the shell "rm" command on "dummyFile.txt"...\n`],
     [ls],
-    [console.log, `\nDEMO: ...aaaaand it's gone.\n`],
+    [echo, `\nDEMO: ...aaaaand it's gone.\n`],
   ];
 
   const toggleFlashlightDemo = [
-    [console.log, `\nDEMO: We ensure the flashlight is OFF before starting...\n`],
+    [echo, `\nDEMO: We ensure the flashlight is OFF before starting...\n`],
     [turnFlashlightOff],
-    [console.log, `\nDEMO: And so -- assuming the flashlight is OFF...\n`],
+    [echo, `\nDEMO: And so -- assuming the flashlight is OFF...\n`],
     [toggleFlashlight],
-    [console.log, `\nDEMO: Now it should be ON instead...\n`],
+    [echo, `\nDEMO: Now it should be ON instead...\n`],
     [toggleFlashlight],
-    [console.log, `\nDEMO: And now it should be OFF once again...\n`],
+    [echo, `\nDEMO: And now it should be OFF once again...\n`],
     [toggleFlashlight],
-    [console.log, `\nDEMO: And ON again...\n`],
+    [echo, `\nDEMO: And ON again...\n`],
     [toggleFlashlight],
-    [console.log, `\nDEMO: And finally OFF.\n`],
+    [echo, `\nDEMO: And finally OFF.\n`],
   ];
 
   const getPhoneCameraInfo = [
-    [console.log, `\nDEMO: Wonder which cameras are available on this phone...'\n`],
-    [console.log, `\nDEMO: let's find out!'\n`],
+    [echo, `\nDEMO: Wonder which cameras are available on this phone...'\n`],
+    [echo, `\nDEMO: let's find out!'\n`],
     [getCameraInfo],
-    [console.log, `\nDEMO: Whoah! That's a lot of info!\n`],
+    [echo, `\nDEMO: Whoah! That's a lot of info!\n`],
     [takeFaceCamPhoto, `test_photo`],
-    [console.log, `\nDEMO: Let's just focus on the front camera...\n`],
+    [echo, `\nDEMO: Let's just focus on the front camera...\n`],
     [getFrontCameraInfo],
-    [console.log, `\nDEMO: There, that's better...\n`],
-    [console.log, `\nDEMO: And how about the back camera?\n`],
+    [echo, `\nDEMO: There, that's better...\n`],
+    [echo, `\nDEMO: And how about the back camera?\n`],
     [getBackCameraInfo],
-    [console.log, `\nDEMO: Cool! So we know we have some cameras to work with.\n`],
+    [echo, `\nDEMO: Cool! So we know we have some cameras to work with.\n`],
   ];
 
   const snapFaceCamAndShowPhoto = [
     [rm, `dummyFile.txt`],  // Pre-emptive cleanup
-    [console.log, `\nDEMO: We examine the contents of the current directory...'\n`],
+    [echo, `\nDEMO: We examine the contents of the current directory...'\n`],
     [ls],
-    [console.log, `\nDEMO: Dang. We have no sweet selfies of our user...'\n`],
-    [console.log, `\nDEMO: Well, no problem. Let's snap a fresh pic with the face camera...'\n`],
-    [console.log, `\nDEMO: Say cheese!'\n`],
+    [echo, `\nDEMO: Dang. We have no sweet selfies of our user...'\n`],
+    [echo, `\nDEMO: Well, no problem. Let's snap a fresh pic with the face camera...'\n`],
+    [echo, `\nDEMO: Say cheese!'\n`],
     [takeFaceCamPhoto, `dope_selfie`],
     [vibratePhone, `500`],  // Some tactile feedback
-    [console.log, `\nDEMO: There we are. Did it save properly?'\n`],
+    [echo, `\nDEMO: There we are. Did it save properly?'\n`],
     [ls],
-    [console.log, `\nDEMO: See any "dope_selfie.jpg"?'\n`],
-    [console.log, `\nDEMO: Allright, let's dislay it to the user!'\n`],
+    [echo, `\nDEMO: See any "dope_selfie.jpg"?'\n`],
+    [echo, `\nDEMO: Allright, let's dislay it to the user!'\n`],
     [showFile, `dope_selfie.jpg`],
-    [console.log, `\nDEMO: My man!'\n`],
+    [echo, `\nDEMO: My man!'\n`],
   ];
 
   const vibrationDemo = [
-    [console.log, `\nDEMO: The intentful stare (250ms vibration)...'\n`],
+    [echo, `\nDEMO: The intentful stare (250ms vibration)...'\n`],
     [vibratePhone, 250],
-    [console.log, `\nDEMO: The throat-clearer (500ms vibration)...'\n`],
+    [echo, `\nDEMO: The throat-clearer (500ms vibration)...'\n`],
     [vibratePhone, 500],
-    [console.log, `\nDEMO: The shoulder tap (1000ms vibration)...'\n`],
+    [echo, `\nDEMO: The shoulder tap (1000ms vibration)...'\n`],
     [vibratePhone, 1000],
-    [console.log, `\nDEMO: The prolonged sigh (2000ms vibration)'\n`],
+    [echo, `\nDEMO: The prolonged sigh (2000ms vibration)'\n`],
     [vibratePhone, 2000],
   ];
 
   const demoReels = [
-    // createAndDeleteFileDemo,
-    toggleFlashlightDemo,
+    createAndDeleteFileDemo,
+    // toggleFlashlightDemo,
     // vibrationDemo,
     // getPhoneCameraInfo,
     // snapFaceCamAndShowPhoto,

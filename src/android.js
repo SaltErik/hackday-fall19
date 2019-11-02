@@ -16,6 +16,12 @@ module.exports.Android = class Android {
   }
 
 
+  async echo(message) {
+    const args = [`${message}`];
+    return await this.run(`echo`, args);
+  }
+
+
   async ls() {
     return await this.run(`ls`);
   }
