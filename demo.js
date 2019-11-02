@@ -294,8 +294,9 @@ const sleep = (delay=1000) => new Promise(resolve => setTimeout(resolve, delay))
 const main = async () => {
 
   const createAndDeleteFileDemo = [
-    [console.log, `\n\n${brightGreen('\t>>>>')} ${bold('Creating and deleting files')} ${brightGreen('<<<<')}\n`],
     [rm, `foo.txt`],  // Pre-emptive cleanup
+    [android.clear],
+    [console.log, `\n\n${brightGreen('\t>>>>')} ${bold('Creating and deleting files')} ${brightGreen('<<<<')}\n`],
     [console.log, `\nWe list the contents of the phone's current working directory using ${yellow('shell.ls()')}.\n`],
     [ls],
     [console.log, `\nNotice no file named ${green('foo.txt')} exists.\n`],
