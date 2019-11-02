@@ -65,7 +65,8 @@ const getCameraInfo = async () => {
   if (DEBUG) console.log('\nandroid.getCameraInfo() begin...');
   try {
     const { stdout } = await android.getCameraInfo();
-    console.log(await JSON.parse(stdout));
+    const cameras = await JSON.parse(stdout);
+    console.log(await cameras);
   } catch (error) {
     if (error.code === 'ENOENT') DEBUG ? console.log(`Not running on Android! That's fine. Skipping...`) : void (0);
     else throw error;
