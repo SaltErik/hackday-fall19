@@ -187,9 +187,7 @@ const snapFaceCamAndShowPhoto = [
   [console.log, `\nCalling ${yellow('shell.ls()')}, we examine the contents of the current directory...\n`],
   [ls],
   [console.log, `\nDang. We've got no dope selfies of our user...\n`],
-  [sleep, 250],
   [console.log, `\nWell, no problem. Let's snap a fresh pic with the face camera...\n`],
-  [sleep, 250],
   [console.log, `\nSay cheese!\n`],
   [takeFaceCamPhoto, `dope_selfie`],
   [vibratePhone, 333],  // Some tactile feedback
@@ -197,9 +195,7 @@ const snapFaceCamAndShowPhoto = [
   [console.log, `\nSame way as before — by calling ${yellow('shell.ls()')}.\n`],
   [ls],
   [console.log, `\nSee any "dope_selfie.jpg"?\n`],
-  [sleep, 250],
   [console.log, `\n(I do!)\n`],
-  [sleep, 250],
   [console.log, `\nAllright, let's display it to our user!\n`],
   [console.log, `\nCalling ${yellow("showFile('dope_selfie.jpg')")} as the final step...\n`],
   [showFile, `dope_selfie.jpg`],
@@ -237,9 +233,9 @@ const main = async () => {
     for (const demo of reel) {  // Runs consecutively on purpose
       const [demoFunction, demoArguments] = demo;
       if (DEBUG) console.log(`\nRunning next step in the current demo...\n`);
-      await wait();
+      await sleep(333);
       await demoFunction(demoArguments);
-      await sleep(666);
+      await sleep(333);
     }
   };
 }
