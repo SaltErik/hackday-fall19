@@ -1,5 +1,5 @@
 `use strict`;
-const { Android } = require('./src');
+const { android } = require('./src');
 
 // const android = new Android();
 
