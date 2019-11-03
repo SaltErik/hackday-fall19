@@ -94,9 +94,9 @@ module.exports.Android = class Android {
     return await this.run(`termux-torch`, args);
   }
 
-  set setFlashlight(boolean) {
+  async setFlashlight(boolean) {
     this.flashlightIsOn = boolean;
-    return new Promise(resolve => setTimeout(resolve, 0));
+    return await new Promise(resolve => setImmediate(resolve));
   }
 
   async turnFlashlightOff() {
