@@ -233,9 +233,9 @@ const main = async () => {
     for (const demo of reel) {  // Runs consecutively on purpose
       const [demoFunction, demoArguments] = demo;
       if (DEBUG) console.log(`\nRunning next step in the current demo...\n`);
-      await sleep(333);
+      await sleep(500);
       await demoFunction(demoArguments);
-      await sleep(333);
+      await sleep(500);
     }
   };
 }
