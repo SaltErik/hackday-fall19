@@ -5,14 +5,16 @@ const { android } = require('./src');
 
 process.on('unhandledRejection', console.log);
 
-const DEBUG = false;
+const DEBUG = true;
 
 
 const wrap = async (func, args) => {
-  console.log(`wrap:`, func, args);
+  if (DEBUG) console.log(`\nwrap recieved func: ${func.name}`);
+  if (DEBUG) console.log(`\nwrap recieved args: ${args}`);
 
   const safetyGoggles = async (func, args) => {
-    console.log(`goggles:`, func, args);
+    if (DEBUG) console.log(`\nsafetyGoggles recieved func: ${func.name}`);
+    if (DEBUG) console.log(`\nsafetyGoggles recieved args: ${args}`);
     if (DEBUG) console.log(`\nandroid.${func.name}() begin...`);
     try {
       return await android[`${func.name}`](args);
@@ -40,23 +42,9 @@ const ls = async () => {
   if (DEBUG) console.log('android.ls() done!\n');
 };
 
-const rm = async (pathToFile) => {
-  console.log(`rm:`, android.rm, pathToFile);
-  return await wrap(android.rm, pathToFile);
-};
+const rm = async (pathToFile) => await wrap(android.rm, pathToFile);
 
-const touch = async (newFileName) => {
-  if (DEBUG) console.log('\nandroid.touch() begin...');
-  try {
-    await android.touch(newFileName);
-  } catch (error) {
-    if (error.code === 'ENOENT') DEBUG ? console.log(`Not running on Android! That's fine. Skipping...`) : void (0);
-    else throw error;
-  }
-  finally {
-    if (DEBUG) console.log('android.touch() done!\n');
-  }
-};
+const touch = async (newFileName) => await wrap(android.touch, newFileName);
 
 
 const vibratePhone = async (ms) => {
