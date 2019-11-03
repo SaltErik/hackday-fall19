@@ -9,7 +9,7 @@ const DEBUG = false;
 
 
 async function wrap(func, ...args) {
-  console.log(`wrap:`, func);
+  console.log(`wrap:`, func.name);
   console.dir(`wrap:`, args, {colors: true, depth: null})
 
   async function safetyGoggles() {
@@ -27,7 +27,7 @@ async function wrap(func, ...args) {
     }
   }
 
-  return safetyGoggles;
+  return await safetyGoggles;
 }
 
 
