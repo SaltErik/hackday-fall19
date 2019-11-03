@@ -5,8 +5,7 @@ const { android } = require('./src');
 
 process.on('unhandledRejection', console.log);
 
-const DEBUG = true;
-
+const DEBUG = false;
 
 const wrap = async (func, args) => {
   if (DEBUG) console.log(`\nwrap recieved func: ${func.name}`);
@@ -30,16 +29,12 @@ const wrap = async (func, args) => {
   return await safetyGoggles(func, args);
 }
 
-
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
 const ls = async () => {
-  if (DEBUG) console.log('\nandroid.ls() begin...');
-  const { stdout } = await android.ls();
+  const { stdout } = await wrap(android.ls);
   const result = await stdout.split(`\n`);
-  console.log(await result.filter((string) => !!string));
-  if (DEBUG) console.log('android.ls() done!\n');
+  console.log(await result.filter(async (string) => !!string));
 };
 
 const rm = async (pathToFile) => await wrap(android.rm, pathToFile);
@@ -48,50 +43,22 @@ const touch = async (newFileName) => await wrap(android.touch, newFileName);
 
 const vibratePhone = async (msDuration) => await wrap(android.vibratePhone, msDuration);
 
-
 const getCameraInfo = async () => {
-  if (DEBUG) console.log('\nandroid.getCameraInfo() begin...');
-  try {
-    const { stdout } = await android.getCameraInfo();
+    const { stdout } = await wrap(android.getCameraInfo);
     const cameras = await JSON.parse(await stdout);
     console.dir(await cameras, {colors: true, depth: null});
-  } catch (error) {
-    if (error.code === 'ENOENT') DEBUG ? console.log(`Not running on Android! That's fine. Skipping...`) : void (0);
-    else throw error;
-  }
-  finally {
-    if (DEBUG) console.log('android.getCameraInfo() done!\n');
-  }
 };
 
 const getBackCameraInfo = async () => {
-  if (DEBUG) console.log('\nandroid.getCameraInfo() begin...');
-  try {
-    const { stdout } = await android.getCameraInfo();
+    const { stdout } = await wrap(android.getCameraInfo);
     const cameras = await JSON.parse(await stdout);
     console.log(await cameras[0]);
-  } catch (error) {
-    if (error.code === 'ENOENT') DEBUG ? console.log(`Not running on Android! That's fine. Skipping...`) : void (0);
-    else throw error;
-  }
-  finally {
-    if (DEBUG) console.log('android.getCameraInfo() done!\n');
-  }
 };
 
 const getFrontCameraInfo = async () => {
-  if (DEBUG) console.log('\nandroid.getCameraInfo() begin...');
-  try {
-    const { stdout } = await android.getCameraInfo();
+    const { stdout } = await wrap(android.getCameraInfo);
     const cameras = await JSON.parse(await stdout);
     console.log(await cameras[1]);
-  } catch (error) {
-    if (error.code === 'ENOENT') DEBUG ? console.log(`Not running on Android! That's fine. Skipping...`) : void (0);
-    else throw error;
-  }
-  finally {
-    if (DEBUG) console.log('android.getCameraInfo() done!\n');
-  }
 };
 
 const setUpStorage = async () => await wrap(android.setUpStorage);
