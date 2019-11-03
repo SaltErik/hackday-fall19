@@ -1,7 +1,7 @@
-'use strict';
+`use strict`;
 const { Android } = require('./src');
 
-const android = new Android();
+// const android = new Android();
 
 process.on('unhandledRejection', console.log);
 

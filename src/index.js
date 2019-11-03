@@ -20,10 +20,4 @@ dependencies = {
 
 const android = new Android(dependencies);  // Constructor injection
 
-const proxiedAndroid = new Proxy(android, {
-  construct(target, argsList, newTarget) {
-    return android;
-  },
-});
-
-module.exports.Android = proxiedAndroid;
+module.exports.android = android
