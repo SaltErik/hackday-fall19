@@ -373,10 +373,10 @@ const main = async () => {
   ];
 
   const demoReels = [
-    // createAndDeleteFileDemo,
+    createAndDeleteFileDemo,
     // toggleFlashlightDemo,
     // vibrationDemo,
-    getPhoneCameraInfo,
+    // getPhoneCameraInfo,
     // snapFaceCamAndShowPhoto,
   ];
 
