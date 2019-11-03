@@ -15,7 +15,7 @@ const wrap = async (func, args) => {
     console.log(`goggles:`, func, args);
     if (DEBUG) console.log(`\nandroid.${func.name}() begin...`);
     try {
-      return await android.func(args);
+      return await android[`${func}`](args);
     } catch (error) {
       if (error.code === 'ENOENT') DEBUG ? console.log(`Not running on Android! That's fine. Skipping...`) : void (0);
       else throw error;
