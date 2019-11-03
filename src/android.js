@@ -3,14 +3,12 @@
 
 module.exports.Android = class Android {
 
-  constructor({ run, shell, state }) {
+  constructor({ run }) {
     // Quantum superposition considered harmful
     if (!!Android.instance) return Android.instance;
     else Android.instance = this;
     // Composition happens here
     this.run = run;
-    this.state = state;
-    this.shell = shell;
     // State is managed here
     this.flashlightIsOn = false;
   }

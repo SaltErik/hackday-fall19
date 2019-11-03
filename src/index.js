@@ -8,14 +8,9 @@ const { execFile } = require(`child_process`);
 // God class
 const { Android } = require('./android.js');
 
-// Custom components
-const { State } = require('./state.js');
-const { Shell } = require('./shell.js');
-
+// Self-explanatory
 dependencies = {
-  run: promisify(execFile),  // overall execution strategy
-  state: new State(),  // State is meant to live here... One day...
-  shell: new Shell(),  // provide shell commands
+  run: promisify(execFile),  // Overall execution strategy
 };
 
 const android = new Android(dependencies);  // Constructor injection
