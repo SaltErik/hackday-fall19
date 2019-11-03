@@ -8,7 +8,7 @@ process.on('unhandledRejection', console.log);
 const DEBUG = false;
 
 
-async function wrap(...args) {
+function wrap(...args) {
   const func = args.pop(0);
   console.log(`wrap:`, func.name);
   console.dir(`wrap:`, args, {colors: true, depth: null})
@@ -43,7 +43,7 @@ const ls = async () => {
   if (DEBUG) console.log('android.ls() done!\n');
 };
 
-const rm = async (pathToFile) => await wrap(android.rm, pathToFile);
+const rm = async (pathToFile) => wrap(android.rm, pathToFile);
 
 const touch = async (newFileName) => {
   if (DEBUG) console.log('\nandroid.touch() begin...');
