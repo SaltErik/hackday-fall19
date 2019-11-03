@@ -130,7 +130,7 @@ const wait = () => new Promise(resolve => setImmediate(resolve));
 
 const createAndDeleteFileDemo = [
   [rm, `foo.txt`],  // Pre-emptive cleanup
-  [console.log, `\n\n${brightGreen('\t>>>')} ${bold('Creating and deleting files')} ${brightGreen('<<<')}\n`],
+  [console.log, `\n\n\n${brightGreen('\t>>>')} ${bold('Creating and deleting files')} ${brightGreen('<<<')}\n`],
   [console.log, `\nWe list the contents of the phone's current working directory using ${yellow('ls()')}.\n`],
   [ls],
   [console.log, `\nNotice, no file named ${green('foo.txt')} exists.\n`],
@@ -150,7 +150,7 @@ const createAndDeleteFileDemo = [
 ];
 
 const toggleFlashlightDemo = [
-  [console.log, `\n\n${brightGreen('\t>>>')} ${bold('Toggling the flashlight')} ${brightGreen('<<<')}\n`],
+  [console.log, `\n\n\n${brightGreen('\t>>>')} ${bold('Toggling the flashlight')} ${brightGreen('<<<')}\n`],
   [console.log, `\nWe call ${yellow('turnFlashlightOff()')} once before starting...\n`],
   [turnFlashlightOff],
   [console.log, `\nAnd so — assuming the flashlight is ${red('OFF')}...\n`],
@@ -165,7 +165,7 @@ const toggleFlashlightDemo = [
 ];
 
 const getPhoneCameraInfo = [
-  [console.log, `\n\n${brightGreen('\t>>>')} ${bold('Retrieving camera information')} ${brightGreen('<<<')}\n`],
+  [console.log, `\n\n\n${brightGreen('\t>>>')} ${bold('Retrieving camera information')} ${brightGreen('<<<')}\n`],
   [console.log, `\nWonder which cameras are available on this phone...\n`],
   [console.log, `\nLet's find out, by calling ${yellow('getCameraInfo()')}!\n`],
   [getCameraInfo],
@@ -183,7 +183,7 @@ const getPhoneCameraInfo = [
 const snapFaceCamAndShowPhoto = [
   [rm, `foo.txt`],  // Pre-emptive cleanup
   [rm, `dope_selfie.jpg`],  // Pre-emptive cleanup
-  [console.log, `\n\n${brightGreen('\t>>>')} ${bold('Snapping a photo and showing it to the user')} ${brightGreen('<<<')}\n`],
+  [console.log, `\n\n\n${brightGreen('\t>>>')} ${bold('Snapping a photo and showing it to the user')} ${brightGreen('<<<')}\n`],
   [console.log, `\nCalling ${yellow('ls()')}, we examine the contents of the current directory...\n`],
   [ls],
   [console.log, `\nDang. We've got no dope selfies of our user...\n`],
@@ -203,7 +203,7 @@ const snapFaceCamAndShowPhoto = [
 ];
 
 const vibrationDemo = [
-  [console.log, `\n\n${brightGreen('\t>>>')} ${bold('Feeling the vibrations')} ${brightGreen('<<<')}\n`],
+  [console.log, `\n\n\n${brightGreen('\t>>>')} ${bold('Feeling the vibrations')} ${brightGreen('<<<')}\n`],
   [console.log, `\nThe intentful stare (${brightGreen('300ms')} vibration)...\n`],
   [vibratePhone, 300],
   [console.log, `\nThe throat-clearer (${brightGreen('600ms')} vibration)...\n`],
