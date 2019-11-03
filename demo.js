@@ -8,6 +8,26 @@ process.on('unhandledRejection', console.log);
 const DEBUG = false;
 
 
+async function wrap(func, ...args) {
+  console.log(func);
+  console.dir(args, {colors: true, depth: null})
+
+  async function safetyGoggles() {
+    if (DEBUG) console.log(`\nandroid.${func.name}() begin...`);
+    try {
+      await (await func(...args));
+    } catch (error) {
+      if (error.code === 'ENOENT') DEBUG ? console.log(`Not running on Android! That's fine. Skipping...`) : void (0);
+      else throw error;
+    }
+    finally {
+      if (DEBUG) console.log(`\nandroid.${func.name}() done!`)
+    }
+
+  return safetyGoggles;
+}
+
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -19,19 +39,7 @@ const ls = async () => {
   if (DEBUG) console.log('android.ls() done!\n');
 };
 
-
-const rm = async (pathToFile) => {
-  if (DEBUG) console.log('\nandroid.rm() begin...');
-  try {
-    await android.rm(pathToFile);
-  } catch (error) {
-    if (error.code === 'ENOENT') DEBUG ? console.log(`Not running on Android! That's fine. Skipping...`) : void (0);
-    else throw error;
-  }
-  finally {
-    if (DEBUG) console.log('android.rm() done!\n');
-  }
-};
+const rm = async (pathToFile) => await wrap(android.rm, pathToFile);
 
 const touch = async (newFileName) => {
   if (DEBUG) console.log('\nandroid.touch() begin...');
