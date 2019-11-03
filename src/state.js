@@ -1,4 +1,4 @@
-// Bunch of getters and/or setters that perform computed lookups and/or memoize results
+// Bunch of getters and/or setters that perform computed lookups and/or memoize results?
 `use strict`;
 
 

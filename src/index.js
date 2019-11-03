@@ -1,4 +1,4 @@
-// Ye olde composition root (project-wide, for now)
+// Ye Olde composition root (project-wide, for now)
 `use strict`;
 
 // Node built-ins
@@ -12,13 +12,18 @@ const { Android } = require('./android.js');
 const { State } = require('./state.js');
 const { Shell } = require('./shell.js');
 
-// Use null to say "unavailable in the current environment"
 dependencies = {
   run: promisify(execFile),  // overall execution strategy
-  state: new State(),
+  state: new State(),  // State is meant to live here... One day...
   shell: new Shell(),  // provide shell commands
 };
 
 const android = new Android(dependencies);  // Constructor injection
 
-module.exports.android = android;
+const proxiedAndroid = new Proxy(android, {
+  construct(target, argsList, newTarget) {
+    return android;
+  },
+});
+
+module.exports.Android = proxiedAndroid;

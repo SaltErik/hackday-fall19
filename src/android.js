@@ -4,9 +4,6 @@
 module.exports.Android = class Android {
 
   constructor({ run, shell, state }) {
-    // Singleton smartphone in your hand -> singleton object to represent it
-    if (!!Android.instance) return Android.instance;
-    else Android.instance = this;
     // Composition happens here
     this.run = run;
     this.state = state;

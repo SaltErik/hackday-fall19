@@ -1,11 +1,13 @@
 'use strict';
-const { android } = require('./src');
+const { Android } = require('./src');
 
-// const android = new Android();
+const android = new Android();
 
 process.on('unhandledRejection', console.log);
 
 const DEBUG = false;
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 const wrap = async (func, args) => {
   if (DEBUG) console.log(`\nwrap recieved func: ${func.name}`);
@@ -86,14 +88,20 @@ const getLocationInfo = async () => await wrap(android.getLocationInfo);
 
 const pwd = async () => await wrap(android.pwd);
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+const tactileDelete = async (fileName) => await Promise.all([vibratePhone(333), rm(`${fileName}`)]);
+
+const tactileCreate = async (fileName) => await Promise.all([vibratePhone(333), touch(`${fileName}`)]);
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+const reset = (coloredText) => `${coloredText}\u001b[0m`;
 
-const tactileDelete = async (fileName) => await Promise.all([vibratePhone(200), rm(`${fileName}`)]);
-const tactileCreate = async (fileName) => await Promise.all([vibratePhone(200), touch(`${fileName}`)]);
+const bold = (text) => reset(`\u001b[1m${text}`);
+const underline = (text) => reset(`\u001b[4m${text}`);
+const reversed = (text) => reset(`\u001b[7m${text}`);
 
-const reset = (coloredText) => `${coloredText}\u001b[0m`; 
 const black = (text) => reset(`\u001b[30m${text}`);
 const red = (text) => reset(`\u001b[31m${text}`);
 const green = (text) => reset(`\u001b[32m${text}`);
@@ -112,114 +120,122 @@ const brightMagenta = (text) => reset(`\u001b[35;1m${text}`);
 const brightCyan = (text) => reset(`\u001b[36;1m${text}`);
 const brightWhite = (text) => reset(`\u001b[37;1m${text}`);
 
-const bold = (text) => reset(`\u001b[1m${text}`);
-const underline = (text) => reset(`\u001b[4m${text}`);
-const reversed = (text) => reset(`\u001b[7m${text}`);
-
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 const sleep = (delay=500) => new Promise(resolve => setTimeout(resolve, delay));
 
 const wait = () => new Promise(resolve => setImmediate(resolve));
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+const createAndDeleteFileDemo = [
+  [rm, `foo.txt`],  // Pre-emptive cleanup
+  [console.log, `\n\n${brightGreen('\t>>>')} ${bold('Creating and deleting files')} ${brightGreen('<<<')}\n`],
+  [console.log, `\nWe list the contents of the phone's current working directory using ${yellow('shell.ls()')}.\n`],
+  [ls],
+  [console.log, `\nNotice, no file named ${green('foo.txt')} exists.\n`],
+  [console.log, `\nFair enough.\n`],
+  [console.log, `\nSo we create an empty file named ${green('foo.txt')} using ${yellow("shell.touch('foo.txt')")}.\n`],
+  [tactileCreate, `foo.txt`],
+  [console.log, `\nWe then call ${yellow('shell.ls()')} a second time...\n`],
+  [ls],
+  [console.log, `\n...and there it is — ${green('foo.txt')} now exists.\n`],
+  [console.log, `\nBut not for long!\n`],
+  [console.log, `\nLet's delete it again, using ${yellow("shell.rm('foo.txt')")}!\n`],
+  [tactileDelete, `foo.txt`],
+  [console.log, `\nDid it work? Only one way to find out!\n`],
+  [console.log, `\nWe call ${yellow('shell.ls()')} one last time, looking for ${green('foo.txt')}...\n`],
+  [ls],
+  [console.log, `\n...aaaaand it's gone.\n`],
+];
+
+const toggleFlashlightDemo = [
+  [console.log, `\n\n${brightGreen('\t>>>')} ${bold('Toggling the flashlight')} ${brightGreen('<<<')}\n`],
+  [console.log, `\nWe ensure the flashlight is ${red('OFF')} before starting...\n`],
+  [turnFlashlightOff],
+  [console.log, `\nAnd so — assuming the flashlight is ${red('OFF')}...\n`],
+  [console.log, `\nWe turn it ${green('ON')}...\n`],
+  [toggleFlashlight],
+  [console.log, `\n...and we turn it back ${red('OFF')}...\n`],
+  [toggleFlashlight],
+  [console.log, `\n...and we turn it back ${green('ON')} again...\n`],
+  [toggleFlashlight],
+  [console.log, `\n...and we finally turn it back ${red('OFF')}.\n`],
+  [toggleFlashlight],
+];
+
+const getPhoneCameraInfo = [
+  [console.log, `\n\n${brightGreen('\t>>>')} ${bold('Retrieving camera information')} ${brightGreen('<<<')}\n`],
+  [console.log, `\nWonder which cameras are available on this phone...\n`],
+  [console.log, `\nLet's find out, by calling ${yellow('getCameraInfo()')}!\n`],
+  [getCameraInfo],
+  [console.log, `\nWhoah! That's a lot of info!\n`],
+  [console.log, `\nLet's just focus on the front camera...\n`],
+  [console.log, `\nAllright, calling ${yellow('getFrontCameraInfo()')}!\n`],
+  [getFrontCameraInfo],
+  [console.log, `\nThere — now that's better...\n`],
+  [console.log, `\nAnd how about the back camera?\n`],
+  [console.log, `\nWe call ${yellow('getBackCameraInfo()')}...\n`],
+  [getBackCameraInfo],
+  [console.log, `\nCool! So we know we have some cameras to work with.\n`],
+];
+
+const snapFaceCamAndShowPhoto = [
+  [rm, `foo.txt`],  // Pre-emptive cleanup
+  [rm, `dope_selfie.jpg`],  // Pre-emptive cleanup
+  [console.log, `\n\n${brightGreen('\t>>>')} ${bold('Snapping a photo and showing it to the user')} ${brightGreen('<<<')}\n`],
+  [console.log, `\nCalling ${yellow('shell.ls()')}, we examine the contents of the current directory...\n`],
+  [ls],
+  [console.log, `\nDang. We've got no dope selfies of our user...\n`],
+  [console.log, `\nWell, no problem. Let's snap a fresh pic with the face camera...\n`],
+  [console.log, `\nSay cheese!\n`],
+  [takeFaceCamPhoto, `dope_selfie`],
+  [vibratePhone, 333],  // Some tactile feedback
+  [console.log, `\nThere we are. How to tell if it saved properly?\n`],
+  [console.log, `\nSame way as before — by calling ${yellow('shell.ls()')}.\n`],
+  [ls],
+  [console.log, `\nSee any "dope_selfie.jpg"?\n`],
+  [console.log, `\n(I do!)\n`],
+  [console.log, `\nAllright, let's display it to our user!\n`],
+  [console.log, `\nCalling ${yellow("showFile('dope_selfie.jpg')")} as the final step...\n`],
+  [showFile, `dope_selfie.jpg`],
+  [console.log, `\nMy man!\n`],
+];
+
+const vibrationDemo = [
+  [console.log, `\n\n${brightGreen('\t>>>')} ${bold('Feeling the vibrations')} ${brightGreen('<<<')}\n`],
+  [console.log, `\nThe intentful stare (250ms vibration)...\n`],
+  [vibratePhone, 250],
+  [console.log, `\nThe throat-clearer (500ms vibration)...\n`],
+  [vibratePhone, 500],
+  [console.log, `\nThe shoulder tap (1000ms vibration)...\n`],
+  [vibratePhone, 1000],
+  [console.log, `\nThe prolonged sigh (2000ms vibration)\n`],
+  [vibratePhone, 2000],
+];
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+const demoReels = [ // They may just be demoReels, but these ain't just demoFeels
+  createAndDeleteFileDemo,
+  toggleFlashlightDemo,
+  vibrationDemo,
+  getPhoneCameraInfo,
+  snapFaceCamAndShowPhoto,
+];
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 const main = async () => {
-
-  const createAndDeleteFileDemo = [
-    [rm, `foo.txt`],  // Pre-emptive cleanup
-    [console.log, `\n\n${brightGreen('\t>>>')} ${bold('Creating and deleting files')} ${brightGreen('<<<')}\n`],
-    [console.log, `\nWe list the contents of the phone's current working directory using ${yellow('shell.ls()')}.\n`],
-    [ls],
-    [console.log, `\nNotice, no file named ${green('foo.txt')} exists.\n`],
-    [console.log, `\nFair enough.\n`],
-    [console.log, `\nSo we create an empty file named ${green('foo.txt')} using ${yellow("shell.touch('foo.txt')")}.\n`],
-    [tactileCreate, `foo.txt`],
-    [console.log, `\nWe then call ${yellow('shell.ls()')} a second time...\n`],
-    [ls],
-    [console.log, `\n...and there it is — ${green('foo.txt')} now exists.\n`],
-    [console.log, `\nBut not for long!\n`],
-    [console.log, `\nLet's delete it again, using ${yellow("shell.rm('foo.txt')")}!\n`],
-    [tactileDelete, `foo.txt`],
-    [console.log, `\nDid it work? Only one way to find out!\n`],
-    [console.log, `\nWe call ${yellow('shell.ls()')} one last time, looking for ${green('foo.txt')}...\n`],
-    [ls],
-    [console.log, `\n...aaaaand it's gone.\n`],
-  ];
-
-  const toggleFlashlightDemo = [
-    [console.log, `\n\n${brightGreen('\t>>>')} ${bold('Toggling the flashlight')} ${brightGreen('<<<')}\n`],
-    [console.log, `\nWe ensure the flashlight is ${red('OFF')} before starting...\n`],
-    [turnFlashlightOff],
-    [console.log, `\nAnd so — assuming the flashlight is ${red('OFF')}...\n`],
-    [console.log, `\nWe turn it ${green('ON')}...\n`],
-    [toggleFlashlight],
-    [console.log, `\n...and we turn it back ${red('OFF')}...\n`],
-    [toggleFlashlight],
-    [console.log, `\n...and we turn it back ${green('ON')} again...\n`],
-    [toggleFlashlight],
-    [console.log, `\n...and we finally turn it back ${red('OFF')}.\n`],
-    [toggleFlashlight],
-  ];
-
-  const getPhoneCameraInfo = [
-    [console.log, `\n\n${brightGreen('\t>>>')} ${bold('Retrieving camera information')} ${brightGreen('<<<')}\n`],
-    [console.log, `\nWonder which cameras are available on this phone...\n`],
-    [console.log, `\nlet's find out!\n`],
-    [getCameraInfo],
-    [console.log, `\nWhoah! That's a lot of info!\n`],
-    [console.log, `\nLet's just focus on the front camera...\n`],
-    [getFrontCameraInfo],
-    [console.log, `\nThere, that's better...\n`],
-    [console.log, `\nAnd how about the back camera?\n`],
-    [getBackCameraInfo],
-    [console.log, `\nCool! So we know we have some cameras to work with.\n`],
-  ];
-
-  const snapFaceCamAndShowPhoto = [
-    [rm, `foo.txt`],  // Pre-emptive cleanup
-    [console.log, `\n\n${brightGreen('\t>>>')} ${bold('Snapping a photo and showing it to the user')} ${brightGreen('<<<')}\n`],
-    [console.log, `\nWe examine the contents of the current directory...\n`],
-    [ls],
-    [console.log, `\nDang. We have no sweet selfies of our user...\n`],
-    [console.log, `\nWell, no problem. Let's snap a fresh pic with the face camera...\n`],
-    [console.log, `\nSay cheese!\n`],
-    [takeFaceCamPhoto, `dope_selfie`],
-    [vibratePhone, `500`],  // Some tactile feedback
-    [console.log, `\nThere we are. Did it save properly?\n`],
-    [ls],
-    [console.log, `\nSee any "dope_selfie.jpg"?\n`],
-    [console.log, `\nAllright, let's dislay it to the user!\n`],
-    [showFile, `dope_selfie.jpg`],
-    [console.log, `\nMy man!\n`],
-  ];
-
-  const vibrationDemo = [
-    [console.log, `\n\n${brightGreen('\t>>>')} ${bold('Feeling the vibrations')} ${brightGreen('<<<')}\n`],
-    [console.log, `\nThe intentful stare (250ms vibration)...\n`],
-    [vibratePhone, 250],
-    [console.log, `\nThe throat-clearer (500ms vibration)...\n`],
-    [vibratePhone, 500],
-    [console.log, `\nThe shoulder tap (1000ms vibration)...\n`],
-    [vibratePhone, 1000],
-    [console.log, `\nThe prolonged sigh (2000ms vibration)\n`],
-    [vibratePhone, 2000],
-  ];
-
-  const demoReels = [
-    // createAndDeleteFileDemo,
-    toggleFlashlightDemo,
-    // vibrationDemo,
-    // getPhoneCameraInfo,
-    // snapFaceCamAndShowPhoto,
-  ];
-
   for (const reel of demoReels) {
     if (DEBUG) console.log(`\nRunning next demoReel...\n`);
-    await wait();
-    for (const demo of reel) {  // Consecutive on purpose
+    await sleep(1000);
+    for (const demo of reel) {  // Runs consecutively on purpose
       const [demoFunction, demoArguments] = demo;
       if (DEBUG) console.log(`\nRunning next step in the current demo...\n`);
-      await sleep(500);
+      await wait();
       await demoFunction(demoArguments);
-      await sleep(500);
+      await sleep(666);
     }
   };
 }
