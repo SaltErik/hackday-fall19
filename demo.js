@@ -8,17 +8,14 @@ process.on('unhandledRejection', console.log);
 const DEBUG = false;
 
 
-function wrap(...args) {
-  const func = args.pop(0);
-  console.log(`wrap:`, func.name);
+async function wrap(...args) {
   console.dir(`wrap:`, args, {colors: true, depth: null})
 
   async function safetyGoggles() {
-    console.log(`goggles:`, func.name);
     console.dir(`goggles:`, args, {colors: true, depth: null})
     if (DEBUG) console.log(`\nandroid.${func.name}() begin...`);
     try {
-      return await func(...args);
+      return await (await func(...args));
     } catch (error) {
       if (error.code === 'ENOENT') DEBUG ? console.log(`Not running on Android! That's fine. Skipping...`) : void (0);
       else throw error;
@@ -45,7 +42,7 @@ const ls = async () => {
 
 const rm = async (pathToFile) => {
   console.log(`rm:`, android.rm, pathToFile);
-  wrap(android.rm, pathToFile);
+  return await wrap(android.rm, pathToFile);
 };
 
 const touch = async (newFileName) => {
