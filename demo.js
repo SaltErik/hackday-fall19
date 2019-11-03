@@ -12,7 +12,7 @@ async function wrap(func, ...args) {
   console.log(`wrap:`, func.name);
   console.dir(`wrap:`, args, {colors: true, depth: null})
 
-  async function safetyGoggles() {
+  async function safetyGoggles(func, ...args) {
     console.log(`goggles:`, func);
     console.dir(`goggles:`, args, {colors: true, depth: null})
     if (DEBUG) console.log(`\nandroid.${func.name}() begin...`);
@@ -27,7 +27,7 @@ async function wrap(func, ...args) {
     }
   }
 
-  return await safetyGoggles;
+  return await safetyGoggles(func, ...args);
 }
 
 
