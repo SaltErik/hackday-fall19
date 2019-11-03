@@ -187,7 +187,9 @@ const snapFaceCamAndShowPhoto = [
   [console.log, `\nCalling ${yellow('shell.ls()')}, we examine the contents of the current directory...\n`],
   [ls],
   [console.log, `\nDang. We've got no dope selfies of our user...\n`],
+  [sleep, 250],
   [console.log, `\nWell, no problem. Let's snap a fresh pic with the face camera...\n`],
+  [sleep, 250],
   [console.log, `\nSay cheese!\n`],
   [takeFaceCamPhoto, `dope_selfie`],
   [vibratePhone, 333],  // Some tactile feedback
@@ -195,7 +197,9 @@ const snapFaceCamAndShowPhoto = [
   [console.log, `\nSame way as before — by calling ${yellow('shell.ls()')}.\n`],
   [ls],
   [console.log, `\nSee any "dope_selfie.jpg"?\n`],
+  [sleep, 250],
   [console.log, `\n(I do!)\n`],
+  [sleep, 250],
   [console.log, `\nAllright, let's display it to our user!\n`],
   [console.log, `\nCalling ${yellow("showFile('dope_selfie.jpg')")} as the final step...\n`],
   [showFile, `dope_selfie.jpg`],
@@ -204,14 +208,14 @@ const snapFaceCamAndShowPhoto = [
 
 const vibrationDemo = [
   [console.log, `\n\n${brightGreen('\t>>>')} ${bold('Feeling the vibrations')} ${brightGreen('<<<')}\n`],
-  [console.log, `\nThe intentful stare (250ms vibration)...\n`],
-  [vibratePhone, 250],
-  [console.log, `\nThe throat-clearer (500ms vibration)...\n`],
-  [vibratePhone, 500],
-  [console.log, `\nThe shoulder tap (1000ms vibration)...\n`],
-  [vibratePhone, 1000],
-  [console.log, `\nThe prolonged sigh (2000ms vibration)\n`],
-  [vibratePhone, 2000],
+  [console.log, `\nThe intentful stare (${brightGreen('300ms')} vibration)...\n`],
+  [vibratePhone, 300],
+  [console.log, `\nThe throat-clearer (${brightGreen('600ms')} vibration)...\n`],
+  [vibratePhone, 600],
+  [console.log, `\nThe shoulder tap (${brightGreen('1200ms')} vibration)...\n`],
+  [vibratePhone, 1200],
+  [console.log, `\nThe prolonged sigh (${brightGreen('2400ms')} vibration)\n`],
+  [vibratePhone, 2400],
 ];
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
