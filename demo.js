@@ -11,11 +11,11 @@ const DEBUG = false;
 async function wrap(func, args) {
   console.log(`wrap:`, func, args);
 
-  async function safetyGoggles() {
+  async function safetyGoggles(func, args) {
     console.log(`goggles:`, func, args);
     if (DEBUG) console.log(`\nandroid.${func.name}() begin...`);
     try {
-      return await func(args);
+      return await (await func(args));
     } catch (error) {
       if (error.code === 'ENOENT') DEBUG ? console.log(`Not running on Android! That's fine. Skipping...`) : void (0);
       else throw error;
@@ -25,7 +25,7 @@ async function wrap(func, args) {
     }
   }
 
-  return safetyGoggles;
+  return await (await safetyGoggles(func, args));
 }
 
 
