@@ -89,13 +89,13 @@ module.exports.Android = class Android {
   }
 
   async turnFlashlightOn() {
-    this.flashlightIsOn = true;
+    this.flashlightIsOn = !this.flashlightIsOn;
     const args = [`on`];
     return await this.run(`termux-torch`, args);
   }
 
   async turnFlashlightOff() {
-    this.flashlightIsOn = false;
+    this.flashlightIsOn = !this.flashlightIsOn;
     const args = [`off`];
     return await this.run(`termux-torch`, args);
   }
