@@ -144,17 +144,17 @@ const main = async () => {
 
   const toggleFlashlightDemo = [
     [console.log, `\n\n${brightGreen('\t>>>')} ${bold('Toggling the flashlight')} ${brightGreen('<<<')}\n`],
-    [console.log, `\nWe ensure the flashlight is OFF before starting...\n`],
+    [console.log, `\nWe ensure the flashlight is ${red('OFF')} before starting...\n`],
     [turnFlashlightOff],
-    [console.log, `\nAnd so — assuming the flashlight is OFF...\n`],
+    [console.log, `\nAnd so — assuming the flashlight is ${red('OFF')}...\n`],
+    [console.log, `\nWe turn it ${green('ON')}...\n`],
     [toggleFlashlight],
-    [console.log, `\nNow it should be ON instead...\n`],
+    [console.log, `\n...and we turn it back ${red('OFF')}...\n`],
     [toggleFlashlight],
-    [console.log, `\nAnd now it should be OFF once again...\n`],
+    [console.log, `\n...and we turn it back ${green('ON')} again...\n`],
     [toggleFlashlight],
-    [console.log, `\nAnd ON again...\n`],
+    [console.log, `\n...and we finally turn it back ${red('OFF')}.\n`],
     [toggleFlashlight],
-    [console.log, `\nAnd finally OFF.\n`],
   ];
 
   const getPhoneCameraInfo = [
