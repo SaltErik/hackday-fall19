@@ -12,7 +12,7 @@ module.exports.Android = class Android {
     this.state = state;
     this.shell = shell;
     // State is managed here
-    this.flashlightIsOn = null; // Start in an unknown state
+    this.flashlightIsOn = false;
   }
 
   async pwd() {
