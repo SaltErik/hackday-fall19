@@ -8,26 +8,26 @@ process.on('unhandledRejection', console.log);
 const DEBUG = false;
 
 
-// async function wrap(func, ...args) {
-//   console.log(`wrap:`, func);
-//   console.dir(`wrap:`, args, {colors: true, depth: null})
+function wrap(func, ...args) {
+  console.log(`wrap:`, func);
+  console.dir(`wrap:`, args, {colors: true, depth: null})
 
-//   async function safetyGoggles() {
-//     console.log(`goggles:`, func);
-//     console.dir(`goggles:`, args, {colors: true, depth: null})
-//     if (DEBUG) console.log(`\nandroid.${func.name}() begin...`);
-//     try {
-//       await func(...args);
-//     } catch (error) {
-//       if (error.code === 'ENOENT') DEBUG ? console.log(`Not running on Android! That's fine. Skipping...`) : void (0);
-//       else throw error;
-//     }
-//     finally {
-//       if (DEBUG) console.log(`\nandroid.${func.name}() done!`)
-//     }
+  async function safetyGoggles() {
+    console.log(`goggles:`, func);
+    console.dir(`goggles:`, args, {colors: true, depth: null})
+    if (DEBUG) console.log(`\nandroid.${func.name}() begin...`);
+    try {
+      await func(...args);
+    } catch (error) {
+      if (error.code === 'ENOENT') DEBUG ? console.log(`Not running on Android! That's fine. Skipping...`) : void (0);
+      else throw error;
+    }
+    finally {
+      if (DEBUG) console.log(`\nandroid.${func.name}() done!`)
+    }
 
-//   return safetyGoggles;
-// }
+  return safetyGoggles;
+}
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -41,7 +41,7 @@ const ls = async () => {
   if (DEBUG) console.log('android.ls() done!\n');
 };
 
-const rm = async (pathToFile) => await wrap(android.rm, pathToFile);
+const rm = async (pathToFile) => wrap(android.rm, pathToFile);
 
 const touch = async (newFileName) => {
   if (DEBUG) console.log('\nandroid.touch() begin...');
