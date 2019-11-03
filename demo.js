@@ -36,7 +36,7 @@ const wrap = async (func, args) => {
 const ls = async () => {
   const { stdout } = await wrap(android.ls);
   const result = await stdout.split(`\n`);
-  console.log(await result.filter(async (string) => !!string));
+  console.log(await result.filter(async (string) => string !== ``));
 };
 
 const rm = async (pathToFile) => await wrap(android.rm, pathToFile);
@@ -229,13 +229,13 @@ const demoReels = [ // They may just be demoReels, but these ain't just demoFeel
 const main = async () => {
   for (const reel of demoReels) {
     if (DEBUG) console.log(`\nRunning next demoReel...\n`);
-    await sleep(1500);
+    await sleep(2000);
     for (const demo of reel) {  // Runs consecutively on purpose
       const [demoFunction, demoArguments] = demo;
       if (DEBUG) console.log(`\nRunning next step in the current demo...\n`);
-      await sleep(750);
+      await sleep(1000);
       await demoFunction(demoArguments);
-      await sleep(750);
+      await sleep(1000);
     }
   };
 }
