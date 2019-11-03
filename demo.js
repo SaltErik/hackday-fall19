@@ -131,36 +131,36 @@ const wait = () => new Promise(resolve => setImmediate(resolve));
 const createAndDeleteFileDemo = [
   [rm, `foo.txt`],  // Pre-emptive cleanup
   [console.log, `\n\n${brightGreen('\t>>>')} ${bold('Creating and deleting files')} ${brightGreen('<<<')}\n`],
-  [console.log, `\nWe list the contents of the phone's current working directory using ${yellow('shell.ls()')}.\n`],
+  [console.log, `\nWe list the contents of the phone's current working directory using ${yellow('ls()')}.\n`],
   [ls],
   [console.log, `\nNotice, no file named ${green('foo.txt')} exists.\n`],
   [console.log, `\nFair enough.\n`],
-  [console.log, `\nSo we create an empty file named ${green('foo.txt')} using ${yellow("shell.touch('foo.txt')")}.\n`],
+  [console.log, `\nSo we create an empty file named ${green('foo.txt')} using ${yellow("touch('foo.txt')")}.\n`],
   [tactileCreate, `foo.txt`],
-  [console.log, `\nWe then call ${yellow('shell.ls()')} a second time...\n`],
+  [console.log, `\nWe then call ${yellow('ls()')} a second time...\n`],
   [ls],
   [console.log, `\n...and there it is — ${green('foo.txt')} now exists.\n`],
   [console.log, `\nBut not for long!\n`],
-  [console.log, `\nLet's delete it again, using ${yellow("shell.rm('foo.txt')")}!\n`],
+  [console.log, `\nLet's delete it again, using ${yellow("rm('foo.txt')")}!\n`],
   [tactileDelete, `foo.txt`],
   [console.log, `\nDid it work? Only one way to find out!\n`],
-  [console.log, `\nWe call ${yellow('shell.ls()')} one last time, looking for ${green('foo.txt')}...\n`],
+  [console.log, `\nWe call ${yellow('ls()')} one last time, looking for ${green('foo.txt')}...\n`],
   [ls],
   [console.log, `\n...aaaaand it's gone.\n`],
 ];
 
 const toggleFlashlightDemo = [
   [console.log, `\n\n${brightGreen('\t>>>')} ${bold('Toggling the flashlight')} ${brightGreen('<<<')}\n`],
-  [console.log, `\nWe ensure the flashlight is ${red('OFF')} before starting...\n`],
+  [console.log, `\nWe call ${yellow('turnFlashlightOff()')} once before starting...\n`],
   [turnFlashlightOff],
   [console.log, `\nAnd so — assuming the flashlight is ${red('OFF')}...\n`],
-  [console.log, `\nWe turn it ${green('ON')}...\n`],
+  [console.log, `\nWe turn it ${green('ON')} using ${yellow('turnFlashlightOn()')}...\n`],
   [toggleFlashlight],
-  [console.log, `\n...and we turn it back ${red('OFF')}...\n`],
+  [console.log, `\n...and we turn it back ${red('OFF')} using ${yellow('turnFlashlightOff()')}...\n`],
   [toggleFlashlight],
-  [console.log, `\n...and we turn it back ${green('ON')} again...\n`],
+  [console.log, `\n...and we turn it back ${green('ON')} again using ${yellow('turnFlashlightOn()')}...\n`],
   [toggleFlashlight],
-  [console.log, `\n...and we finally turn it back ${red('OFF')}.\n`],
+  [console.log, `\n...and we finally turn it back ${red('OFF')} using ${yellow('turnFlashlightOff()')}.\n`],
   [toggleFlashlight],
 ];
 
@@ -184,7 +184,7 @@ const snapFaceCamAndShowPhoto = [
   [rm, `foo.txt`],  // Pre-emptive cleanup
   [rm, `dope_selfie.jpg`],  // Pre-emptive cleanup
   [console.log, `\n\n${brightGreen('\t>>>')} ${bold('Snapping a photo and showing it to the user')} ${brightGreen('<<<')}\n`],
-  [console.log, `\nCalling ${yellow('shell.ls()')}, we examine the contents of the current directory...\n`],
+  [console.log, `\nCalling ${yellow('ls()')}, we examine the contents of the current directory...\n`],
   [ls],
   [console.log, `\nDang. We've got no dope selfies of our user...\n`],
   [console.log, `\nWell, no problem. Let's snap a fresh pic with the face camera...\n`],
@@ -192,7 +192,7 @@ const snapFaceCamAndShowPhoto = [
   [takeFaceCamPhoto, `dope_selfie`],
   [vibratePhone, 333],  // Some tactile feedback
   [console.log, `\nThere we are. How to tell if it saved properly?\n`],
-  [console.log, `\nSame way as before — by calling ${yellow('shell.ls()')}.\n`],
+  [console.log, `\nSame way as before — by calling ${yellow('ls()')}.\n`],
   [ls],
   [console.log, `\nSee any "dope_selfie.jpg"?\n`],
   [console.log, `\n(I do!)\n`],
