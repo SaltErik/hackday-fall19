@@ -8,12 +8,13 @@ process.on('unhandledRejection', console.log);
 const DEBUG = false;
 
 
-async function wrap(func, ...args) {
+async function wrap(...args) {
+  const func = args.pop(0);
   console.log(`wrap:`, func.name);
   console.dir(`wrap:`, args, {colors: true, depth: null})
 
-  async function safetyGoggles(func, ...args) {
-    console.log(`goggles:`, func);
+  async function safetyGoggles() {
+    console.log(`goggles:`, func.name);
     console.dir(`goggles:`, args, {colors: true, depth: null})
     if (DEBUG) console.log(`\nandroid.${func.name}() begin...`);
     try {
@@ -27,7 +28,7 @@ async function wrap(func, ...args) {
     }
   }
 
-  return await safetyGoggles(func, ...args);
+  return safetyGoggles;
 }
 
 
