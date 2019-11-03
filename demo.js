@@ -99,7 +99,6 @@ const setUpStorage = async () => await wrap(android.setUpStorage);
 const takeFaceCamPhoto = async (saveAsName) => await wrap(android.takeFaceCamPhoto, saveAsName);
 
 const takeBackCamPhoto = async (saveAsName) => await wrap(android.takeBackCamPhotoSync, saveAsName);
-};
 
 const showFile = async (pathToFile) => await warp(android.showFile, pathToFile);
 
