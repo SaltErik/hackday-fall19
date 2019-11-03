@@ -203,10 +203,10 @@ const main = async () => {
 
   const demoReels = [
     createAndDeleteFileDemo,
-    // toggleFlashlightDemo,
-    // vibrationDemo,
-    // getPhoneCameraInfo,
-    // snapFaceCamAndShowPhoto,
+    toggleFlashlightDemo,
+    vibrationDemo,
+    getPhoneCameraInfo,
+    snapFaceCamAndShowPhoto,
   ];
 
   for (const reel of demoReels) {
