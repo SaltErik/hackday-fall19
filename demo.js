@@ -159,8 +159,8 @@ const main = async () => {
 
   const getPhoneCameraInfo = [
     [console.log, `\n\n${brightGreen('\t>>>')} ${bold('Retrieving camera information')} ${brightGreen('<<<')}\n`],
-    [console.log, `\nWonder which cameras are available on this phone...'\n`],
-    [console.log, `\nlet's find out!'\n`],
+    [console.log, `\nWonder which cameras are available on this phone...\n`],
+    [console.log, `\nlet's find out!\n`],
     [getCameraInfo],
     [console.log, `\nWhoah! That's a lot of info!\n`],
     [console.log, `\nLet's just focus on the front camera...\n`],
@@ -174,39 +174,39 @@ const main = async () => {
   const snapFaceCamAndShowPhoto = [
     [rm, `foo.txt`],  // Pre-emptive cleanup
     [console.log, `\n\n${brightGreen('\t>>>')} ${bold('Snapping a photo and showing it to the user')} ${brightGreen('<<<')}\n`],
-    [console.log, `\nWe examine the contents of the current directory...'\n`],
+    [console.log, `\nWe examine the contents of the current directory...\n`],
     [ls],
-    [console.log, `\nDang. We have no sweet selfies of our user...'\n`],
-    [console.log, `\nWell, no problem. Let's snap a fresh pic with the face camera...'\n`],
-    [console.log, `\nSay cheese!'\n`],
+    [console.log, `\nDang. We have no sweet selfies of our user...\n`],
+    [console.log, `\nWell, no problem. Let's snap a fresh pic with the face camera...\n`],
+    [console.log, `\nSay cheese!\n`],
     [takeFaceCamPhoto, `dope_selfie`],
     [vibratePhone, `500`],  // Some tactile feedback
-    [console.log, `\nThere we are. Did it save properly?'\n`],
+    [console.log, `\nThere we are. Did it save properly?\n`],
     [ls],
-    [console.log, `\nSee any "dope_selfie.jpg"?'\n`],
-    [console.log, `\nAllright, let's dislay it to the user!'\n`],
+    [console.log, `\nSee any "dope_selfie.jpg"?\n`],
+    [console.log, `\nAllright, let's dislay it to the user!\n`],
     [showFile, `dope_selfie.jpg`],
-    [console.log, `\nMy man!'\n`],
+    [console.log, `\nMy man!\n`],
   ];
 
   const vibrationDemo = [
     [console.log, `\n\n${brightGreen('\t>>>')} ${bold('Feeling the vibrations')} ${brightGreen('<<<')}\n`],
-    [console.log, `\nThe intentful stare (250ms vibration)...'\n`],
+    [console.log, `\nThe intentful stare (250ms vibration)...\n`],
     [vibratePhone, 250],
-    [console.log, `\nThe throat-clearer (500ms vibration)...'\n`],
+    [console.log, `\nThe throat-clearer (500ms vibration)...\n`],
     [vibratePhone, 500],
-    [console.log, `\nThe shoulder tap (1000ms vibration)...'\n`],
+    [console.log, `\nThe shoulder tap (1000ms vibration)...\n`],
     [vibratePhone, 1000],
-    [console.log, `\nThe prolonged sigh (2000ms vibration)'\n`],
+    [console.log, `\nThe prolonged sigh (2000ms vibration)\n`],
     [vibratePhone, 2000],
   ];
 
   const demoReels = [
-    createAndDeleteFileDemo,
+    // createAndDeleteFileDemo,
     toggleFlashlightDemo,
-    vibrationDemo,
-    getPhoneCameraInfo,
-    snapFaceCamAndShowPhoto,
+    // vibrationDemo,
+    // getPhoneCameraInfo,
+    // snapFaceCamAndShowPhoto,
   ];
 
   for (const reel of demoReels) {

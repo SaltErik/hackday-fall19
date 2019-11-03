@@ -101,6 +101,7 @@ module.exports.Android = class Android {
   }
 
   async toggleFlashlight() {
+    console.log(`flashlightIsOn = ${this.flashlightIsOn}`)
     if (!!this.flashlightIsOn) {
       return await this.turnFlashlightOff();
     } else {
