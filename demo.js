@@ -15,7 +15,7 @@ const wrap = async (func, args) => {
   const safetyGoggles = async (func, args) => {
     if (DEBUG) console.log(`\nsafetyGoggles recieved func: ${func.name}`);
     if (DEBUG) console.log(`\nsafetyGoggles recieved args: ${args}`);
-    if (DEBUG) console.log(`\nandroid.${func.name}() begin...`);
+    if (DEBUG) console.log(`\ndecorated android.${func.name}() begin...`);
     try {
       return await android[`${func.name}`](args);
     } catch (error) {
@@ -23,7 +23,7 @@ const wrap = async (func, args) => {
       else throw error;
     }
     finally {
-      if (DEBUG) console.log(`\nandroid.${func.name}() done!`)
+      if (DEBUG) console.log(`\ndecorated android.${func.name}() done!`)
     }
   }
 
@@ -46,19 +46,7 @@ const rm = async (pathToFile) => await wrap(android.rm, pathToFile);
 
 const touch = async (newFileName) => await wrap(android.touch, newFileName);
 
-
-const vibratePhone = async (ms) => {
-  if (DEBUG) console.log('\nandroid.vibratePhone() begin...');
-  try {
-    await android.vibratePhone(ms);
-  } catch (error) {
-    if (error.code === 'ENOENT') DEBUG ? console.log(`Not running on Android! That's fine. Skipping...`) : void (0);
-    else throw error;
-  }
-  finally {
-    if (DEBUG) console.log('android.vibratePhone() done!\n');
-  }
-};
+const vibratePhone = async (msDuration) => await wrap(android.vibratePhone, msDuration);
 
 
 const getCameraInfo = async () => {
@@ -76,7 +64,6 @@ const getCameraInfo = async () => {
   }
 };
 
-
 const getBackCameraInfo = async () => {
   if (DEBUG) console.log('\nandroid.getCameraInfo() begin...');
   try {
@@ -91,7 +78,6 @@ const getBackCameraInfo = async () => {
     if (DEBUG) console.log('android.getCameraInfo() done!\n');
   }
 };
-
 
 const getFrontCameraInfo = async () => {
   if (DEBUG) console.log('\nandroid.getCameraInfo() begin...');
@@ -108,146 +94,31 @@ const getFrontCameraInfo = async () => {
   }
 };
 
+const setUpStorage = async () => await wrap(android.setUpStorage);
 
-const setUpStorage = async () => {
-  if (DEBUG) console.log('\nandroid.setUpStorage() begin...');
-  try {
-    await android.setUpStorage();
-  } catch (error) {
-    if (error.code === 'ENOENT') DEBUG ? console.log(`Not running on Android! That's fine. Skipping...`) : void (0);
-    else throw error;
-  }
-  finally {
-    if (DEBUG) console.log('android.setUpStorage() done!\n');
-  }
+const takeFaceCamPhoto = async (saveAsName) => await wrap(android.takeFaceCamPhoto, saveAsName);
+
+const takeBackCamPhoto = async (saveAsName) => await wrap(android.takeBackCamPhotoSync, saveAsName);
 };
 
+const showFile = async (pathToFile) => await warp(android.showFile, pathToFile);
 
-const takeFaceCamPhoto = async (saveAsName) => {
-  if (DEBUG) console.log('\nandroid.takeFaceCamPhoto() begin...');
-  try {
-    await android.takeFaceCamPhoto(saveAsName);
-  } catch (error) {
-    if (error.code === 'ENOENT') DEBUG ? console.log(`Not running on Android! That's fine. Skipping...`) : void (0);
-    else throw error;
-  } finally {
-    if (DEBUG) console.log('android.takeFaceCamPhoto() done!\n');
-  }
-};
-
-
-const takeBackCamPhoto = async (saveAsName) => {
-  if (DEBUG) console.log('\nandroid.takeBackCamPhoto() begin...');
-  try {
-    await android.takeBackCamPhotoSync(saveAsName);
-  } catch (error) {
-    if (error.code === 'ENOENT') DEBUG ? console.log(`Not running on Android! That's fine. Skipping...`) : void (0);
-    else throw error;
-  } finally {
-    if (DEBUG) console.log('android.takeBackCamPhoto() done!\n');
-  }
-};
-
-
-const showFile = async (pathToFile) => {
-  if (DEBUG) console.log('\nandroid.showFile() begin...');
-  try {
-    await android.showFile(pathToFile);
-  } catch (error) {
-    if (error.code === 'ENOENT') DEBUG ? console.log(`Not running on Android! That's fine. Skipping...`) : void (0);
-    else throw error;
-  }
-  if (DEBUG) console.log('android.showFile() done!\n');
-};
-
-
-const openURL = async () => {
-  if (DEBUG) console.log('\nandroid.openURL() begin...');
-  try {
-    await android.openURL(`https://www.study-at-salt.com`);
-  } catch (error) {
-    if (error.code === 'ENOENT') DEBUG ? console.log(`Not running on Android! That's fine. Skipping...`) : void (0);
-    else throw error;
-  } finally {
-    if (DEBUG) console.log('android.openURL() done!\n');
-  }
-};
-
+const openURL = async (URL=`study-at-salt.com`) => await warp(android.openURL, `https://${URL}`);
 
 const showDialog = async () => {
-  if (DEBUG) console.log('\nandroid.showDialog() begin...');
-  try {
-    const { stdout } = await android.showDialog(`What is your favorite color?`, `Don't answer yellow...`);
+    const { stdout } = await warp(android.showDialog, `What is your favorite color?`, `Don't answer yellow...`);
     console.log(await JSON.parse(stdout));
-  } catch (error) {
-    if (error.code === 'ENOENT') DEBUG ? console.log(`Not running on Android! That's fine. Skipping...`) : void (0);
-    else throw error;
-  } finally {
-    if (DEBUG) console.log('android.showDialog() done!\n');
-  }
 };
 
-const turnFlashlightOn = async () => {
-  if (DEBUG) console.log('\nandroid.turnFlashlightOn() begin...');
-  try {
-    await android.turnFlashlightOn();
-  } catch (error) {
-    if (error.code === 'ENOENT') DEBUG ? console.log(`Not running on Android! That's fine. Skipping...`) : void (0);
-    else throw error;
-  } finally {
-    if (DEBUG) console.log('android.turnFlashlightOn() done!\n');
-  }
-}
+const turnFlashlightOn = async () => await warp(android.turnFlashlightOn);
 
-
-const turnFlashlightOff = async () => {
-  if (DEBUG) console.log('\nandroid.turnFlashlightOff() begin...');
-  try {
-    await android.turnFlashlightOff();
-  } catch (error) {
-    if (error.code === 'ENOENT') DEBUG ? console.log(`Not running on Android! That's fine. Skipping...`) : void (0);
-    else throw error;
-  } finally {
-    if (DEBUG) console.log('android.turnFlashlightOff() done!\n');
-  }
-}
+const turnFlashlightOff = async () => await warp(android.turnFlashlightOff);
  
+const toggleFlashlight = async () => await wrap(android.toggleFlashlight);
 
-const toggleFlashlight = async () => {
-  if (DEBUG) console.log('\nandroid.toggleFlashlight() begin...');
-  try {
-    await android.toggleFlashlight();
-  } catch (error) {
-    if (error.code === 'ENOENT') DEBUG ? console.log(`Not running on Android! That's fine. Skipping...`) : void (0);
-    else throw error;
-  } finally {
-    if (DEBUG) console.log('android.toggleFlashlight() done!\n');
-  }
-}
+const getLocationInfo = async () => await wrap(android.getLocationInfo);
 
-const getLocationInfo = async () => {
-  if (DEBUG) console.log('\nandroid.getLocationInfo() begin...');
-  try {
-    await android.getLocationInfo();
-  } catch (error) {
-    if (error.code === 'ENOENT') DEBUG ? console.log(`Not running on Android! That's fine. Skipping...`) : void (0);
-    else throw error;
-  } finally {
-    if (DEBUG) console.log('android.getLocationInfo() done!\n');
-  }
-};
-
-const pwd = async () => {
-  if (DEBUG) console.log('\nandroid.pwd() begin...');
-  try {
-    await android.pwd();
-  } catch (error) {
-    if (error.code === 'ENOENT') DEBUG ? console.log(`Not running on Android! That's fine. Skipping...`) : void (0);
-    else throw error;
-  } finally {
-    if (DEBUG) console.log('android.pwd() done!\n');
-  }
-};
+const pwd = async () => await wrap(android.pwd);
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
