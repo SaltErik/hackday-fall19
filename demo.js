@@ -36,7 +36,7 @@ const wrap = async (func, args) => {
 const ls = async () => {
   const { stdout } = await wrap(android.ls);
   const result = await stdout.split(`\n`);
-  console.log(await result.filter(async (string) => string !== ``));
+  console.log(await result.filter((string) => !!string));
 };
 
 const rm = async (pathToFile) => await wrap(android.rm, pathToFile);
