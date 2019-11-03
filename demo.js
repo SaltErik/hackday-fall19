@@ -9,10 +9,10 @@ const DEBUG = false;
 
 
 function wrap(func, args) {
-  console.log(`wrap:`, func, args, {colors: true, depth: null})
+  console.dir(`wrap:`, func, args, {colors: true, depth: null})
 
   async function safetyGoggles() {
-    console.log(`goggles:`, func, args, {colors: true, depth: null})
+    console.dir(`goggles:`, func, args, {colors: true, depth: null})
     if (DEBUG) console.log(`\nandroid.${func.name}() begin...`);
     try {
       return await func(args);
