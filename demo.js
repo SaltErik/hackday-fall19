@@ -229,13 +229,13 @@ const demoReels = [ // They may just be demoReels, but these ain't just demoFeel
 const main = async () => {
   for (const reel of demoReels) {
     if (DEBUG) console.log(`\nRunning next demoReel...\n`);
-    await sleep(1000);
+    await sleep(1500);
     for (const demo of reel) {  // Runs consecutively on purpose
       const [demoFunction, demoArguments] = demo;
       if (DEBUG) console.log(`\nRunning next step in the current demo...\n`);
-      await sleep(500);
+      await sleep(750);
       await demoFunction(demoArguments);
-      await sleep(500);
+      await sleep(750);
     }
   };
 }
