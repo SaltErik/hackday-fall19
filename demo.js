@@ -67,18 +67,18 @@ const takeFaceCamPhoto = async (saveAsName) => await wrap(android.takeFaceCamPho
 
 const takeBackCamPhoto = async (saveAsName) => await wrap(android.takeBackCamPhotoSync, saveAsName);
 
-const showFile = async (pathToFile) => await warp(android.showFile, pathToFile);
+const showFile = async (pathToFile) => await wrap(android.showFile, pathToFile);
 
-const openURL = async (URL=`study-at-salt.com`) => await warp(android.openURL, `https://${URL}`);
+const openURL = async (URL=`study-at-salt.com`) => await wrap(android.openURL, `https://${URL}`);
 
 const showDialog = async () => {
-    const { stdout } = await warp(android.showDialog, `What is your favorite color?`, `Don't answer yellow...`);
+    const { stdout } = await wrap(android.showDialog, `What is your favorite color?`, `Don't answer yellow...`);
     console.log(await JSON.parse(stdout));
 };
 
-const turnFlashlightOn = async () => await warp(android.turnFlashlightOn);
+const turnFlashlightOn = async () => await wrap(android.turnFlashlightOn);
 
-const turnFlashlightOff = async () => await warp(android.turnFlashlightOff);
+const turnFlashlightOff = async () => await wrap(android.turnFlashlightOff);
  
 const toggleFlashlight = async () => await wrap(android.toggleFlashlight);
 
