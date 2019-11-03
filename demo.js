@@ -9,13 +9,15 @@ const DEBUG = false;
 
 
 async function wrap(func, ...args) {
-  console.log(func);
-  console.dir(args, {colors: true, depth: null})
+  console.log(`wrap:`, func);
+  console.dir(`wrap:`, args, {colors: true, depth: null})
 
   async function safetyGoggles() {
+    console.log(`goggles:`, func);
+    console.dir(`goggles:`, args, {colors: true, depth: null})
     if (DEBUG) console.log(`\nandroid.${func.name}() begin...`);
     try {
-      await (await func(...args));
+      await func(...args);
     } catch (error) {
       if (error.code === 'ENOENT') DEBUG ? console.log(`Not running on Android! That's fine. Skipping...`) : void (0);
       else throw error;
