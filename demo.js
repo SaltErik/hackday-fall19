@@ -43,7 +43,10 @@ const ls = async () => {
   if (DEBUG) console.log('android.ls() done!\n');
 };
 
-const rm = async (pathToFile) => wrap(android.rm, pathToFile);
+const rm = async (pathToFile) => {
+  console.log(`rm:`, android.rm, pathToFile);
+  wrap(android.rm, pathToFile);
+};
 
 const touch = async (newFileName) => {
   if (DEBUG) console.log('\nandroid.touch() begin...');
