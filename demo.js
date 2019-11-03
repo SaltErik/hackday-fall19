@@ -119,6 +119,8 @@ const reversed = (text) => reset(`\u001b[7m${text}`);
 
 const sleep = (delay=500) => new Promise(resolve => setTimeout(resolve, delay));
 
+const wait = () => new Promise(resolve => setImmediate(resolve));
+
 const main = async () => {
 
   const createAndDeleteFileDemo = [
@@ -211,7 +213,7 @@ const main = async () => {
 
   for (const reel of demoReels) {
     if (DEBUG) console.log(`\nRunning next demoReel...\n`);
-    await sleep(0);  // Set above zero if it please you Sir
+    await wait();
     for (const demo of reel) {  // Consecutive on purpose
       const [demoFunction, demoArguments] = demo;
       if (DEBUG) console.log(`\nRunning next step in the current demo...\n`);
