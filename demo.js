@@ -8,7 +8,7 @@ process.on('unhandledRejection', console.log);
 const DEBUG = false;
 
 
-function wrap(func, args) {
+async function wrap(func, args) {
   console.log(`wrap:`, func, args);
 
   async function safetyGoggles() {
@@ -42,7 +42,7 @@ const ls = async () => {
 
 const rm = async (pathToFile) => {
   console.log(`rm:`, android.rm, pathToFile);
-  return wrap(android.rm, pathToFile);
+  return await wrap(android.rm, pathToFile);
 };
 
 const touch = async (newFileName) => {
